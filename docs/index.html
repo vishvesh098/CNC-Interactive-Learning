@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNC Interactive Learning — User Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════════ */
+        /*  DEEP SPACE GLASS — Documentation Theme            */
+        /*  Colors taken from the CNC Interactive Learning    */
+        /*  application's design system.                      */
+        /* ═══════════════════════════════════════════════════ */
+
+        :root {
+            --bg-dark: #0B1120;
+            --bg-sidebar: #0a0f1e;
+            --surface-1: rgba(30, 41, 59, 0.3);
+            --surface-2: rgba(30, 41, 59, 0.5);
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-hover: rgba(255, 255, 255, 0.04);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --color-saffron: #FF9933;
+            --color-saffron-rgb: 255, 153, 51;
+            --color-emerald: #10B981;
+            --color-emerald-rgb: 16, 185, 129;
+            --color-cyan: #06b6d4;
+            --color-rose: #F43F5E;
+            --color-amber: #F59E0B;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            font-family: 'Fira Sans', system-ui, -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ═══ LAYOUT ═══ */
+        .doc-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* ═══ SIDEBAR ═══ */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--glass-border);
+            overflow-y: auto;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-brand {
+            padding: 2rem 1.5rem 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .sidebar-brand h1 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffedd5, #FF9933, #ffedd5);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+
+        @keyframes shimmer {
+            to { background-position: -200% center; }
+        }
+
+        .sidebar-brand p {
+            margin: 0.35rem 0 0;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 1rem 0;
+        }
+
+        .nav-section-label {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-top: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.55rem 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.03);
+            border-left-color: rgba(var(--color-saffron-rgb), 0.3);
+        }
+
+        .nav-link.active {
+            color: var(--color-saffron);
+            background: rgba(var(--color-saffron-rgb), 0.06);
+            border-left-color: var(--color-saffron);
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            width: 18px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* ═══ MAIN CONTENT ═══ */
+        .main-content {
+            grid-column: 2;
+            padding: 3rem 4rem 6rem;
+            max-width: 900px;
+        }
+
+        /* ═══ SECTION ═══ */
+        .doc-section {
+            margin-bottom: 5rem;
+            scroll-margin-top: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .section-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: rgba(var(--color-saffron-rgb), 0.1);
+            border: 1px solid rgba(var(--color-saffron-rgb), 0.3);
+            flex-shrink: 0;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .section-header .section-sub {
+            margin: 0.25rem 0 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ═══ CONTENT ELEMENTS ═══ */
+        h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin: 2.5rem 0 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h3::before {
+            content: '';
+            width: 4px;
+            height: 1.2em;
+            background: var(--color-saffron);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin: 1.8rem 0 0.6rem;
+            color: var(--color-saffron);
+        }
+
+        p {
+            margin: 0.75rem 0;
+            color: var(--text-secondary);
+        }
+
+        strong { color: var(--text-primary); }
+
+        a { color: var(--color-saffron); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* ═══ SCREENSHOT ═══ */
+        .screenshot {
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s;
+        }
+
+        .screenshot:hover {
+            border-color: rgba(var(--color-saffron-rgb), 0.4);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(var(--color-saffron-rgb), 0.1);
+            transform: translateY(-2px);
+        }
+
+        .screenshot img {
+            width: 100%;
+            display: block;
+        }
+
+        .screenshot-caption {
+            padding: 0.6rem 1rem;
+            background: var(--surface-2);
+            border-top: 1px solid var(--glass-border);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* ═══ TABLE ═══ */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.25rem 0;
+            font-size: 0.88rem;
+        }
+
+        th {
+            text-align: left;
+            padding: 0.65rem 1rem;
+            background: rgba(var(--color-saffron-rgb), 0.08);
+            border: 1px solid rgba(var(--color-saffron-rgb), 0.15);
+            color: var(--color-saffron);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.06em;
+        }
+
+        td {
+            padding: 0.6rem 1rem;
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* ═══ CODE ═══ */
+        code {
+            font-family: 'Fira Code', monospace;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 0.15em 0.4em;
+            border-radius: 4px;
+            font-size: 0.82em;
+            color: var(--color-saffron);
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+        }
+
+        /* ═══ CALLOUT / TIP ═══ */
+        .callout {
+            margin: 1.5rem 0;
+            padding: 1rem 1.25rem;
+            border-radius: 10px;
+            border-left: 4px solid;
+            font-size: 0.88rem;
+        }
+
+        .callout.tip {
+            background: rgba(var(--color-emerald-rgb), 0.06);
+            border-color: var(--color-emerald);
+        }
+        .callout.tip .callout-label { color: var(--color-emerald); }
+
+        .callout.note {
+            background: rgba(var(--color-saffron-rgb), 0.06);
+            border-color: var(--color-saffron);
+        }
+        .callout.note .callout-label { color: var(--color-saffron); }
+
+        .callout.warning {
+            background: rgba(244, 63, 94, 0.06);
+            border-color: var(--color-rose);
+        }
+        .callout.warning .callout-label { color: var(--color-rose); }
+
+        .callout-label {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.35rem;
+        }
+
+        .callout p { margin: 0; }
+
+        /* ═══ STEP LIST ═══ */
+        ol.steps {
+            counter-reset: step;
+            list-style: none;
+            padding: 0;
+        }
+
+        ol.steps li {
+            counter-increment: step;
+            position: relative;
+            padding: 0.6rem 0 0.6rem 3rem;
+            margin-bottom: 0.25rem;
+            color: var(--text-secondary);
+        }
+
+        ol.steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0.55rem;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(var(--color-saffron-rgb), 0.1);
+            border: 1px solid rgba(var(--color-saffron-rgb), 0.3);
+            color: var(--color-saffron);
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* ═══ BADGE ═══ */
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.55rem;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .badge.green { background: rgba(var(--color-emerald-rgb), 0.15); color: var(--color-emerald); }
+        .badge.amber { background: rgba(var(--color-saffron-rgb), 0.15); color: var(--color-saffron); }
+        .badge.red { background: rgba(244, 63, 94, 0.15); color: var(--color-rose); }
+
+        /* ═══ DIAGRAM ═══ */
+        .layout-diagram {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            white-space: pre;
+            line-height: 1.5;
+            margin: 1rem 0;
+        }
+
+        /* ═══ SCROLLBAR ═══ */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+
+        /* ═══ FOOTER ═══ */
+        .doc-footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .doc-footer .dev-name {
+            background: linear-gradient(to right, #ffedd5, #FF9933, #ffedd5);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+            font-weight: 600;
+        }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 900px) {
+            .doc-layout { grid-template-columns: 1fr; }
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--glass-border);
+            }
+            .main-content { padding: 2rem 1.5rem 4rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="doc-layout">
+
+    <!-- ════════════ SIDEBAR ════════════ -->
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <h1>CNC Interactive Learning</h1>
+            <p>User Guide</p>
+        </div>
+        <div class="sidebar-nav">
+            <div class="nav-section-label">Getting Started</div>
+            <a href="#getting-started" class="nav-link"><span class="nav-icon">🚀</span> Getting Started</a>
+
+            <div class="nav-section-label">Student</div>
+            <a href="#student-dashboard" class="nav-link"><span class="nav-icon">📊</span> Student Dashboard</a>
+            <a href="#lesson-activity" class="nav-link"><span class="nav-icon">📖</span> Text Lesson</a>
+            <a href="#cnc-activity" class="nav-link"><span class="nav-icon">⚙️</span> CNC Activity</a>
+            <a href="#schematic-activity" class="nav-link"><span class="nav-icon">🖼️</span> Schematic Activity</a>
+            <a href="#history" class="nav-link"><span class="nav-icon">📋</span> Attempt History</a>
+
+            <div class="nav-section-label">Administrator</div>
+            <a href="#admin-course" class="nav-link"><span class="nav-icon">📚</span> Course Structure</a>
+            <a href="#admin-qbank" class="nav-link"><span class="nav-icon">🗄️</span> QBank Manager</a>
+            <a href="#admin-tests" class="nav-link"><span class="nav-icon">⚡</span> Test Generator</a>
+            <a href="#admin-schematics" class="nav-link"><span class="nav-icon">🎨</span> Asset Pool</a>
+            <a href="#admin-reports" class="nav-link"><span class="nav-icon">📈</span> Reports</a>
+
+            <div class="nav-section-label">Reference</div>
+            <a href="#glossary" class="nav-link"><span class="nav-icon">📖</span> Glossary</a>
+        </div>
+    </nav>
+
+    <!-- ════════════ MAIN ════════════ -->
+    <main class="main-content">
+
+        <!-- ╔══════════════════════════════════════════════╗ -->
+        <!-- ║  GETTING STARTED                            ║ -->
+        <!-- ╚══════════════════════════════════════════════╝ -->
+        <section id="getting-started" class="doc-section">
+            <div class="section-header">
+                <div class="section-icon">🚀</div>
+                <div>
+                    <h2>Getting Started</h2>
+                    <p class="section-sub">Launching the app, role selection, and window controls</p>
+                </div>
+            </div>
+
+            <h3>What is CNC Interactive Learning?</h3>
+            <p>A desktop application built with <strong>Tauri</strong> and <strong>Vue 3</strong> for teaching CNC machining through interactive exercises.</p>
+            <table>
+                <tr><th>Activity Type</th><th>What You Do</th></tr>
+                <tr><td><strong>CNC Practice</strong></td><td>Enter X/Z coordinates on a diagram, then write the matching G-Code program</td></tr>
+                <tr><td><strong>Schematic Exploration</strong></td><td>Explore a technical diagram by clicking on annotated hotspots</td></tr>
+            </table>
+
+            <h3>The Login Screen</h3>
+            <p>When the app starts, you see the role selection screen. Choose your role to continue.</p>
+            <div class="screenshot">
+                <img src="user-guide/assets/01-login.png" alt="Login Screen">
+                <div class="screenshot-caption">Login screen — select Student or Admin to proceed</div>
+            </div>
+
+            <h3>Window Controls</h3>
+            <table>
+                <tr><th>Button</th><th>Action</th><th>Shortcut</th></tr>
+                <tr><td>⛶ Expand</td><td>Enter / exit fullscreen</td><td><code>F11</code></td></tr>
+                <tr><td>✕ Close</td><td>Exit the application</td><td>—</td></tr>
+            </table>
+
+            <h3>Roles</h3>
+            <table>
+                <tr><th>Role</th><th>Purpose</th></tr>
+                <tr><td>🎓 <strong>Student</strong></td><td>Access the learning dashboard, practice activities, track progress</td></tr>
+                <tr><td>⚙️ <strong>Admin</strong></td><td>Manage questions, create activities, build courses, review reports</td></tr>
+            </table>
+
+            <div class="callout note">
+                <div class="callout-label">Note</div>
+                <p>Admin Access is only visible when enabled. In production, set <code>VITE_ENABLE_ADMIN=true</code>.</p>
+            </div>
+        </section>
+
+        <!-- ╔══════════════════════════════════════════════╗ -->
+        <!-- ║  STUDENT DASHBOARD                          ║ -->
+        <!-- ╚══════════════════════════════════════════════╝ -->
+        <section id="student-dashboard" class="doc-section">
+            <div class="section-header">
+                <div class="section-icon">📊</div>
+                <div>
+                    <h2>Student Dashboard</h2>
+                    <p class="section-sub">Your personalised course view with chapter and activity timelines</p>
+                </div>
+            </div>
+
+            <div class="screenshot">
+                <img src="user-guide/assets/08-student-dashboard.png" alt="Student Dashboard">
+                <div class="screenshot-caption">Student Dashboard — course progress, chapter sidebar, and activity timeline</div>
+            </div>
+
+            <h3>Header Panel</h3>
+            <table>
+                <tr><th>Element</th><th>Description</th></tr>
+                <tr><td><strong>Course Name</strong></td><td>The active course loaded by your admin</td></tr>
+                <tr><td><strong>Course Completion</strong></td><td>A percentage bar showing your overall progress</td></tr>
+                <tr><td><strong>Best Score</strong></td><td>Your highest ever score across all attempts</td></tr>
+                <tr><td><strong>Completed</strong></td><td>How many activities you've fully finished</td></tr>
+            </table>
+
+            <h3>Chapter Timeline (Left Sidebar)</h3>
+            <div class="screenshot">
+                <img src="user-guide/assets/09-student-chapter.png" alt="Chapter Timeline">
+                <div class="screenshot-caption">Chapter selected in the sidebar with activities shown in the timeline</div>
+            </div>
+            <p>The vertical timeline on the left lists every chapter in the course. Click any chapter to see its activities on the right.</p>
+            <table>
+                <tr><th>Status</th><th>Meaning</th></tr>
+                <tr><td>🔒 <strong>Locked</strong></td><td>Complete the previous chapter first</td></tr>
+                <tr><td>○ <strong>In Progress</strong></td><td>At least one activity started</td></tr>
+                <tr><td>✓ <strong>Completed</strong></td><td>All activities finished</td></tr>
+            </table>
+
+            <h3>Activity Timeline (Right Panel)</h3>
+            <p>Each activity appears as a node in a horizontal timeline. The recommended next activity is highlighted with a pulse effect.</p>
+            <table>
+                <tr><th>Activity Icon</th><th>⚙️ (CNC), 🖼️ (Schematic), or 📖 (Text Lesson)</th></tr>
+                <tr><th>Badge</th><th>Meaning</th></tr>
+                <tr><td><span class="badge green">Completed</span></td><td>Activity finished with a score recorded</td></tr>
+                <tr><td><span class="badge amber">In Progress</span></td><td>Started but not yet submitted</td></tr>
+                <tr><td>Pending</td><td>Not started yet</td></tr>
+            </table>
+
+            <div class="callout tip">
+                <div class="callout-label">Tip</div>
+                <p>If you close the app mid-activity, your work is auto-saved. The node will show <strong>"Resume"</strong> when you return.</p>
+            </div>
+        </section>
+
+        <!-- ╔══════════════════════════════════════════════╗ -->
+        <!-- ║  TEXT LESSON ACTIVITY                        ║ -->
+        <!-- ╚══════════════════════════════════════════════╝ -->
+        <section id="lesson-activity" class="doc-section">
+            <div class="section-header">
+                <div class="section-icon">📖</div>
+                <div>
+                    <h2>Text Lesson Activity</h2>
+                    <p class="section-sub">Reading rich educational content and recording offline progress</p>
+                </div>
+            </div>
+
+            <p>The <strong>Text Lesson</strong> Activity allows you to read rich educational content provided by your instructor before attempting practical CNC assignments.</p>
+
+            <h3>Reading the Lesson</h3>
+            <p>When you launch a Text Lesson, the reading interface provides a distraction-free environment:</p>
+            <ul>
+                <li><strong>Rich Formatting:</strong> Lessons may contain formatted text, bulleted lists, code examples, and embedded diagrams.</li>
+                <li><strong>Images:</strong> Any embedded images or diagrams can be clicked to view them in fullscreen.</li>
+            </ul>
+
+            <h3>Marking as Complete</h3>
+            <div class="callout tip">
+                <div class="callout-label">Tracking Progress</div>
+                <p>To track your progress and unlock the next activities in the curriculum, you must explicitly mark your lessons as read.</p>
+            </div>
+            <ol class="steps">
+                <li>Read through the lesson content.</li>
+                <li>In the top-right corner of the header, click the <strong>Mark as Read &amp; Continue (✓)</strong> button.</li>
+                <li>Once clicked, the button changes to "Return to Dashboard" and your progress is securely saved to your local profile.</li>
+                <li>On the dashboard timeline, the lesson node will now display a green <span class="badge green">Completed</span> badge.</li>
+            </ol>
+        </section>
+
+        <!-- ╔══════════════════════════════════════════════╗ -->
+        <!-- ║  CNC ACTIVITY                               ║ -->
+        <!-- ╚══════════════════════════════════════════════╝ -->
+        <section id="cnc-activity" class="doc-section">
+            <div class="section-header">
+                <div class="section-icon">⚙️</div>
+                <div>
+                    <h2>CNC Practice Activity</h2>
+                    <p class="section-sub">Two-phase exercise: coordinate input → G-Code programming</p>
+                </div>
+            </div>
+
+            <h3>Phase 1 — Coordinate Input</h3>
+            <div class="screenshot">
+                <img src="user-guide/assets/10-cnc-activity.png" alt="CNC Coordinate Phase">
+                <div class="screenshot-caption">Phase 1 — enter X/Z coordinates for each labelled point on the diagram</div>
+            </div>
+
+            <ol class="steps">
+                <li>Study the SVG diagram — each labelled point (P1, P2, P3 …) represents a machining position.</li>
+                <li>Enter the <strong>X</strong> and <strong>Z</strong> values for each point in the table on the right.</li>
+                <li>All fields must be filled. Empty fields trigger a shake animation.</li>
+                <li>Click <strong>Check / Submit</strong> to validate. Correct entries go green ✓, incorrect ones show the right answer.</li>
+                <li>Your <strong>Phase 1 Score</strong> is displayed, and the app transitions to Phase 2.</li>
+            </ol>
+
+            <h3>Phase 2 — G-Code Programming</h3>
+            <div class="screenshot">
+                <img src="user-guide/assets/11-gcode-editor.png" alt="G-Code Editor Phase">
+                <div class="screenshot-caption">Phase 2 — write CNC G-Code in the Monaco editor</div>
+            </div>
+
+            <p>The Monaco code editor (same engine as VS Code) provides syntax highlighting, line numbers, and auto-indentation for G-Code.</p>
+
+            <ol class="steps">
+                <li>Use the editor to write your CNC G-Code program using the coordinates from Phase 1.</li>
+                <li>Click <strong>Run / Simulate</strong> to submit.</li>
+                <li>The system validates your code through multiple passes:</li>
+            </ol>
+
+            <table>
+                <tr><th>Validation Pass</th><th>What's Checked</th></tr>
+                <tr><td>Syntax</td><td>G-Code command format (regex-based)</td></tr>
+                <tr><td>Coordinates</td><td>X and Z within valid machining limits</td></tr>
+                <tr><td>Feed Rates</td><td>F values in valid ranges</td></tr>
+                <tr><td>Spindle Speeds</td><td>S values in valid ranges</td></tr>
+                <tr><td>Tool Numbers</td><td>T values must be valid</td></tr>
+            </table>
+
+            <h3>Scoring</h3>
+            <p>If validation passes, your code is compared line-by-line against the expected solution. The <strong>Final Score</strong> is a weighted combination of Phase 1 + Phase 2 scores. A celebration animation plays on completion! 🎉</p>
+
+            <h3>Activity Types</h3>
+            <table>
+                <tr><th>Type</th><th>How It Works</th></tr>
+                <tr><td><strong>Finite</strong></td><td>Fixed question pool — complete all to finish</td></tr>
+                <tr><td><strong>Infinite</strong></td><td>Random questions from pool — complete when <strong>best score ≥ 60%</strong></td></tr>
+            </table>
+
+            <div class="callout tip">
+                <div class="callout-label">Tip</div>
+                <p>Re-attempting an activity can only improve your score record. Your best score is always preserved.</p>
+            </div>
+        </section>
+
+        <!-- ╔══════════════════════════════════════════════╗ -->
+        <!-- ║  SCHEMATIC ACTIVITY                         ║ -->
+        <!-- ╚══════════════════════════════════════════════╝ -->
+        <section id="schematic-activity" class="doc-section">
+            <div class="section-header">
+                <div class="section-icon">🖼️</div>
+                <div>
+                    <h2>Schematic Exploration</h2>
+                    <p class="section-sub">Explore annotated diagrams by clicking interactive hotspots</p>
+                </div>
+            </div>
+
+            <h3>The 3-Panel Layout</h3>
+            <div class="layout-diagram">┌──────────────────────────────────┬──────────────────┐
+│                                  │                  │
+│       SVG Schematic Viewer       │    Side Panel    │
+│         (Main Diagram)           │    (Info HUD)    │
+│                                  │                  │
+├──────────────────────────────────┴──────────────────┤
+│               Hotspot Grid (Bottom Rail)            │
+└─────────────────────────────────────────────────────┘</div>
+
+            <table>
+                <tr><th>Panel</th><th>What It Shows</th></tr>
+                <tr><td><strong>SVG Viewer</strong></td><td>The diagram with coloured hotspot circles overlaid</td></tr>
+                <tr><td><strong>Side Panel</strong></td><td>Label + detailed description of the selected hotspot</td></tr>
+                <tr><td><strong>Hotspot Grid</strong></td><td>Colour-coded cards tracking visited vs unvisited hotspots</td></tr>
+            </table>
+
+            <h3>How to Explore</h3>
+            <ol class="steps">
+                <li>Click any coloured hotspot circle on the main diagram.</li>
+                <li>The Side Panel updates to show its <strong>label</strong> and <strong>detailed description</strong>.</li>
+                <li>The bottom grid tracks your progress — visited hotspots light up.</li>
+                <li>Continue until all hotspots are visited.</li>
+                <li>Click <strong>Finish Exploration</strong> to complete the activity (awards 100% score).</li>
+            </ol>
+
+            <div class="callout note">
+                <div class="callout-label">Note</div>
+                <p>Progress is auto-saved. If you close and reopen, previously visited hotspots remain marked.</p>
+            </div>
+        </section>
+
+        <!-- ╔══════════════════════════════════════════════╗ -->
+        <!-- ║  HISTORY                                    ║ -->
+        <!-- ╚══════════════════════════════════════════════╝ -->
+        <section id="history" class="doc-section">
+            <div class="section-header">
+                <div class="section-icon">📋</div>
+                <div>
+                    <h2>Attempt History</h2>
+                    <p class="section-sub">Review past submissions, scores, and detailed attempt snapshots</p>
+                </div>
+            </div>
+
+            <div class="screenshot">
+                <img src="user-guide/assets/14-history-list.png" alt="History List">
+                <div class="screenshot-caption">Attempt History — all past submissions sorted by recency</div>
+            </div>
+
+            <h3>History List</h3>
+            <p>Each row shows one attempt with:</p>
+            <table>
+                <tr><th>Field</th><th>Description</th></tr>
+                <tr><td><strong>Activity Name</strong></td><td>Which activity was attempted</td></tr>
+                <tr><td><strong>Status</strong></td><td><span class="badge green">Completed</span> or <span class="badge amber">In Progress</span></td></tr>
+                <tr><td><strong>Date &amp; Time</strong></td><td>When it was submitted or last saved</td></tr>
+                <tr><td><strong>Score</strong></td><td>Total score as a percentage</td></tr>
+                <tr><td><strong>Open</strong></td><td>Opens the full detail view</td></tr>
+            </table>
+
+            <h3>History Detail</h3>
+            <div class="screenshot">
+                <img src="user-guide/assets/15-history-detail.png" alt="History Detail">
+                <div class="screenshot-caption">Detail view — read-only snapshot of a completed submission</div>
+            </div>
+            <p>The detail view shows a <strong>locked, read-only</strong> snapshot: coordinate entries, G-Code submitted, and final scores. To re-attempt, return to the Dashboard and start a new attempt.</p>
+        </section>
+
+        <!-- ════════════════════════════════════════════════ -->
+        <!--  ADMIN SECTION                                  -->
+        <!-- ════════════════════════════════════════════════ -->
+
+        <!-- ╔══════════════════════════════════════════════╗ -->
+        <!-- ║  ADMIN: COURSE STRUCTURE                    ║ -->
+        <!-- ╚══════════════════════════════════════════════╝ -->
+        <section id="admin-course" class="doc-section">
+            <div class="section-header">
+                <div class="section-icon">📚</div>
+                <div>
+                    <h2>Course Structure</h2>
+                    <p class="section-sub">Build and organise your curriculum: Course → Chapter → Activity</p>
+                </div>
+            </div>
+
+            <div class="callout note">
+                <div class="callout-label">Admin Access Required</div>
+                <p>All admin features require logging in as <strong>Admin</strong>. In production, set <code>VITE_ENABLE_ADMIN=true</code>.</p>
+            </div>
+
+            <div class="screenshot">
+                <img src="user-guide/assets/06-admin-course-structure.png" alt="Course Structure Tab">
+                <div class="screenshot-caption">Course Structure — create courses, add chapters, link activities</div>
+            </div>
+
+            <h3>Creating a Course</h3>
+            <ol class="steps">
+                <li>Type a course name in the <strong>Courses</strong> input field.</li>
+                <li>Click the <strong>+</strong> button to create it.</li>
+                <li>Click the new course to select it.</li>
+            </ol>
+
+            <h3>Adding Chapters</h3>
+            <ol class="steps">
+                <li>With a course selected, type a chapter name.</li>
+                <li>Click <strong>+</strong> to add. Use ↑/↓ arrows to reorder.</li>
+            </ol>
+
+            <h3>Linking Activities</h3>
+            <p>Select a chapter, then browse the <strong>Lessons</strong> (schematic) and <strong>Exams</strong> (CNC) pools on the right. Click <strong>+</strong> to add any activity to the chapter. Use ↑/↓ to reorder and 🗑️ to remove.</p>
+
+            <div class="callout warning">
+                <div class="callout-label">Caution</div>
+                <p>Deleting a course or chapter permanently removes it and all its links.</p>
+            </div>
+        </section>
+
+        <!-- ╔══════════════════════════════════════════════╗ -->
+        <!-- ║  ADMIN: QBANK                               ║ -->
+        <!-- ╚══════════════════════════════════════════════╝ -->
+        <section id="admin-qbank" class="doc-section">
+            <div class="section-header">
+                <div class="section-icon">🗄️</div>
+                <div>
+                    <h2>QBank Manager</h2>
+                    <p class="section-sub">Import, browse, flag, and manage the question bank</p>
+                </div>
+            </div>
+
+            <div class="screenshot">
+                <img src="user-guide/assets/03-admin-qbank.png" alt="QBank Manager">
+                <div class="screenshot-caption">QBank Manager — import questions, browse by category and difficulty</div>
+            </div>
+
+            <h3>Importing Questions</h3>
+            <ol class="steps">
+                <li>Click the <strong>Import</strong> button.</li>
+                <li>Select a <code>BankExport</code> JSON file.</li>
+                <li>Questions are validated, imported, and grouped by <strong>category</strong> and <strong>difficulty</strong> (1-5).</li>
+            </ol>
+
+            <h3>Browsing &amp; Flagging</h3>
+            <p>Questions are listed with their <strong>QCode</strong>, <strong>Category</strong>, <strong>Difficulty Level</strong> (colour-coded 1🟢 → 5🔴), and <strong>Usage Count</strong>. Use the search bar to filter. Click <strong>Flag</strong> to mark a question for review.</p>
+        </section>
+
+        <!-- ╔══════════════════════════════════════════════╗ -->
+        <!-- ║  ADMIN: TEST GENERATOR                      ║ -->
+        <!-- ╚══════════════════════════════════════════════╝ -->
+        <section id="admin-tests" class="doc-section">
+            <div class="section-header">
+                <div class="section-icon">⚡</div>
+                <div>
+                    <h2>Test Generator</h2>
+                    <p class="section-sub">Create CNC practice activities from the question bank</p>
+                </div>
+            </div>
+
+            <div class="screenshot">
+                <img src="user-guide/assets/04-admin-tests.png" alt="Test Generator">
+                <div class="screenshot-caption">Test Generator — configure activity name, type, difficulty, and categories</div>
+            </div>
+
+            <h3>Creating an Activity</h3>
+            <ol class="steps">
+                <li>Enter an <strong>Activity Name</strong> in the header.</li>
+                <li>Toggle <strong>Finite</strong> / <strong>Infinite</strong> mode (∞ button).</li>
+                <li>Choose difficulty mode: <strong>Global</strong> (uniform) or <strong>Custom</strong> (per-category via 🌐 button).</li>
+                <li>Select <strong>categories</strong> from the left panel and configure levels/counts.</li>
+                <li>Click <strong>⚡ Generate</strong> to create the activity.</li>
+            </ol>
+
+            <h3>Activity Type Details</h3>
+            <table>
+                <tr><th>Mode</th><th>Behaviour</th></tr>
+                <tr><td>∞ <strong>Infinite</strong></td><td>Students get random questions; complete when best score ≥60%</td></tr>
+                <tr><td><strong>Finite</strong></td><td>Fixed pool of questions; all must be completed</td></tr>
+                <tr><td>🌐 <strong>Global</strong></td><td>Same difficulty levels applied to all categories</td></tr>
+                <tr><td>🎯 <strong>Custom</strong></td><td>Different difficulty levels per category</td></tr>
+            </table>
+        </section>
+
+        <!-- ╔══════════════════════════════════════════════╗ -->
+        <!-- ║  ADMIN: SCHEMATICS                          ║ -->
+        <!-- ╚══════════════════════════════════════════════╝ -->
+        <section id="admin-schematics" class="doc-section">
+            <div class="section-header">
+                <div class="section-icon">🎨</div>
+                <div>
+                    <h2>Asset Pool (Schematics &amp; Lessons)</h2>
+                    <p class="section-sub">Upload diagram images, hotspot JSON, and create text lessons</p>
+                </div>
+            </div>
+
+            <div class="screenshot">
+                <img src="user-guide/assets/05-admin-schematics.png" alt="Asset Pool">
+                <div class="screenshot-caption">Asset Pool — Manage text lessons and schematic activities</div>
+            </div>
+
+            <p>Use the toggle switch at the top of the interface to switch between <strong>Schematic Mode</strong> and <strong>Text Lesson Mode</strong>.</p>
+
+            <h3>Creating a Text-Based Lesson</h3>
+            <ol class="steps">
+                <li>Toggle the interface to <strong>Text Lesson Mode</strong>.</li>
+                <li>Enter a <strong>Lesson Title</strong>.</li>
+                <li>Use the integrated <strong>TipTap Rich Text Editor</strong> to write the lesson content.
+                    <ul>
+                        <li>You can format text (Bold, Italic), create lists, and structure the document with Headings and Blockquotes.</li>
+                        <li><strong>Images:</strong> You can drag and drop images directly into the editor. The application automatically converts and saves these images securely to the local offline database for student viewing.</li>
+                    </ul>
+                </li>
+                <li>Click <strong>Save Lesson</strong> to add it to the asset pool.</li>
+            </ol>
+
+            <h3>Creating a Schematic</h3>
+            <ol class="steps">
+                <li>Enter a <strong>Schematic Name</strong>.</li>
+                <li>Click <strong>Upload Image</strong> — select a PNG, JPG, or SVG file.</li>
+                <li>Click <strong>Upload JSON</strong> — select the hotspot definition file.</li>
+                <li>Click <strong>Create Schematic</strong> to save.</li>
+            </ol>
+
+            <h4>Hotspot JSON Format</h4>
+            <pre><code>[
+  {
+    "id": "hotspot-1",
+    "x": 150,
+    "y": 220,
+    "radius": 20,
+    "label": "Chuck Jaw",
+    "detailedDescription": "Holds the workpiece..."
+  }
+]</code></pre>
+        </section>
+
+        <!-- ╔══════════════════════════════════════════════╗ -->
+        <!-- ║  ADMIN: REPORTS                             ║ -->
+        <!-- ╚══════════════════════════════════════════════╝ -->
+        <section id="admin-reports" class="doc-section">
+            <div class="section-header">
+                <div class="section-icon">📈</div>
+                <div>
+                    <h2>Reports</h2>
+                    <p class="section-sub">Review and resolve flagged question reports from students</p>
+                </div>
+            </div>
+
+            <div class="screenshot">
+                <img src="user-guide/assets/07-admin-reports.png" alt="Reports Tab">
+                <div class="screenshot-caption">Reports — manage flagged question issues with status workflow</div>
+            </div>
+
+            <h3>Report Statuses</h3>
+            <table>
+                <tr><th>Status</th><th>Meaning</th></tr>
+                <tr><td><span class="badge amber">Pending</span></td><td>New, awaiting review</td></tr>
+                <tr><td><span class="badge green">Reviewed</span></td><td>Acknowledged, not yet fixed</td></tr>
+                <tr><td><span class="badge green">Fixed</span></td><td>Issue resolved in the QBank</td></tr>
+                <tr><td><span class="badge red">Rejected</span></td><td>Report dismissed</td></tr>
+            </table>
+
+            <h3>Resolving a Report</h3>
+            <ol class="steps">
+                <li>Click <strong>View Question</strong> to preview the flagged question.</li>
+                <li>Optionally enter a resolution note.</li>
+                <li>Click the appropriate action: <strong>Fixed</strong>, <strong>Reviewed</strong>, or <strong>Rejected</strong>.</li>
+            </ol>
+        </section>
+
+        <!-- ╔══════════════════════════════════════════════╗ -->
+        <!-- ║  GLOSSARY                                   ║ -->
+        <!-- ╚══════════════════════════════════════════════╝ -->
+        <section id="glossary" class="doc-section">
+            <div class="section-header">
+                <div class="section-icon">📖</div>
+                <div>
+                    <h2>Glossary</h2>
+                    <p class="section-sub">Key terms used throughout the application</p>
+                </div>
+            </div>
+
+            <table>
+                <tr><th>Term</th><th>Definition</th></tr>
+                <tr><td><strong>Activity</strong></td><td>A single learning exercise — either CNC practice or schematic exploration</td></tr>
+                <tr><td><strong>Chapter</strong></td><td>A group of related activities within a course</td></tr>
+                <tr><td><strong>Course</strong></td><td>The full learning programme, made up of sequential chapters</td></tr>
+                <tr><td><strong>Finite Activity</strong></td><td>Fixed question pool — every question must be completed</td></tr>
+                <tr><td><strong>Infinite Activity</strong></td><td>Random questions from pool — complete when best score ≥ 60%</td></tr>
+                <tr><td><strong>G-Code</strong></td><td>The programming language used to control CNC machine tools</td></tr>
+                <tr><td><strong>Hotspot</strong></td><td>An interactive clickable point overlaid on a schematic diagram</td></tr>
+                <tr><td><strong>QCode</strong></td><td>Unique identifier for each question in the question bank</td></tr>
+                <tr><td><strong>QBank</strong></td><td>Question Bank — the central repository of all CNC questions</td></tr>
+                <tr><td><strong>BankExport</strong></td><td>The JSON file format used to import questions into the QBank</td></tr>
+            </table>
+        </section>
+
+        <!-- ═══ FOOTER ═══ -->
+        <div class="doc-footer">
+            <p>CNC Interactive Learning — User Guide</p>
+            <p>Developed by <span class="dev-name">Vishvesh Jigneshkumar Upadhyay</span></p>
+        </div>
+
+    </main>
+</div>
+
+<!-- ═══ Active nav highlight ═══ -->
+<script>
+    const sections = document.querySelectorAll('.doc-section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(l => l.classList.remove('active'));
+                const id = entry.target.id;
+                const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+                if (activeLink) activeLink.classList.add('active');
+            }
+        });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
