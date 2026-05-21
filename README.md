@@ -83,7 +83,7 @@ The application is designed specifically to solve critical shortcomings in curre
 
 For offline viewing or quick reference, you can download the single standalone HTML documentation containing all guides:
 
-> ### **[📥 Download Standalone Documentation (HTML)](https://github.com/vishvesh098/CNC-Interactive-Learning/raw/main/docs/index-standalone.html)**
+> ### **[📥 Download Standalone Documentation (HTML)](https://github.com/vishvesh098/CNC-Interactive-Learning/raw/main/docs/Documentation.html)**
 > *Includes all student and administrator guides in a single, self-contained file.*
 
 Or explore the detailed markdown files directly in our [docs](docs/) directory:
