@@ -285,7 +285,7 @@ Use the toggle switch at the top of the interface to switch between **Schematic 
 
 1. Toggle the interface to **Text Lesson Mode**.
 2. Enter a **Lesson Title**.
-3. Use the integrated **TipTap Rich Text Editor** to write the lesson content.
+3. Use the integrated **Rich Text Editor** to write the lesson content.
    - You can format text (Bold, Italic), create lists, and structure the document with Headings and Blockquotes.
    - **Images:** You can drag and drop images directly into the editor. The application automatically converts and saves these images securely to the local offline database for student viewing.
 4. Click **Save Lesson** to add it to the asset pool.

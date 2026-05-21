@@ -43,12 +43,37 @@ To ensure optimal performance and visibility of technical schematics and editor 
 
 ---
 
+## 🧠 State-of-the-Art (SOTA) Practice System
+
+Unlike traditional CNC teaching methodologies, this application utilizes a complete, automated **Infinite Practice System** to generate virtually unlimited unique CNC problems:
+
+* **Algorithmic Generated Questions**: Automatically creates technical drawings (with proper dimensions), coordinates, and corresponding G-Code using a custom-built Python system.
+* **No Repetition / No Copying**: Each student gets a unique problem, eliminating answer copying and encouraging actual geometry comprehension.
+* **Instant, Detailed Feedback**: Evaluates student inputs (both coordinate matrices and G-code execution paths) in real time and highlights mistakes immediately.
+* **Industry-Aligned Workflow**: Guides students step-by-step through the standard engineering funnel: **Coordinates & Dimension Verification** $\rightarrow$ **G-Code Programming** $\rightarrow$ **Simulation/Machining**.
+* **Progress Tracking & Difficulty Control**: Keeps records of student attempts locally and scales difficulty based on student advancement.
+
+### 🎯 Key Limitations Addressed
+
+The application is designed specifically to solve critical shortcomings in current CNC training methods:
+
+* **Over-reliance on pen-and-paper practice**: Pen-and-paper drafting is fundamentally misaligned with real CNC programming workflows and modern industry practices.
+* **Limited practice opportunities**: Exercises are typically restricted to only 1–2 static textbook problems per chapter or topic due to manual grading constraints.
+* **Rote learning and answer copying**: Static questions encourage students to memorize code sequences or copy coordinates without understanding.
+* **Delayed and non-specific feedback**: Instructors face bottlenecks grading papers, leading to delayed feedback that halts the student's learning cycle.
+
+> [!NOTE]
+> **A First-of-its-Kind Implementation in ITI Training**  
+> This approach represents a first-of-its-kind implementation in the ITI training context and reflects a state-of-the-art (SOTA) methodology, combining algorithmic content generation with integrated CNC learning and evaluation. To the best of our knowledge, such a system is not currently in use in ITIs or similar training institutes.
+
+---
+
 ## 🌟 Core Features
 
 - **Double-Phase CNC Workflow**: Real-world CNC programming workflow. Verify X/Z coordinate points in Phase 1 before moving to G-Code writing in Phase 2.
 - **Advanced G-Code Editor**: Native line numbers, automated uppercase formatting, syntax highlighting (Pink for codes, Teal for coordinates), and scroll line-snapping to prevent text clipping.
 - **Interactive Technical Schematics**: Explore engineering drawings by locating and clicking highlighted hotspots to learn component functions.
-- **TipTap Text-Based Lessons**: Instructor-authored rich text guides with embedded images, lists, and reference tables.
+- **Rich Text-Based Lessons**: Instructor-authored rich text guides with embedded images, lists, and reference tables.
 - **Local Progress & Attempts History**: Work results and quiz history are saved locally on your device and are fully reviewable via the history log.
 - **Admin Dashboard**: Manage QBank imports, generate tests, upload schematics, structure courses, and view flagged question reports.
 
@@ -56,7 +81,12 @@ To ensure optimal performance and visibility of technical schematics and editor 
 
 ## 📚 Application Documentation
 
-Explore detailed guides on how to use every feature of the app in our [docs](docs/) directory:
+For offline viewing or quick reference, you can download the single standalone HTML documentation containing all guides:
+
+> ### **[📥 Download Standalone Documentation (HTML)](https://github.com/vishvesh098/CNC-Interactive-Learning/raw/main/docs/index-standalone.html)**
+> *Includes all student and administrator guides in a single, self-contained file.*
+
+Or explore the detailed markdown files directly in our [docs](docs/) directory:
 
 ### For Students
 * [Getting Started Guide](docs/user-guide/getting-started.md) — First-time launch, login, and dashboard navigation.
