@@ -1,6 +1,6 @@
 # Text-Based Lesson Activity
 
-Text-Based Lessons provide rich educational content with formatted text, headings, lists, and embedded images. They are created by instructors using the integrated rich text editor and consumed by students as reading material.
+Text-Based Lessons provide rich educational content with formatted text, headings, lists, and embedded images. They are created by instructors using the integrated TipTap rich text editor and consumed by students as reading material.
 
 ---
 

@@ -56,7 +56,7 @@ Launch App → Select "Admin Access" → Choose a tab from the left sidebar
 | Term | Meaning |
 |---|---|
 | **Activity** | A single learning exercise (CNC, Schematic, or Text Lesson) |
-| **Text Lesson** | Rich text content created using the integrated editor |
+| **Text Lesson** | Rich text content created using the integrated TipTap editor |
 | **Chapter** | A group of related activities in a course |
 | **Course** | The full learning programme, made up of chapters |
 | **Finite Activity** | Fixed question pool — all questions must be completed |

@@ -55,7 +55,7 @@ Unlike traditional CNC teaching methodologies, this application utilizes a compl
 
 ### 🎯 Key Limitations Addressed
 
-The application is designed specifically to solve critical shortcomings in current CNC training methods:
+The application is designed specifically to solve shortcomings in current CNC training methods:
 
 * **Over-reliance on pen-and-paper practice**: Pen-and-paper drafting is fundamentally misaligned with real CNC programming workflows and modern industry practices.
 * **Limited practice opportunities**: Exercises are typically restricted to only 1–2 static textbook problems per chapter or topic due to manual grading constraints.
@@ -81,10 +81,10 @@ The application is designed specifically to solve critical shortcomings in curre
 
 ## 📚 Application Documentation
 
-For offline viewing or quick reference, you can download the single standalone HTML documentation containing all guides:
+Explore the comprehensive online user guide and administration documentation:
 
-> ### **[📥 Download Standalone Documentation (HTML)](https://github.com/vishvesh098/CNC-Interactive-Learning/raw/main/docs/Documentation.html)**
-> *Includes all student and administrator guides in a single, self-contained file.*
+> ### **[🌐 Open Live Interactive Documentation](https://vishvesh098.github.io/CNC-Interactive-Learning/)**
+> *Includes step-by-step guides for students and administrators, system requirements, and installation instructions.*
 
 Or explore the detailed markdown files directly in our [docs](docs/) directory:
 
