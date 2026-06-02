@@ -10,7 +10,7 @@
             --card-bg: #1e1e24;
             --text-color: #e2e8f0;
             --text-muted: #94a3b8;
-            --accent-color: #f59e0b; /* Saffron/Amber */
+            --accent-color: #f59e0b;
             --border-color: #2d2d38;
             --container-width: 800px;
         }
@@ -108,55 +108,73 @@
         <h1>Privacy Policy</h1>
         <div class="meta-info">Last Updated: June 2, 2026</div>
 
-        <p>This Privacy Policy describes how <strong>CNC Interactive Learning</strong> (the "Application") collects, uses, protects, and handles user data. The Application is a desktop platform designed for classroom, lab, and independent study to teach CNC programming concepts.</p>
+        <p>This Privacy Policy describes how <strong>CNC Interactive Learning</strong> (the "Application") collects, uses, protects, and handles user data. The Application is a desktop platform for teaching CNC machining concepts.</p>
 
         <h2>1. Hosting & Offline Operation</h2>
-        <p>The Application is designed primarily as an <strong>offline-first</strong> desktop application. It runs locally on your Windows machine and does not require an active internet connection to function, evaluate coordinate points, validate G-Code, or record training attempts.</p>
+        <p>The Application is designed primarily as an <strong>offline-first</strong> desktop application. It runs locally on your machine and does not require an active internet connection for core functionality (coordinate input, G-Code validation, and training progress tracking).</p>
 
         <h2>2. Information Collection and Use</h2>
-        
+
         <h3>A. Locally Stored Data (On-Device)</h3>
-        <p>All training progress, scores, and configurations are stored directly on the host device within an encrypted SQLite database. This includes:</p>
+        <p>All user profile information, training progress, scores, issue reports, and application settings are stored directly on the host device within an encrypted SQLite database. This includes:</p>
         <ul>
-            <li><strong>User Profile Info:</strong> Sign-in credentials, student usernames, and role types (Student/Admin).</li>
-            <li><strong>Progress & Chapter Stats:</strong> Completion percentages, chapter readiness scores, and unlocked chapter states.</li>
-            <li><strong>Attempt History:</strong> Snapshots of entered coordinates, submitted G-Code lines, scores achieved, attempt durations, and timestamps.</li>
+            <li><strong>User Profile Info</strong>: User ID, username, and role (Student/Admin)</li>
+            <li><strong>Progress & Chapter Stats</strong>: Completion percentages, chapter readiness scores, and unlocked chapter states</li>
+            <li><strong>Attempt History</strong>: Submitted coordinate points, G-Code, scores, attempt durations, and timestamps</li>
+            <li><strong>Issue Reports</strong>: Question code, report type, and description submitted by users</li>
         </ul>
 
-        <h3>B. Administrator-Configured Network Sync</h3>
-        <p>If configured by your institution or administrator, the Application may connect to an external cloud database (such as Supabase). When enabled, this integration is used exclusively for:</p>
+        <h3>B. Third-Party Review Form & Survey Dashboard</h3>
+        <p>The Application includes an optional review form provided by Tally.so. This form is embedded as an iframe and is entirely managed by Tally. Data collected via this form is subject to <a href="https://tally.so/privacy" target="_blank" rel="noopener noreferrer">Tally's Privacy Policy</a>.</p>
+        <p>Review data is transferred from Tally.so to Supabase for aggregation and analysis. Survey results are then fetched from Supabase and displayed within the Application's Survey Dashboard, which includes:</p>
         <ul>
-            <li>Synchronizing chapter progression and test scores to an instructor dashboard.</li>
-            <li>Reviewing diagnostics and issue reports submitted by students.</li>
+          <li>Aggregated, anonymized statistical data</li>
+          <li>Named respondents (name, designation, organization, and experience years for users who have given explicit permission for their identity to be shown publicly)</li>
+          <li>Testimonials with attribution (name and role)</li>
         </ul>
-
-        <h3>C. Issue & Diagnostic Reports</h3>
-        <p>If you encounter an issue during a training activity (e.g., coordinate mismatches or G-Code validation errors) and choose to submit a report, the Application gathers the following information to assist administrators in updating the question bank:</p>
+        <p>The review form may collect:</p>
         <ul>
-            <li>The Unique Question Code (<code>qcode</code>).</li>
-            <li>The selected Issue Type (e.g., SVG Issue, G-Code Issue).</li>
-            <li>Any custom text description you type in the report window.</li>
+          <li>User feedback and ratings</li>
+          <li>Any optional personal information the user chooses to provide</li>
         </ul>
 
         <h2>3. Data Security and Integrity</h2>
-        <p>We take the security of student academic data seriously:</p>
+        <p>We take the security of your data seriously:</p>
         <ul>
-            <li><strong>Encryption at Rest:</strong> Local databases are encrypted using AES-256-GCM encryption. Cryptographic keys are managed securely on the local device via integration with the Windows Credential Manager / OS Keyring.</li>
-            <li><strong>Cryptographic Verification:</strong> All submitted test scores are cryptographically signed using an HMAC-SHA256 signature generated by the secure Rust backend. This ensures scores cannot be tampered with or modified via client-side storage edits.</li>
-            <li><strong>Content Protection:</strong> The correct answers for G-Code questions are compiled into the secure backend binary and are never exposed as plain text to the application frontend.</li>
+            <li><strong>Encryption at Rest</strong>: Local databases are encrypted using AES-256-GCM encryption. Cryptographic keys are managed securely on the local device via the OS keyring/credential manager.</li>
+            <li><strong>Cryptographic Verification</strong>: All submitted test scores are cryptographically signed using an HMAC-SHA256 signature generated by the secure Rust backend. This ensures scores cannot be tampered with or modified via client-side storage edits.</li>
         </ul>
 
-        <h2>4. Third-Party Services</h2>
-        <p>When downloaded through the <strong>Microsoft Store</strong>, Microsoft may collect telemetry, crash dumps, and download statistics associated with your Microsoft account. Please refer to the <a href="https://privacy.microsoft.com/" target="_blank" rel="noopener noreferrer">Microsoft Privacy Statement</a> for details.</p>
+        <h2>4. Data Sharing and Third-Party Services</h2>
+        <p>We do not share your locally stored data with any third parties, except as described below:</p>
+        <ul>
+          <li><strong>Microsoft Store</strong>: When downloaded through the Microsoft Store, Microsoft may collect telemetry, crash dumps, and download statistics associated with your Microsoft account. Please refer to the <a href="https://privacy.microsoft.com/" target="_blank" rel="noopener noreferrer">Microsoft Privacy Statement</a> for details.</li>
+          <li><strong>Tally.so</strong>: As described above, the optional review form is provided by Tally.so. Data submitted through this form is governed by Tally's privacy policy.</li>
+          <li><strong>Supabase</strong>: Review data from Tally.so is transferred to Supabase for aggregation and analysis. Aggregated survey results are fetched from Supabase and displayed in the Application's Survey Dashboard. For more information, see <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">Supabase's Privacy Policy</a>.</li>
+        </ul>
 
-        <h2>5. Children's Privacy</h2>
-        <p>The Application is designed for educational environments. It does not actively solicit or collect personally identifiable information from children. All student profiles and scores are managed locally or within an private database hosted and controlled by the educational institution.</p>
+        <h2>5. User Rights</h2>
+        <p>Depending on your jurisdiction, you may have the right to:</p>
+        <ul>
+            <li>Access the personal data we hold about you</li>
+            <li>Request correction of inaccurate personal data</li>
+            <li>Request deletion of your personal data</li>
+            <li>Request restriction of processing of your personal data</li>
+            <li>Data portability</li>
+            <li>Object to processing of your personal data</li>
+        </ul>
+        <p>Since all your data is stored locally on your device, you can manage or delete it directly through the Application's admin features or by uninstalling the Application. For requests regarding data submitted through Tally.so, please contact Tally directly.</p>
 
-        <h2>6. Changes to this Policy</h2>
+        <h2>6. Children's Privacy</h2>
+        <p>The Application is designed for educational environments. It does not actively solicit or collect personally identifiable information from children. All student profiles and scores are managed locally on the device.</p>
+
+        <h2>7. Changes to this Policy</h2>
         <p>We may update this Privacy Policy from time to time to reflect changes in security standards or application features. The "Last Updated" date at the top of the policy indicates when revisions were made.</p>
 
-        <h2>7. Contact Information</h2>
-        <p>For questions regarding this Privacy Policy or data security within the Application, please contact the developer or your institution's system administrator.</p>
+        <h2>8. Contact Information</h2>
+        <p>For questions regarding this Privacy Policy or data security within the Application, please contact the developer:</p>
+        <p><strong>Vishvesh Jigneshkumar Upadhyay</strong><br>
+        <a href="mailto:vishvesh.upadhyay@zohomail.in">vishvesh.upadhyay@zohomail.in</a></p>
 
         <div class="footer">
             &copy; 2026 Vishvesh Jigneshkumar Upadhyay. All rights reserved.
