@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - CNC Interactive Learning</title>
+    <style>
+        :root {
+            --bg-color: #0f0f13;
+            --card-bg: #1e1e24;
+            --text-color: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent-color: #f59e0b; /* Saffron/Amber */
+            --border-color: #2d2d38;
+            --container-width: 800px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 2.2rem;
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #ffffff;
+            font-size: 1.4rem;
+            margin-top: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+
+        p, li {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .meta-info {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        code {
+            font-family: Consolas, Monaco, monospace;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Privacy Policy</h1>
+        <div class="meta-info">Last Updated: June 2, 2026</div>
+
+        <p>This Privacy Policy describes how <strong>CNC Interactive Learning</strong> (the "Application") collects, uses, protects, and handles user data. The Application is a desktop platform designed for classroom, lab, and independent study to teach CNC programming concepts.</p>
+
+        <h2>1. Hosting & Offline Operation</h2>
+        <p>The Application is designed primarily as an <strong>offline-first</strong> desktop application. It runs locally on your Windows machine and does not require an active internet connection to function, evaluate coordinate points, validate G-Code, or record training attempts.</p>
+
+        <h2>2. Information Collection and Use</h2>
+        
+        <h3>A. Locally Stored Data (On-Device)</h3>
+        <p>All training progress, scores, and configurations are stored directly on the host device within an encrypted SQLite database. This includes:</p>
+        <ul>
+            <li><strong>User Profile Info:</strong> Sign-in credentials, student usernames, and role types (Student/Admin).</li>
+            <li><strong>Progress & Chapter Stats:</strong> Completion percentages, chapter readiness scores, and unlocked chapter states.</li>
+            <li><strong>Attempt History:</strong> Snapshots of entered coordinates, submitted G-Code lines, scores achieved, attempt durations, and timestamps.</li>
+        </ul>
+
+        <h3>B. Administrator-Configured Network Sync</h3>
+        <p>If configured by your institution or administrator, the Application may connect to an external cloud database (such as Supabase). When enabled, this integration is used exclusively for:</p>
+        <ul>
+            <li>Synchronizing chapter progression and test scores to an instructor dashboard.</li>
+            <li>Reviewing diagnostics and issue reports submitted by students.</li>
+        </ul>
+
+        <h3>C. Issue & Diagnostic Reports</h3>
+        <p>If you encounter an issue during a training activity (e.g., coordinate mismatches or G-Code validation errors) and choose to submit a report, the Application gathers the following information to assist administrators in updating the question bank:</p>
+        <ul>
+            <li>The Unique Question Code (<code>qcode</code>).</li>
+            <li>The selected Issue Type (e.g., SVG Issue, G-Code Issue).</li>
+            <li>Any custom text description you type in the report window.</li>
+        </ul>
+
+        <h2>3. Data Security and Integrity</h2>
+        <p>We take the security of student academic data seriously:</p>
+        <ul>
+            <li><strong>Encryption at Rest:</strong> Local databases are encrypted using AES-256-GCM encryption. Cryptographic keys are managed securely on the local device via integration with the Windows Credential Manager / OS Keyring.</li>
+            <li><strong>Cryptographic Verification:</strong> All submitted test scores are cryptographically signed using an HMAC-SHA256 signature generated by the secure Rust backend. This ensures scores cannot be tampered with or modified via client-side storage edits.</li>
+            <li><strong>Content Protection:</strong> The correct answers for G-Code questions are compiled into the secure backend binary and are never exposed as plain text to the application frontend.</li>
+        </ul>
+
+        <h2>4. Third-Party Services</h2>
+        <p>When downloaded through the <strong>Microsoft Store</strong>, Microsoft may collect telemetry, crash dumps, and download statistics associated with your Microsoft account. Please refer to the <a href="https://privacy.microsoft.com/" target="_blank" rel="noopener noreferrer">Microsoft Privacy Statement</a> for details.</p>
+
+        <h2>5. Children's Privacy</h2>
+        <p>The Application is designed for educational environments. It does not actively solicit or collect personally identifiable information from children. All student profiles and scores are managed locally or within an private database hosted and controlled by the educational institution.</p>
+
+        <h2>6. Changes to this Policy</h2>
+        <p>We may update this Privacy Policy from time to time to reflect changes in security standards or application features. The "Last Updated" date at the top of the policy indicates when revisions were made.</p>
+
+        <h2>7. Contact Information</h2>
+        <p>For questions regarding this Privacy Policy or data security within the Application, please contact the developer or your institution's system administrator.</p>
+
+        <div class="footer">
+            &copy; 2026 Vishvesh Jigneshkumar Upadhyay. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
