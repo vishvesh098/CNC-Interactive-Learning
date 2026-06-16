@@ -1845,6 +1845,452 @@
     .card-section-title svg {
       color: var(--accent-blue);
     }
+
+    /* ============================================
+       MACRO TIMELINE (Dev Log milestones + Journey
+       de-jargon arc tags)
+       ============================================ */
+    .macro-timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .macro-timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom,
+        var(--accent-blue) 0%,
+        var(--accent-violet) 50%,
+        var(--accent-emerald) 100%);
+      border-radius: 2px;
+      z-index: 0;
+    }
+
+    .macro-item {
+      position: relative;
+      padding-left: 48px;
+      padding-bottom: 1.5rem;
+    }
+
+    .macro-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .macro-dot {
+      position: absolute;
+      left: 7px;
+      top: 4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--bg-primary);
+      border: 2px solid var(--accent-blue);
+      z-index: 2;
+    }
+
+    .macro-item:nth-child(even) .macro-dot {
+      border-color: var(--accent-violet);
+    }
+
+    .macro-item:nth-child(3n) .macro-dot,
+    .macro-item:last-child .macro-dot {
+      border-color: var(--accent-emerald);
+    }
+
+    .macro-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .macro-text {
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .macro-text .highlight {
+      color: var(--accent-cyan);
+    }
+
+    /* Collapsible details (tech drawers) */
+    .tech-drawer {
+      margin-top: 1rem;
+    }
+
+    .tech-drawer summary {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.35rem 0.7rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-glass);
+      background: rgba(255, 255, 255, 0.02);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all var(--transition-fast);
+      user-select: none;
+    }
+
+    .tech-drawer summary:hover {
+      border-color: var(--border-hover);
+      color: var(--text-secondary);
+    }
+
+    .tech-drawer[open] summary {
+      border-color: var(--border-hover);
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .tech-drawer .drawer-content {
+      padding-top: 0.5rem;
+    }
+
+    /* ============================================
+       SKILL CHIP MATRIX (replaces score bars)
+       ============================================ */
+    .chip-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .chip-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .chip-group-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .chip {
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-glass);
+      background: var(--bg-glass);
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+    }
+
+    .chip:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-glass-hover);
+      color: var(--text-primary);
+    }
+
+    .chip.tier-core {
+      border-color: rgba(6, 182, 212, 0.3);
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.06);
+    }
+
+    .chip.tier-core:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.12);
+    }
+
+    .chip.tier-working {
+      border-color: rgba(59, 130, 246, 0.2);
+      color: var(--accent-blue);
+      background: rgba(59, 130, 246, 0.04);
+    }
+
+    .chip.tier-working:hover {
+      border-color: var(--accent-blue);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .chip.tier-exploring {
+      border-color: rgba(139, 92, 246, 0.15);
+      color: var(--text-muted);
+    }
+
+    .chip.tier-exploring:hover {
+      border-color: rgba(139, 92, 246, 0.3);
+      color: var(--accent-violet);
+    }
+
+    .chip-tier-legend {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-glass);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.core {
+      background: var(--accent-cyan);
+    }
+
+    .legend-dot.working {
+      background: var(--accent-blue);
+    }
+
+    .legend-dot.exploring {
+      background: var(--accent-violet);
+      opacity: 0.6;
+    }
+
+    /* ============================================
+       EXPANDED PUBLICATION ACCORDION
+       ============================================ */
+    .pub-stats-strip {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .pub-stat-chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--border-glass);
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+    }
+
+    .pub-stat-chip span {
+      color: var(--accent-cyan);
+    }
+
+    .pub-accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .accordion-item {
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all var(--transition-normal);
+    }
+
+    .accordion-item:hover {
+      border-color: rgba(59, 130, 246, 0.15);
+    }
+
+    .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 1.4rem;
+      cursor: pointer;
+      user-select: none;
+      gap: 1rem;
+    }
+
+    .accordion-header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .accordion-chevron {
+      flex-shrink: 0;
+      color: var(--text-muted);
+      transition: transform var(--transition-normal);
+    }
+
+    .accordion-chevron.open {
+      transform: rotate(180deg);
+    }
+
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .accordion-body.open {
+      max-height: 2000px;
+    }
+
+    .accordion-inner {
+      padding: 0 1.4rem 1.4rem;
+      border-top: 1px solid var(--border-glass);
+    }
+
+    /* Sub-list inside CNC series accordion */
+    .sub-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-top: 1rem;
+    }
+
+    .sub-item {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid transparent;
+      transition: all var(--transition-fast);
+    }
+
+    .sub-item:hover {
+      border-color: var(--border-glass);
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .sub-item .part-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(59, 130, 246, 0.08);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      flex-shrink: 0;
+      min-width: 28px;
+      text-align: center;
+    }
+
+    .sub-item-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sub-item-title {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .sub-item-meta {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .sub-item-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    /* Full-width pub detail (for standalone papers) */
+    .pub-detail {
+      padding-top: 0.75rem;
+    }
+
+    .pub-detail-desc {
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 0.75rem;
+    }
+
+    .pub-detail-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .pub-detail-meta strong {
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .pub-detail-meta .doi-link {
+      color: var(--accent-cyan);
+      word-break: break-all;
+    }
+
+    /* Collapsible commit section toggle */
+    .collapsible-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 1rem;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      user-select: none;
+      margin-top: 1rem;
+      transition: all var(--transition-fast);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .collapsible-toggle:hover {
+      border-color: var(--border-hover);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .collapsible-toggle .toggle-arrow {
+      transition: transform var(--transition-normal);
+      color: var(--text-muted);
+    }
+
+    .collapsible-toggle.open .toggle-arrow {
+      transform: rotate(180deg);
+    }
+
+    .collapsible-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .collapsible-body.open {
+      max-height: 1200px;
+    }
   </style>
 </head>
 
@@ -1996,7 +2442,7 @@
           <div class="hero-stat">
             <div class="stat-number gradient-text">374+</div>
             <div class="stat-label">Git Commits</div>
-            <div class="stat-sub">Since Feb 2026</div>
+            <div class="stat-sub">Since May 2026</div>
           </div>
           <div class="hero-stat">
             <div class="stat-number emerald">28K+</div>
@@ -2009,36 +2455,36 @@
             <div class="stat-sub">7 IIRATI Awards</div>
           </div>
           <div class="hero-stat">
-            <div class="stat-number violet">v0.1.9</div>
-            <div class="stat-label">Current Release</div>
-            <div class="stat-sub">AES-256 Encrypted</div>
+                <div class="stat-number violet">v0.1.11</div>
+                <div class="stat-label">Current Release</div>
+                <div class="stat-sub">Encrypted &amp; Secure</div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- =============================================
-         SECTION: APP EVOLUTION — JOURNEY
+         SECTION: APP EVOLUTION — JOURNEY (de-jargoned)
          ============================================= -->
     <section id="journey">
       <div class="container">
         <div class="section-header">
           <div class="section-tag">App Evolution</div>
-          <h2>The Journey — How This App Evolved</h2>
-          <p>From Python scripts on a D: drive to a production-grade offline desktop application — the full story.</p>
+          <h2>The Journey — How This App Came to Life</h2>
+          <p>From a simple idea on a laptop to a full desktop application used in classrooms — the story in three stages.</p>
         </div>
 
         <div class="card">
           <div class="phase-timeline">
 
-            <!-- Phase 1 -->
+            <!-- Phase 1 — The Idea -->
             <div class="phase-card">
               <div class="phase-badge p1">01</div>
               <div class="phase-content">
                 <div class="phase-header">
                   <div class="phase-title-group">
-                    <span class="phase-label p1">Phase 1 — The Seed</span>
-                    <span class="phase-name">Python Question Generator</span>
+                    <span class="phase-label p1">Phase 1 — The Idea</span>
+                    <span class="phase-name">Generate Unlimited Practice Problems</span>
                   </div>
                   <span class="phase-period">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -2051,17 +2497,15 @@
                     May – Aug 2025
                   </span>
                 </div>
-                <div class="phase-path">D:\Documents\cnc-phase-1</div>
                 <p class="phase-desc">
-                  The idea was simple but powerful: <strong>algorithmically generate infinite unique CNC
-                    problems</strong> so that no two students ever get the same exercise. Using Python and Jupyter
-                  notebooks, I built generators for 6 geometry types — hemispheres, circles, rectangles, toroids,
-                  ellipses, and parabolas — producing randomized coordinate sets, technical drawings, and Moodle XML
-                  question banks.
+                  Why should every student practise the same question? The idea was powerful in its simplicity:
+                  <strong>automatically generate a unique CNC exercise for every student</strong>, so no two people
+                  ever see the same problem. This eliminates copying and forces genuine understanding. I wrote
+                  programs that create randomized coordinate sets, technical drawings, and question banks covering six
+                  different geometry shapes.
                 </p>
                 <div class="phase-insight">
-                  "Why can't we just generate the exercises? Every student gets a unique problem. No copying. No
-                  memorization. Pure understanding."
+                  "Every student gets a unique problem. No copying. No memorisation. Pure understanding."
                 </div>
                 <div class="tech-stack">
                   <span class="tech-pill highlight">Python 3.8</span>
@@ -2074,7 +2518,7 @@
                 <div class="phase-stats">
                   <div class="phase-stat">
                     <span class="phase-stat-val p1">10+</span>
-                    <span class="phase-stat-lbl">Notebooks</span>
+                    <span class="phase-stat-lbl">Programs</span>
                   </div>
                   <div class="phase-stat">
                     <span class="phase-stat-val p1">6</span>
@@ -2089,6 +2533,17 @@
                     <span class="phase-stat-lbl">Unique Problems</span>
                   </div>
                 </div>
+                <details class="tech-drawer">
+                  <summary>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    Technical details
+                  </summary>
+                  <div class="drawer-content">
+                    <span style="font-size:0.78rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">
+                      Geometry types: hemispheres, circles, rectangles, toroids, ellipses, parabolas. Output formats: DXF technical drawings, coordinate data files, Moodle XML question banks. Toolpaths generated via parametric equations with trigonometric and Pythagorean approaches.
+                    </span>
+                  </div>
+                </details>
               </div>
             </div>
 
@@ -2100,18 +2555,18 @@
                   <polyline points="15 10 20 15 15 20" />
                   <path d="M4 4v7a4 4 0 0 0 4 4h12" />
                 </svg>
-                "But the questions had no home — they needed a delivery platform with security and tracking."
+                "The questions had no home — they needed a secure delivery platform where answers couldn't be shared."
               </div>
             </div>
 
-            <!-- Phase 2 -->
+            <!-- Phase 2 — The Platform -->
             <div class="phase-card">
               <div class="phase-badge p2">02</div>
               <div class="phase-content">
                 <div class="phase-header">
                   <div class="phase-title-group">
                     <span class="phase-label p2">Phase 2 — The Platform</span>
-                    <span class="phase-name">Docker + Moodle + Tauri Secure Browser</span>
+                    <span class="phase-name">Secure Online Exam System</span>
                   </div>
                   <span class="phase-period">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -2124,26 +2579,22 @@
                     Oct 2025 – Jan 2026
                   </span>
                 </div>
-                <div class="phase-path">C:\cnc-moodle-tauri</div>
                 <p class="phase-desc">
-                  The generated questions needed a secure delivery channel. I deployed a full <strong>Docker-based
-                    Moodle LMS</strong> with Traefik reverse proxy, MariaDB, and Redis caching. To prevent
-                  answer-sharing, I built a custom <strong>Tauri 2 desktop application</strong> as a locked-down secure
-                  browser with Ed25519 cryptographic device authentication.
+                  The generated questions needed to reach students securely. I built a <strong>locked-down exam
+                    application</strong> that only runs on registered computers — no screenshots, no copying answers,
+                  no sharing via messaging apps. This was paired with an online question bank system to manage and
+                  distribute the content.
                 </p>
                 <div class="phase-insight">
-                  "Students can share answers via WhatsApp in seconds. We need cryptographic locking — signed devices,
-                  signed sessions, no screenshots."
+                  "Students share answers in seconds. We needed a system where you can only open the exam on an
+                  authorised machine — and nothing else."
                 </div>
                 <div class="tech-stack">
-                  <span class="tech-pill highlight">Docker Compose</span>
-                  <span class="tech-pill">Traefik v2.11</span>
-                  <span class="tech-pill">Moodle LMS</span>
-                  <span class="tech-pill">MariaDB 11.2</span>
-                  <span class="tech-pill">Redis 7.2</span>
                   <span class="tech-pill highlight">Tauri 2.0</span>
-                  <span class="tech-pill">Rust</span>
-                  <span class="tech-pill">Ed25519 Crypto</span>
+                  <span class="tech-pill highlight">Rust</span>
+                  <span class="tech-pill">Docker Compose</span>
+                  <span class="tech-pill">Online LMS</span>
+                  <span class="tech-pill">Cryptographic Auth</span>
                   <span class="tech-pill">PowerShell</span>
                 </div>
                 <div class="phase-stats">
@@ -2157,13 +2608,24 @@
                   </div>
                   <div class="phase-stat">
                     <span class="phase-stat-val p2">5</span>
-                    <span class="phase-stat-lbl">Docker Services</span>
+                    <span class="phase-stat-lbl">Services</span>
                   </div>
                   <div class="phase-stat">
-                    <span class="phase-stat-val p2">Ed25519</span>
+                    <span class="phase-stat-val p2">Signed</span>
                     <span class="phase-stat-lbl">Device Auth</span>
                   </div>
                 </div>
+                <details class="tech-drawer">
+                  <summary>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    Technical details
+                  </summary>
+                  <div class="drawer-content">
+                    <span style="font-size:0.78rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">
+                      Docker Compose with Traefik v2.11 reverse proxy, Moodle LMS, MariaDB 11.2, Redis 7.2 caching. Tauri 2 secure browser with Ed25519 cryptographic device authentication, screen-capture blocking, and signed sessions.
+                    </span>
+                  </div>
+                </details>
               </div>
             </div>
 
@@ -2175,19 +2637,18 @@
                   <polyline points="15 10 20 15 15 20" />
                   <path d="M4 4v7a4 4 0 0 0 4 4h12" />
                 </svg>
-                "Too complex for ITI deployment — Docker, servers, internet required. Needed something that works on one
-                click, zero infra."
+                "Too complex for ITI — servers and internet aren't always available. Needed something that works on a single click, no infrastructure."
               </div>
             </div>
 
-            <!-- Phase 3 -->
+            <!-- Phase 3 — The App -->
             <div class="phase-card">
               <div class="phase-badge p3">03</div>
               <div class="phase-content">
                 <div class="phase-header">
                   <div class="phase-title-group">
-                    <span class="phase-label p3">Phase 3 — The Product</span>
-                    <span class="phase-name">CNC Interactive Learning</span>
+                    <span class="phase-label p3">Phase 3 — The App</span>
+                    <span class="phase-name">CNC Interactive Learning — One Installer, Everything Included</span>
                   </div>
                   <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
                     <span class="phase-period">
@@ -2200,33 +2661,29 @@
                       </svg>
                       Feb 2026 – Present
                     </span>
-                    <span class="current-tag">Live · v0.1.9</span>
+                    <span class="current-tag">Live · v0.1.11</span>
                   </div>
                 </div>
-                <div class="phase-path">C:\cnc-vue-tauri → interactive-glass-schematic</div>
                 <p class="phase-desc">
-                  Strip away all server dependencies. <strong>One installer. One app. Works on any Windows PC without
-                    internet.</strong> The current platform is a fully standalone, offline-first desktop application
-                  with encrypted SQLite storage (AES-256-GCM), HMAC-SHA256 score signing, a Monaco-powered G-Code
-                  editor, interactive SVG schematics, an intelligent recommendation engine, admin dashboard, and the
-                  infinite practice system — all in one binary.
+                  <strong>One installer. One application. Works on any Windows PC with no internet connection.</strong>
+                  Everything the previous phases built is now packed into a single, standalone desktop app —
+                  interactive CNC schematics, a G-Code practice editor, encrypted student records, an admin
+                  dashboard for teachers, and the infinite unique-problem system. No servers. No Docker. No
+                  accounts to create. Just install and start learning.
                 </p>
                 <div class="phase-insight">
-                  "One installer. One app. No Docker. No server. No internet. Just works. This is what ITI needs."
+                  "One installer. No server. No internet. Just works. This is what an ITI classroom needs."
                 </div>
                 <div class="tech-stack">
                   <span class="tech-pill highlight">Vue 3</span>
                   <span class="tech-pill highlight">TypeScript</span>
                   <span class="tech-pill">Vite 7</span>
-                  <span class="tech-pill">Pinia 3</span>
-                  <span class="tech-pill highlight">Tauri 2</span>
+                  <span class="tech-pill">Tauri 2</span>
                   <span class="tech-pill highlight">Rust</span>
-                  <span class="tech-pill">Monaco Editor</span>
-                  <span class="tech-pill">GSAP</span>
-                  <span class="tech-pill">TipTap</span>
-                  <span class="tech-pill">AES-256-GCM</span>
-                  <span class="tech-pill">HMAC-SHA256</span>
-                  <span class="tech-pill">Vitest</span>
+                  <span class="tech-pill">G-Code Editor</span>
+                  <span class="tech-pill">Interactive SVG</span>
+                  <span class="tech-pill">Encrypted Storage</span>
+                  <span class="tech-pill">Admin Dashboard</span>
                 </div>
                 <div class="phase-stats">
                   <div class="phase-stat">
@@ -2235,21 +2692,28 @@
                   </div>
                   <div class="phase-stat">
                     <span class="phase-stat-val p3">26K+</span>
-                    <span class="phase-stat-lbl">Lines (Frontend)</span>
-                  </div>
-                  <div class="phase-stat">
-                    <span class="phase-stat-val p3">2.1K</span>
-                    <span class="phase-stat-lbl">Lines (Rust)</span>
+                    <span class="phase-stat-lbl">Lines of Code</span>
                   </div>
                   <div class="phase-stat">
                     <span class="phase-stat-val p3">374+</span>
                     <span class="phase-stat-lbl">Git Commits</span>
                   </div>
                   <div class="phase-stat">
-                    <span class="phase-stat-val p3">v0.1.9</span>
-                    <span class="phase-stat-lbl">Current Ver</span>
+                    <span class="phase-stat-val p3">v0.1.11</span>
+                    <span class="phase-stat-lbl">Current Release</span>
                   </div>
                 </div>
+                <details class="tech-drawer">
+                  <summary>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    Technical details
+                  </summary>
+                  <div class="drawer-content">
+                    <span style="font-size:0.78rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">
+                      Frontend: Vue 3 + Pinia 3 + Vite 7 + TypeScript + Monaco Editor + GSAP + TipTap. Backend: Rust via Tauri 2, AES-256-GCM encrypted SQLite, HMAC-SHA256 score signing, Ed25519 content verification. Testing: Vitest + Playwright. 2.1K lines of Rust, 26K+ lines of frontend code.
+                    </span>
+                  </div>
+                </details>
               </div>
             </div>
 
@@ -2259,7 +2723,52 @@
     </section>
 
     <!-- =============================================
-         SECTION: EXPERTISE & HIGHLIGHTS (2-col grid)
+         SECTION: AI CO-CREATION (moved up after Journey)
+         ============================================= -->
+    <section>
+      <div class="container">
+        <div class="card ai-banner">
+          <div class="ai-layout">
+            <div class="ai-visual">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2" />
+                <rect x="9" y="9" width="6" height="6" />
+                <line x1="9" y1="1" x2="9" y2="4" />
+                <line x1="15" y1="1" x2="15" y2="4" />
+                <line x1="9" y1="20" x2="9" y2="23" />
+                <line x1="15" y1="20" x2="15" y2="23" />
+                <line x1="20" y1="9" x2="23" y2="9" />
+                <line x1="20" y1="14" x2="23" y2="14" />
+                <line x1="1" y1="9" x2="4" y2="9" />
+                <line x1="1" y1="14" x2="4" y2="14" />
+              </svg>
+            </div>
+            <div class="ai-details">
+              <h2>How Was This Built? AI as a Force Multiplier</h2>
+              <p>
+                That three-stage journey was accomplished not by a software engineer, but by a
+                <strong>mechanical engineer using AI coding agents</strong>. By pairing deep domain knowledge of CNC
+                manufacturing with state-of-the-art AI tools, the entire application was designed, architected, and
+                validated — from interactive schematic viewers to encrypted score storage, from G-Code editors to
+                the recommendation engine. AI didn't replace expertise; it <strong>amplified</strong> it.
+                <strong>28,000+ lines of production-ready code</strong> shipped by a single domain-expert builder.
+              </p>
+              <div class="ai-tools">
+                <span class="ai-tool-tag">Google Gemini AI</span>
+                <span class="ai-tool-tag">Claude (Opus &amp; Sonnet)</span>
+                <span class="ai-tool-tag">ChatGPT Codex AI</span>
+                <span class="ai-tool-tag">AI Agent Engineering</span>
+                <span class="ai-tool-tag">Prompt-Driven Architecture</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         SECTION: EXPERTISE & HIGHLIGHTS (chip matrix)
          ============================================= -->
     <section id="expertise">
       <div class="container">
@@ -2350,9 +2859,10 @@
                     </svg>
                   </div>
                   <div class="card-details">
-                    <h3>CAD &amp; 3D Modeling Proficiency</h3>
+                    <h3>CAD &amp; 3D Modelling</h3>
                     <p>Extensive experience in computer-aided design from college projects through professional work —
-                      detailed 3D models, assemblies, and engineering drawings.</p>
+                      detailed 3D models, assemblies, and engineering drawings across multiple platforms.</p>
+                    <span class="detail-tag">SolidWorks</span>
                     <span class="detail-tag">AutoCAD</span>
                     <span class="detail-tag">Fusion 360</span>
                   </div>
@@ -2362,83 +2872,66 @@
             </div>
           </div>
 
-          <!-- Right: Skills -->
+          <!-- Right: Skill Chip Matrix -->
           <div>
             <div class="card" style="height: 100%;">
               <h3 class="card-section-title">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="4" y1="21" x2="4" y2="14" />
-                  <line x1="4" y1="10" x2="4" y2="3" />
-                  <line x1="12" y1="21" x2="12" y2="12" />
-                  <line x1="12" y1="8" x2="12" y2="3" />
-                  <line x1="20" y1="21" x2="20" y2="16" />
-                  <line x1="20" y1="12" x2="20" y2="3" />
-                  <line x1="1" y1="14" x2="7" y2="14" />
-                  <line x1="9" y1="8" x2="15" y2="8" />
-                  <line x1="17" y1="16" x2="23" y2="16" />
+                  <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                  <polyline points="2 17 12 22 22 17" />
+                  <polyline points="2 12 12 17 22 12" />
                 </svg>
-                Core Expertise
+                Skills &amp; Tools
               </h3>
 
-              <div class="skills-container">
-                <div class="skill-bar-wrapper">
-                  <div class="skill-info"><span class="skill-name">CNC Programming &amp; Machining</span><span
-                      class="skill-level">Expert</span></div>
-                  <div class="skill-track">
-                    <div class="skill-fill" style="--fill-width: 95%;"></div>
-                  </div>
-                </div>
-                <div class="skill-bar-wrapper">
-                  <div class="skill-info"><span class="skill-name">CAD / CAM Engineering</span><span
-                      class="skill-level">Expert</span></div>
-                  <div class="skill-track">
-                    <div class="skill-fill" style="--fill-width: 90%;"></div>
-                  </div>
-                </div>
-                <div class="skill-bar-wrapper">
-                  <div class="skill-info"><span class="skill-name">Computer Programming (Python)</span><span
-                      class="skill-level">Advanced</span></div>
-                  <div class="skill-track">
-                    <div class="skill-fill" style="--fill-width: 85%;"></div>
-                  </div>
-                </div>
-                <div class="skill-bar-wrapper">
-                  <div class="skill-info"><span class="skill-name">AI-Assisted App Development</span><span
-                      class="skill-level">Advanced</span></div>
-                  <div class="skill-track">
-                    <div class="skill-fill" style="--fill-width: 85%;"></div>
-                  </div>
-                </div>
-                <div class="skill-bar-wrapper">
-                  <div class="skill-info"><span class="skill-name">3D Printing (Additive Mfg.)</span><span
-                      class="skill-level">Proficient</span></div>
-                  <div class="skill-track">
-                    <div class="skill-fill" style="--fill-width: 80%;"></div>
-                  </div>
-                </div>
-                <div class="skill-bar-wrapper">
-                  <div class="skill-info"><span class="skill-name">Aerodynamics &amp; UAV Design</span><span
-                      class="skill-level">Proficient</span></div>
-                  <div class="skill-track">
-                    <div class="skill-fill" style="--fill-width: 75%;"></div>
-                  </div>
+              <div class="chip-tier-legend">
+                <div class="legend-item"><span class="legend-dot core"></span> Core / Daily use</div>
+                <div class="legend-item"><span class="legend-dot working"></span> Working knowledge</div>
+                <div class="legend-item"><span class="legend-dot exploring"></span> Exploring</div>
+              </div>
+
+              <div class="chip-group">
+                <div class="chip-group-label">Design &amp; Modelling</div>
+                <div class="chip-row">
+                  <span class="chip tier-core">SolidWorks</span>
+                  <span class="chip tier-core">AutoCAD</span>
+                  <span class="chip tier-core">Fusion 360</span>
+                  <span class="chip tier-working">CAD/CAM Engineering</span>
+                  <span class="chip tier-working">3D Modelling</span>
                 </div>
               </div>
 
-              <div class="skill-tags">
-                <span class="skill-tag">G-Code / M-Code</span>
-                <span class="skill-tag">AutoCAD</span>
-                <span class="skill-tag">Fusion 360</span>
-                <span class="skill-tag">Siemens Sinumerik</span>
-                <span class="skill-tag">Python (NumPy/Matplotlib)</span>
-                <span class="skill-tag">Rust / Tauri</span>
-                <span class="skill-tag">Vue.js / TypeScript</span>
-                <span class="skill-tag">AI Agent Engineering</span>
-                <span class="skill-tag">Curriculum Design</span>
-                <span class="skill-tag">3D Slicing</span>
-                <span class="skill-tag">Aerodynamics</span>
+              <div class="chip-group">
+                <div class="chip-group-label">Manufacturing</div>
+                <div class="chip-row">
+                  <span class="chip tier-core">CNC Programming</span>
+                  <span class="chip tier-core">G-Code / M-Code</span>
+                  <span class="chip tier-core">Siemens Sinumerik 840D SL</span>
+                  <span class="chip tier-working">3D Printing</span>
+                  <span class="chip tier-exploring">3D Slicing</span>
+                </div>
               </div>
+
+              <div class="chip-group">
+                <div class="chip-group-label">Software</div>
+                <div class="chip-row">
+                  <span class="chip tier-core">Python</span>
+                  <span class="chip tier-working">Rust / Tauri</span>
+                  <span class="chip tier-working">Vue.js / TypeScript</span>
+                  <span class="chip tier-exploring">AI Agent Engineering</span>
+                </div>
+              </div>
+
+              <div class="chip-group">
+                <div class="chip-group-label">Research &amp; Education</div>
+                <div class="chip-row">
+                  <span class="chip tier-core">Technical Paper Authoring</span>
+                  <span class="chip tier-core">Curriculum Design</span>
+                  <span class="chip tier-working">Aerodynamics / UAV</span>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -2453,9 +2946,8 @@
       <div class="container">
         <div class="section-header">
           <div class="section-tag">Development Log</div>
-          <h2>Commit Journey &amp; Key Milestones</h2>
-          <p>A private repository — commit data extracted at build time and bundled into the binary for full
-            transparency.</p>
+          <h2>Key Milestones</h2>
+          <p>The major moments that shaped this application — in plain language.</p>
         </div>
 
         <div class="card">
@@ -2469,122 +2961,161 @@
               <div class="git-stat-lbl">Lines of Code</div>
             </div>
             <div class="git-stat-card">
-              <div class="git-stat-val">AES-256</div>
-              <div class="git-stat-lbl">Encryption</div>
+              <div class="git-stat-val">Encrypted</div>
+              <div class="git-stat-lbl">Student Records</div>
             </div>
             <div class="git-stat-card">
-              <div class="git-stat-val">v0.1.9</div>
+              <div class="git-stat-val">v0.1.11</div>
               <div class="git-stat-lbl">Current Release</div>
             </div>
           </div>
 
-          <div class="terminal-window">
-            <div class="terminal-header">
-              <div class="terminal-dots">
-                <div class="dot"></div>
-                <div class="dot yellow"></div>
-                <div class="dot green"></div>
+          <!-- Macro timeline -->
+          <div class="macro-timeline">
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">May 2026</div>
+                <div class="macro-text">Started building the app from <span class="highlight">scratch</span></div>
               </div>
-              <div class="terminal-title">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="4 17 10 11 4 5" />
-                  <line x1="12" y1="19" x2="20" y2="19" />
-                </svg>
-                dev@git-log: vishvesh098/cnc-vue-tauri
-              </div>
-              <div></div>
             </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">May 2026</div>
+                <div class="macro-text">Added secure, <span class="highlight">encrypted student score storage</span></div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">May 2026</div>
+                <div class="macro-text">Built the interactive <span class="highlight">CNC schematic viewer</span> and <span class="highlight">G-Code editor</span></div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">May 2026</div>
+                <div class="macro-text">Made the whole app work <span class="highlight">fully offline</span> — no internet required</div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">May – Jun 2026</div>
+                <div class="macro-text">Added the <span class="highlight">infinite unique-problem practice system</span></div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">Jun 2026</div>
+                <div class="macro-text">Packaged for the <span class="highlight">Microsoft Store</span> (v0.1.11)</div>
+              </div>
+            </div>
+          </div>
 
-            <div class="terminal-body">
-              <div class="terminal-welcome">
-                $ git log --date=short --pretty=format:"%h - %ad : %s" -n 15<br>
-                Showing latest development milestones:
+          <!-- Collapsible raw commit history -->
+          <div class="collapsible-toggle" id="commit-toggle" onclick="toggleCommits()">
+            <span>View raw commit history</span>
+            <svg class="toggle-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="collapsible-body" id="commit-body">
+            <div class="terminal-window" style="margin-top: 0.75rem;">
+              <div class="terminal-header">
+                <div class="terminal-dots">
+                  <div class="dot"></div>
+                  <div class="dot yellow"></div>
+                  <div class="dot green"></div>
+                </div>
+                <div class="terminal-title">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="4 17 10 11 4 5" />
+                    <line x1="12" y1="19" x2="20" y2="19" />
+                  </svg>
+                  git-log: latest milestones
+                </div>
+                <div></div>
               </div>
 
-              <div class="terminal-row">
-                <span class="commit-hash">5694738</span>
-                <span class="commit-date">2026-06-05</span>
-                <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>initialize project structure with
-                  MSIX installation and cross-file version synchronization</div>
-              </div>
-              <div class="terminal-row">
-                <span class="commit-hash">03f57a7</span>
-                <span class="commit-date">2026-06-05</span>
-                <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement automatic database
-                  seeding and legacy image migration via SeedManager</div>
-              </div>
-              <div class="terminal-row">
-                <span class="commit-hash">4fe30c6</span>
-                <span class="commit-date">2026-06-04</span>
-                <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add PowerShell script to automate
-                  MSIX packaging for Tauri application</div>
-              </div>
-              <div class="terminal-row">
-                <span class="commit-hash">b751bfa</span>
-                <span class="commit-date">2026-06-01</span>
-                <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement AES-256-GCM content
-                  encryption, key derivation, and build-time security hardening</div>
-              </div>
-              <div class="terminal-row">
-                <span class="commit-hash">af910b0</span>
-                <span class="commit-date">2026-06-01</span>
-                <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement comprehensive component
-                  and store test suite with supporting utility modules</div>
-              </div>
-              <div class="terminal-row">
-                <span class="commit-hash">e0d995d</span>
-                <span class="commit-date">2026-05-31</span>
-                <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement SurveyDashboardView with
-                  data visualization, scroll management, and carousel</div>
-              </div>
-              <div class="terminal-row">
-                <span class="commit-hash">b170dda</span>
-                <span class="commit-date">2026-05-31</span>
-                <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add animated SplashScreen component
-                  with GSAP transition sequence</div>
-              </div>
-              <div class="terminal-row">
-                <span class="commit-hash">81847f1</span>
-                <span class="commit-date">2026-05-29</span>
-                <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement comprehensive testing
-                  suite, coverage auditing, and security infrastructure</div>
-              </div>
-              <div class="terminal-row">
-                <span class="commit-hash">46f5f2d</span>
-                <span class="commit-date">2026-05-28</span>
-                <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>scaffold new
-                  interactive-glass-schematic project with Tauri and admin dashboard</div>
-              </div>
-              <div class="terminal-row">
-                <span class="commit-hash">7ecf2bd</span>
-                <span class="commit-date">2026-05-28</span>
-                <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement encrypted content loading
-                  and obfuscated passphrase management in Tauri backend</div>
-              </div>
-              <div class="terminal-row">
-                <span class="commit-hash">09df8d4</span>
-                <span class="commit-date">2026-05-24</span>
-                <div class="commit-msg"><span class="commit-tag tag-fix">fix</span>remove debug UI and improve scroll
-                  behavior in timeline</div>
-              </div>
-              <div class="terminal-row">
-                <span class="commit-hash">e569148</span>
-                <span class="commit-date">2026-05-23</span>
-                <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>animate particle color transitions
-                  along journey path in timeline</div>
-              </div>
-              <div class="terminal-row">
-                <span class="commit-hash">10fec7d</span>
-                <span class="commit-date">2026-05-20</span>
-                <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add core application layout,
-                  loading indicators, global state management, and dashboard</div>
-              </div>
-              <div class="terminal-row">
-                <span class="commit-hash">1024da7</span>
-                <span class="commit-date">2026-05-18</span>
-                <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement Tauri bridge for secure
-                  storage, content protection, and robust scoring/validation</div>
+              <div class="terminal-body">
+                <div class="terminal-welcome">
+                  $ git log --oneline -14<br>
+                  Showing latest development milestones:
+                </div>
+
+                <div class="terminal-row">
+                  <span class="commit-hash">5694738</span>
+                  <span class="commit-date">2026-06-05</span>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>initialize project structure with MSIX installation and cross-file version synchronization</div>
+                </div>
+                <div class="terminal-row">
+                  <span class="commit-hash">03f57a7</span>
+                  <span class="commit-date">2026-06-05</span>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement automatic database seeding and legacy image migration via SeedManager</div>
+                </div>
+                <div class="terminal-row">
+                  <span class="commit-hash">4fe30c6</span>
+                  <span class="commit-date">2026-06-04</span>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add PowerShell script to automate MSIX packaging for Tauri application</div>
+                </div>
+                <div class="terminal-row">
+                  <span class="commit-hash">b751bfa</span>
+                  <span class="commit-date">2026-06-01</span>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement AES-256-GCM content encryption, key derivation, and build-time security hardening</div>
+                </div>
+                <div class="terminal-row">
+                  <span class="commit-hash">af910b0</span>
+                  <span class="commit-date">2026-06-01</span>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement comprehensive component and store test suite with supporting utility modules</div>
+                </div>
+                <div class="terminal-row">
+                  <span class="commit-hash">e0d995d</span>
+                  <span class="commit-date">2026-05-31</span>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement SurveyDashboardView with data visualization, scroll management, and carousel</div>
+                </div>
+                <div class="terminal-row">
+                  <span class="commit-hash">b170dda</span>
+                  <span class="commit-date">2026-05-31</span>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add animated SplashScreen component with GSAP transition sequence</div>
+                </div>
+                <div class="terminal-row">
+                  <span class="commit-hash">81847f1</span>
+                  <span class="commit-date">2026-05-29</span>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement comprehensive testing suite, coverage auditing, and security infrastructure</div>
+                </div>
+                <div class="terminal-row">
+                  <span class="commit-hash">46f5f2d</span>
+                  <span class="commit-date">2026-05-28</span>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>scaffold new interactive-glass-schematic project with Tauri and admin dashboard</div>
+                </div>
+                <div class="terminal-row">
+                  <span class="commit-hash">7ecf2bd</span>
+                  <span class="commit-date">2026-05-28</span>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement encrypted content loading and obfuscated passphrase management in Tauri backend</div>
+                </div>
+                <div class="terminal-row">
+                  <span class="commit-hash">09df8d4</span>
+                  <span class="commit-date">2026-05-24</span>
+                  <div class="commit-msg"><span class="commit-tag tag-fix">fix</span>remove debug UI and improve scroll behavior in timeline</div>
+                </div>
+                <div class="terminal-row">
+                  <span class="commit-hash">e569148</span>
+                  <span class="commit-date">2026-05-23</span>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>animate particle color transitions along journey path in timeline</div>
+                </div>
+                <div class="terminal-row">
+                  <span class="commit-hash">10fec7d</span>
+                  <span class="commit-date">2026-05-20</span>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add core application layout, loading indicators, global state management, and dashboard</div>
+                </div>
+                <div class="terminal-row">
+                  <span class="commit-hash">1024da7</span>
+                  <span class="commit-date">2026-05-18</span>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement Tauri bridge for secure storage, content protection, and robust scoring/validation</div>
+                </div>
               </div>
             </div>
           </div>
@@ -2593,161 +3124,239 @@
     </section>
 
     <!-- =============================================
-         SECTION: RESEARCH & PUBLICATIONS
+         SECTION: RESEARCH & PUBLICATIONS (expanded accordion)
          ============================================= -->
     <section id="research">
       <div class="container">
         <div class="section-header">
           <div class="section-tag">Academic Work</div>
           <h2>Research &amp; Publications</h2>
-          <p>9 peer-reviewed papers spanning CNC technology, additive manufacturing, 2D mathematical curves, and UAV
-            structural design.</p>
+          <p>9 peer-reviewed papers spanning CNC technology, additive manufacturing, 2D mathematical curves, and UAV structural design.</p>
         </div>
 
         <div class="card">
-          <div class="publications-grid">
+          <!-- Summary stats -->
+          <div class="pub-stats-strip">
+            <div class="pub-stat-chip"><span>9</span> Papers</div>
+            <div class="pub-stat-chip"><span>7</span> IIRATI Awards</div>
+            <div class="pub-stat-chip"><span>2</span> Journals</div>
+          </div>
 
-            <!-- CNC 6-Part Series (collapsible) -->
-            <div class="series-card" id="cnc-series">
-              <div class="series-header" onclick="toggleSeries()">
-                <div class="series-header-left">
+          <div class="pub-accordion">
+
+            <!-- ── CNC 6-Part Series (collapsible parent) ── -->
+            <div class="accordion-item">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-header-left">
                   <span class="pub-category">CNC Technology</span>
                   <span class="series-count">6-Part Series</span>
-                  <h3>Manual G-Code Development with Parametric Toolpaths on Siemens Sinumerik 840D SL</h3>
+                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.3;margin:0;">Manual G-Code Development with Parametric Toolpaths on Siemens Sinumerik 840D SL</h3>
                 </div>
-                <svg id="series-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                  stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  style="flex-shrink:0;transition:transform 0.3s;">
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
+                <div class="award-badge" style="margin:0;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                    <path d="M4 22h16" /><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                  </svg>
+                  7 IIRATI Awards
+                </div>
+                <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-
-              <div class="award-badge">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-                  <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-                  <path d="M4 22h16" />
-                  <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
-                  <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
-                  <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-                </svg>
-                7 IIRATI Awards
-              </div>
-
-              <div class="series-body" id="series-body">
-                <ul class="series-list">
-                  <li>
-                    <span class="part-num">P1</span>
-                    <span>Manual G-Code Development for Machining a <strong>Hemispherical Boss</strong> Using Flat and
-                      Ball Nose Endmills with Parametric Toolpaths</span>
-                  </li>
-                  <li>
-                    <span class="part-num">P2</span>
-                    <span>Manual G-Code Development for Machining a <strong>Hemispherical Cavity</strong> Using Flat and
-                      Ball Nose Endmills with Parametric Toolpaths</span>
-                  </li>
-                  <li>
-                    <span class="part-num">P3</span>
-                    <span>Manual G-Code Development for Machining a <strong>Solid Toroidal Boss and Cavity</strong>
-                      Using Flat and Ball Nose Endmills with Parametric Toolpaths</span>
-                  </li>
-                  <li>
-                    <span class="part-num">P4</span>
-                    <span>Manual G-Code Development for Machining a <strong>Toroidal Boss and Cavity</strong> Using Flat
-                      and Ball Nose Endmills with Parametric Toolpaths</span>
-                  </li>
-                  <li>
-                    <span class="part-num">P5</span>
-                    <span>Manual G-Code Development for Machining an <strong>Elliptical Boss and Cavity</strong> Using
-                      Flat and Ball Nose Endmills with Parametric Toolpaths</span>
-                  </li>
-                  <li>
-                    <span class="part-num">P6</span>
-                    <span>Manual G-Code Development for Machining a <strong>Parabolic Boss and Cavity</strong> Using
-                      Flat and Ball Nose Endmills with Parametric Toolpaths</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="pub-meta" style="margin-top: 1rem;">
-                <span class="pub-journal">IRJMETS — International Research Journal of Modernization in Engineering
-                  Technology and Science</span>
-                <span>Lead Author</span>
+              <div class="accordion-body">
+                <div class="accordion-inner">
+                  <div style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;">
+                    <strong>IRJMETS</strong> — International Research Journal of Modernization in Engineering Technology and Science<br>
+                    Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot; Impact Factor: 8.187<br>
+                    <strong>Sole Author</strong> — Supervisor Instructor, Mechanical Group, ITI Jamnagar, Gujarat, India
+                  </div>
+                  <ul class="sub-list">
+                    <li class="sub-item">
+                      <span class="part-badge">P1</span>
+                      <div class="sub-item-content">
+                        <div class="sub-item-title">Part 1: Manual G-Code Development for Machining a <strong>Hemispherical Boss</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                        <div class="sub-item-meta">
+                          <span>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                            Published Jul 19, 2025
+                          </span>
+                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                            IIR-26-VID-EUFHZUJE
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="sub-item">
+                      <span class="part-badge">P2</span>
+                      <div class="sub-item-content">
+                        <div class="sub-item-title">Part 2: Manual G-Code Development for Machining a <strong>Hemispherical Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                        <div class="sub-item-meta">
+                          <span>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                            Published Jul 21, 2025
+                          </span>
+                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                            IIR-26-VID-PJLNOVZN
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="sub-item">
+                      <span class="part-badge">P3</span>
+                      <div class="sub-item-content">
+                        <div class="sub-item-title">Part 3: Manual G-Code Development for Machining a <strong>Solid Toroidal Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                        <div class="sub-item-meta">
+                          <span>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                            Published Jul 24, 2025
+                          </span>
+                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                            IIR-26-VID-9KW9M59M
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="sub-item">
+                      <span class="part-badge">P4</span>
+                      <div class="sub-item-content">
+                        <div class="sub-item-title">Part 4: Manual G-Code Development for Machining a <strong>Toroidal Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                        <div class="sub-item-meta">
+                          <span>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                            Published Jul 24, 2025
+                          </span>
+                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                            IIR-26-VID-TCRQYFM3
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="sub-item">
+                      <span class="part-badge">P5</span>
+                      <div class="sub-item-content">
+                        <div class="sub-item-title">Part 5: Manual G-Code Development for Machining an <strong>Elliptical Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                        <div class="sub-item-meta">
+                          <span>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                            Published Jul 29, 2025
+                          </span>
+                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                            IIR-26-VID-R4QOSSPY
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="sub-item">
+                      <span class="part-badge">P6</span>
+                      <div class="sub-item-content">
+                        <div class="sub-item-title">Part 6: Manual G-Code Development for Machining a <strong>Parabolic Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                        <div class="sub-item-meta">
+                          <span>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                            Published Jul 29, 2025
+                          </span>
+                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                            IIR-26-VID-PXOA7BHJ
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
 
-            <!-- Curves Paper -->
-            <div class="pub-card curves">
-              <div class="pub-icon-wrapper">
-                <span class="pub-category">CNC / Mathematics</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-violet)"
-                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 3 9 15" />
-                  <path d="M12 3H3v18h18v-9" />
-                  <path d="m16 3 5 5" />
-                </svg>
+            <!-- ── Curves Paper ── -->
+            <div class="accordion-item">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-header-left">
+                  <span class="pub-category" style="color:var(--accent-violet);background:rgba(139,92,246,0.08);">CNC / Mathematics</span>
+                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.3;margin:0;">Programming and Implementation of 2D Mathematical Curves with Validation on Siemens Sinumerik 840D SL CNC Control System</h3>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 9 15"/><path d="M12 3H3v18h18v-9"/><path d="m16 3 5 5"/></svg>
+                </div>
+                <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <h3>Programming and Implementation of 2D Mathematical Curves with Validation on Siemens Sinumerik 840D SL
-                CNC Control System</h3>
-              <p class="pub-desc">Explores the implementation of parametric 2D curve equations as G-Code toolpaths,
-                validating mathematical precision on an industrial CNC controller.</p>
-              <div class="award-badge">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-                  <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-                  <path d="M4 22h16" />
-                  <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
-                  <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
-                  <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-                </svg>
-                IIRATI Award
-              </div>
-              <div class="pub-meta">
-                <span class="pub-journal">IRJMETS</span>
-                <span>Lead Author</span>
+              <div class="accordion-body">
+                <div class="accordion-inner">
+                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.4;margin-bottom:0.6rem;">Programming and Implementation of 2D Mathematical Curves with Validation on Siemens Sinumerik 840D SL CNC Control System</h3>
+                  <div class="pub-detail">
+                    <div class="pub-detail-desc">
+                      Explores generating ISO-compliant G-code from mathematical equations — including Ellipse, Parabola, Hyperbola, B&eacute;zier, and Trochoid curves — without commercial CAM software. Validates the generated toolpaths on a Siemens Sinumerik 840D SL controller.
+                    </div>
+                    <div class="pub-detail-meta">
+                      <div><strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in Engineering Technology and Science</div>
+                      <div><strong>Volume:</strong> Vol. 07, Issue 06, June 2025 &middot; e-ISSN: 2582-5208 &middot; IF: 8.187</div>
+                      <div><strong>Role:</strong> Sole Author</div>
+                      <div class="award-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                        IIRATI VIDYA Award — IIR-26-VID-G99FBS1C (Published Jun 06, 2025)
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- 3D Printing Paper -->
-            <div class="pub-card printing">
-              <div class="pub-icon-wrapper">
-                <span class="pub-category">Additive Manufacturing</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="12 2 2 7 12 12 22 7 12 2" />
-                  <polyline points="2 17 12 22 22 17" />
-                  <polyline points="2 12 12 17 22 12" />
-                </svg>
+            <!-- ── Additive Manufacturing Paper ── -->
+            <div class="accordion-item">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-header-left">
+                  <span class="pub-category" style="color:var(--accent-cyan);background:rgba(6,182,212,0.08);">Additive Manufacturing</span>
+                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.3;margin:0;">Additive Manufacturing in Aerospace: Revolutionizing Design and Production with 3D Printing at a Glance</h3>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                </div>
+                <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <h3>Additive Manufacturing in Aerospace: Revolutionizing Design and Production with 3D Printing at a
-                Glance</h3>
-              <p class="pub-desc">A comprehensive overview of additive manufacturing applications in aerospace —
-                covering design optimization, material advances, and production workflows.</p>
-              <div class="pub-meta">
-                <span class="pub-journal">IRJMETS</span>
-                <span>Lead Author</span>
+              <div class="accordion-body">
+                <div class="accordion-inner">
+                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.4;margin-bottom:0.6rem;">Additive Manufacturing in Aerospace: Revolutionizing Design and Production with 3D Printing at a Glance</h3>
+                  <div class="pub-detail">
+                    <div class="pub-detail-desc">
+                      A comprehensive review of additive manufacturing applications in aerospace — covering design optimisation, material advances, and production workflows, with a focus on case studies from Indian industry.
+                    </div>
+                    <div class="pub-detail-meta">
+                      <div><strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in Engineering Technology and Science</div>
+                      <div><strong>Volume:</strong> Vol. 07, Issue 06, June 2025 &middot; e-ISSN: 2582-5208 &middot; IF: 8.187</div>
+                      <div><strong>Role:</strong> Sole Author</div>
+                      <div><strong>DOI:</strong> <span class="doi-link">10.56726/IRJMETS79165</span></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- UAV Paper -->
-            <div class="pub-card uav">
-              <div class="pub-icon-wrapper">
-                <span class="pub-category">UAV Design</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)"
-                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path
-                    d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
-                </svg>
+            <!-- ── UAV Paper ── -->
+            <div class="accordion-item">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-header-left">
+                  <span class="pub-category" style="color:var(--accent-emerald);background:rgba(16,185,129,0.08);">UAV Design</span>
+                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.3;margin:0;">Proposed Design of Self-Propelled Aerial Vehicle</h3>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+                </div>
+                <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
               </div>
-              <h3>Proposed Design of Self-Propelled Aerial Vehicle</h3>
-              <p class="pub-desc">Presents a structural design concept for a self-propelled aerial vehicle, covering
-                aerodynamic profile calculations, frame design, and propulsion system integration.</p>
-              <div class="pub-meta">
-                <span class="pub-journal">IJAERD — International Journal of Advance Engineering and Research
-                  Development</span>
-                <span>Lead Author</span>
+              <div class="accordion-body">
+                <div class="accordion-inner">
+                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.4;margin-bottom:0.6rem;">Proposed Design of Self-Propelled Aerial Vehicle</h3>
+                  <div class="pub-detail">
+                    <div class="pub-detail-desc">
+                      Presents a structural design concept for a self-propelled aerial vehicle (UAV), covering aerodynamic profile calculations, frame design, and propulsion system integration. Focuses on achieving an aerodynamically efficient seamless-joint airframe.
+                    </div>
+                    <div class="pub-detail-meta">
+                      <div><strong>Journal:</strong> IJAERD — International Journal of Advance Engineering and Research Development</div>
+                      <div><strong>Volume:</strong> Vol. 1, Issue 5, May 2014 &middot; e-ISSN: 2348-4470, print-ISSN: 2348-6406</div>
+                      <div><strong>Role:</strong> Co-Author (student project)</div>
+                      <div><strong>Authors:</strong> Asst. Prof. B.J. Saradava, Vishvesh J. Upadhyay, Raj Dadhania, Mayur Gosai</div>
+                      <div><strong>Affiliation:</strong> Mechanical Engineering Department, Atmiya Institute of Technology and Science, Rajkot, Gujarat</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -2756,54 +3365,7 @@
       </div>
     </section>
 
-    <!-- =============================================
-         SECTION: AI CO-CREATION
-         ============================================= -->
-    <section>
-      <div class="container">
-        <div class="card ai-banner">
-          <div class="ai-layout">
-            <div class="ai-visual">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <rect x="4" y="4" width="16" height="16" rx="2" />
-                <rect x="9" y="9" width="6" height="6" />
-                <line x1="9" y1="1" x2="9" y2="4" />
-                <line x1="15" y1="1" x2="15" y2="4" />
-                <line x1="9" y1="20" x2="9" y2="23" />
-                <line x1="15" y1="20" x2="15" y2="23" />
-                <line x1="20" y1="9" x2="23" y2="9" />
-                <line x1="20" y1="14" x2="23" y2="14" />
-                <line x1="1" y1="9" x2="4" y2="9" />
-                <line x1="1" y1="14" x2="4" y2="14" />
-              </svg>
-            </div>
-            <div class="ai-details">
-              <h2>AI Co-Creation Philosophy</h2>
-              <p>
-                This platform represents a modern paradigm: <strong>domain expertise × AI coding agents =
-                  production-grade software</strong>. By pairing my mechanical engineering knowledge with
-                state-of-the-art AI tools, we designed, architected, and validated this entire CNC learning suite — from
-                CAD parsing algorithms to full-stack G-Code validators, from encrypted storage to interactive SVG
-                schematics. AI is a massive force multiplier for domain-expert builders: <strong>28,000+ lines of
-                  production code</strong> shipped by a mechanical engineer.
-              </p>
-              <div class="ai-tools">
-                <span class="ai-tool-tag">Google Gemini AI</span>
-                <span class="ai-tool-tag">Claude Opus and Sonnet AI</span>
-                <span class="ai-tool-tag">Chatgpt Codex AI</span>
-                <span class="ai-tool-tag">AI Agent Engineering</span>
-                <span class="ai-tool-tag">Prompt-Driven Architecture</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =============================================
-         CONTACT
-         ============================================= -->
+    <!-- CONTACT (AI section now lives above Expertise) -->
     <section id="contact" class="contact-section">
 
       <div class="container">
@@ -2855,7 +3417,7 @@
     <!-- Footer -->
     <footer>
       <div class="container">
-        Built with ❤️ by Vishvesh Upadhyay · CNC Interactive Learning v0.1.9
+        Built with ❤️ by Vishvesh Upadhyay · CNC Interactive Learning v0.1.11
       </div>
     </footer>
 
@@ -2916,12 +3478,22 @@
       }
     });
 
-    // Toggle CNC Paper Series
-    function toggleSeries() {
-      const body = document.getElementById('series-body');
-      const toggle = document.getElementById('series-toggle');
+    // Toggle publication accordion items
+    function toggleAccordion(headerEl) {
+      const body = headerEl.nextElementSibling;
+      const chevron = headerEl.querySelector('.accordion-chevron');
+      if (!body || !chevron) return;
       body.classList.toggle('open');
-      toggle.style.transform = body.classList.contains('open') ? 'rotate(180deg)' : '';
+      chevron.classList.toggle('open');
+    }
+
+    // Toggle raw commit history (dev log)
+    function toggleCommits() {
+      const toggle = document.getElementById('commit-toggle');
+      const body = document.getElementById('commit-body');
+      if (!toggle || !body) return;
+      toggle.classList.toggle('open');
+      body.classList.toggle('open');
     }
   </script>
 
