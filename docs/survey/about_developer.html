@@ -2291,6 +2291,24 @@
     .collapsible-body.open {
       max-height: 1200px;
     }
+
+    /* ============================================
+       IN-PAGE NAV — scroll offset + active state
+       ============================================ */
+    section[id] {
+      scroll-margin-top: 80px;
+    }
+
+    .nav-links a.active {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-links a.connect-btn-nav.active {
+      background: rgba(6, 182, 212, 0.16);
+      border-color: var(--accent-cyan);
+      color: #fff !important;
+    }
   </style>
 </head>
 
@@ -3495,6 +3513,42 @@
       toggle.classList.toggle('open');
       body.classList.toggle('open');
     }
+
+    // --- In-page navigation: smooth scroll + active link tracking ---
+    (function () {
+      const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+      const sectionIds = Array.from(navLinks)
+        .map(a => (a.getAttribute('href') || '').slice(1))
+        .filter(Boolean);
+
+      // Smooth-scroll on click
+      navLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+          const hash = (this.getAttribute('href') || '').slice(1);
+          const target = document.getElementById(hash);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, '', '#' + hash);
+          }
+        });
+      });
+
+      // Scroll spy: highlight the nav link matching the topmost visible section
+      const NAV_OFFSET = 100;
+      function updateActiveLink() {
+        let activeId = sectionIds[0];
+        for (const id of sectionIds) {
+          const el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= NAV_OFFSET) activeId = id;
+        }
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + activeId);
+        });
+      }
+      window.addEventListener('scroll', updateActiveLink, { passive: true });
+      updateActiveLink();
+    })();
   </script>
 
 </body>
