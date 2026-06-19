@@ -2309,6 +2309,45 @@
       border-color: var(--accent-cyan);
       color: #fff !important;
     }
+
+    /* Sub-accordion styles */
+    .sub-item {
+      cursor: pointer;
+      user-select: none;
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+    .sub-item-header {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      width: 100%;
+    }
+    .sub-item-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+    }
+    .sub-item-body.open {
+      max-height: 200px;
+    }
+    .sub-item-details {
+      padding-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.05);
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      padding-left: 2.2rem;
+    }
+    .sub-accordion-chevron {
+      transition: transform var(--transition-normal);
+      color: var(--text-muted);
+    }
+    .sub-accordion-chevron.open {
+      transform: rotate(180deg);
+    }
   </style>
 </head>
 
@@ -3168,7 +3207,7 @@
                 <div class="accordion-header-left">
                   <span class="pub-category">CNC Technology</span>
                   <span class="series-count">6-Part Series</span>
-                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.3;margin:0;">Manual G-Code Development with Parametric Toolpaths on Siemens Sinumerik 840D SL</h3>
+                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.3;margin:0;">Manual G-Code Development with Parametric Toolpaths on Siemens Sinumerik 840D SL (Part 1 to 6)</h3>
                 </div>
                 <div class="award-badge" style="margin:0;">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -3189,99 +3228,147 @@
                     <strong>Sole Author</strong> — Supervisor Instructor, Mechanical Group, ITI Jamnagar, Gujarat, India
                   </div>
                   <ul class="sub-list">
-                    <li class="sub-item">
-                      <span class="part-badge">P1</span>
-                      <div class="sub-item-content">
-                        <div class="sub-item-title">Part 1: Manual G-Code Development for Machining a <strong>Hemispherical Boss</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
-                        <div class="sub-item-meta">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
-                            Published Jul 19, 2025
-                          </span>
-                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-                            IIR-26-VID-EUFHZUJE
-                          </span>
+                    <li class="sub-item" onclick="toggleSubAccordion(this)">
+                      <div class="sub-item-header">
+                        <span class="part-badge">P1</span>
+                        <div class="sub-item-content">
+                          <div class="sub-item-title">Part 1: Manual G-Code Development for Machining a <strong>Hemispherical Boss</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                          <div class="sub-item-meta">
+                            <span>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                              Published Jul 19, 2025
+                            </span>
+                            <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                              IIR-26-VID-EUFHZUJE
+                            </span>
+                            <svg class="sub-accordion-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;transition:transform 0.3s;"><polyline points="6 9 12 15 18 9"/></svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sub-item-body">
+                        <div class="sub-item-details">
+                          Formulates parametric toolpaths using trigonometric and Pythagorean relationships to machine a solid hemispherical dome on a 3-axis mill. Covers step-over calculations, boundary conditions, and surface finish optimization using flat and ball-nose endmills.
                         </div>
                       </div>
                     </li>
-                    <li class="sub-item">
-                      <span class="part-badge">P2</span>
-                      <div class="sub-item-content">
-                        <div class="sub-item-title">Part 2: Manual G-Code Development for Machining a <strong>Hemispherical Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
-                        <div class="sub-item-meta">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
-                            Published Jul 21, 2025
-                          </span>
-                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-                            IIR-26-VID-PJLNOVZN
-                          </span>
+                    <li class="sub-item" onclick="toggleSubAccordion(this)">
+                      <div class="sub-item-header">
+                        <span class="part-badge">P2</span>
+                        <div class="sub-item-content">
+                          <div class="sub-item-title">Part 2: Manual G-Code Development for Machining a <strong>Hemispherical Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                          <div class="sub-item-meta">
+                            <span>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                              Published Jul 21, 2025
+                            </span>
+                            <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                              IIR-26-VID-PJLNOVZN
+                            </span>
+                            <svg class="sub-accordion-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;transition:transform 0.3s;"><polyline points="6 9 12 15 18 9"/></svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sub-item-body">
+                        <div class="sub-item-details">
+                          Applies negative-offset parametric formulas to machine a clean hemispherical pocket. Focuses on helical entry methods, pocket clearance algorithms, and tool deflection mitigation during deep cavity milling on the Sinumerik 840D SL.
                         </div>
                       </div>
                     </li>
-                    <li class="sub-item">
-                      <span class="part-badge">P3</span>
-                      <div class="sub-item-content">
-                        <div class="sub-item-title">Part 3: Manual G-Code Development for Machining a <strong>Solid Toroidal Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
-                        <div class="sub-item-meta">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
-                            Published Jul 24, 2025
-                          </span>
-                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-                            IIR-26-VID-9KW9M59M
-                          </span>
+                    <li class="sub-item" onclick="toggleSubAccordion(this)">
+                      <div class="sub-item-header">
+                        <span class="part-badge">P3</span>
+                        <div class="sub-item-content">
+                          <div class="sub-item-title">Part 3: Manual G-Code Development for Machining a <strong>Solid Toroidal Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                          <div class="sub-item-meta">
+                            <span>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                              Published Jul 24, 2025
+                            </span>
+                            <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                              IIR-26-VID-9KW9M59M
+                            </span>
+                            <svg class="sub-accordion-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;transition:transform 0.3s;"><polyline points="6 9 12 15 18 9"/></svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sub-item-body">
+                        <div class="sub-item-details">
+                          Addresses toolpath equations for a solid toroidal ring structure. Explores complex coordinate transitions between inner/outer radii, step-down intervals, and radial cutter compensation strategies to ensure dimensional accuracy.
                         </div>
                       </div>
                     </li>
-                    <li class="sub-item">
-                      <span class="part-badge">P4</span>
-                      <div class="sub-item-content">
-                        <div class="sub-item-title">Part 4: Manual G-Code Development for Machining a <strong>Toroidal Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
-                        <div class="sub-item-meta">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
-                            Published Jul 24, 2025
-                          </span>
-                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-                            IIR-26-VID-TCRQYFM3
-                          </span>
+                    <li class="sub-item" onclick="toggleSubAccordion(this)">
+                      <div class="sub-item-header">
+                        <span class="part-badge">P4</span>
+                        <div class="sub-item-content">
+                          <div class="sub-item-title">Part 4: Manual G-Code Development for Machining a <strong>Toroidal Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                          <div class="sub-item-meta">
+                            <span>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                              Published Jul 24, 2025
+                            </span>
+                            <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                              IIR-26-VID-TCRQYFM3
+                            </span>
+                            <svg class="sub-accordion-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;transition:transform 0.3s;"><polyline points="6 9 12 15 18 9"/></svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sub-item-body">
+                        <div class="sub-item-details">
+                          Presents mathematical models for a hollow toroidal channel (groove). Focuses on calculating precise contact points for ball-nose cutters along a curved path and optimizing machining speed and tool life.
                         </div>
                       </div>
                     </li>
-                    <li class="sub-item">
-                      <span class="part-badge">P5</span>
-                      <div class="sub-item-content">
-                        <div class="sub-item-title">Part 5: Manual G-Code Development for Machining an <strong>Elliptical Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
-                        <div class="sub-item-meta">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
-                            Published Jul 29, 2025
-                          </span>
-                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-                            IIR-26-VID-R4QOSSPY
-                          </span>
+                    <li class="sub-item" onclick="toggleSubAccordion(this)">
+                      <div class="sub-item-header">
+                        <span class="part-badge">P5</span>
+                        <div class="sub-item-content">
+                          <div class="sub-item-title">Part 5: Manual G-Code Development for Machining an <strong>Elliptical Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                          <div class="sub-item-meta">
+                            <span>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                              Published Jul 29, 2025
+                            </span>
+                            <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                              IIR-26-VID-R4QOSSPY
+                            </span>
+                            <svg class="sub-accordion-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;transition:transform 0.3s;"><polyline points="6 9 12 15 18 9"/></svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sub-item-body">
+                        <div class="sub-item-details">
+                          Leverages the parametric equation of an ellipse to generate dynamic toolpaths. Discusses variable feed rate calculation (to maintain constant surface speed on high-curvature edges) and radial entry methods.
                         </div>
                       </div>
                     </li>
-                    <li class="sub-item">
-                      <span class="part-badge">P6</span>
-                      <div class="sub-item-content">
-                        <div class="sub-item-title">Part 6: Manual G-Code Development for Machining a <strong>Parabolic Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
-                        <div class="sub-item-meta">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
-                            Published Jul 29, 2025
-                          </span>
-                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-                            IIR-26-VID-PXOA7BHJ
-                          </span>
+                    <li class="sub-item" onclick="toggleSubAccordion(this)">
+                      <div class="sub-item-header">
+                        <span class="part-badge">P6</span>
+                        <div class="sub-item-content">
+                          <div class="sub-item-title">Part 6: Manual G-Code Development for Machining a <strong>Parabolic Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                          <div class="sub-item-meta">
+                            <span>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                              Published Jul 29, 2025
+                            </span>
+                            <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                              IIR-26-VID-PXOA7BHJ
+                            </span>
+                            <svg class="sub-accordion-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto;transition:transform 0.3s;"><polyline points="6 9 12 15 18 9"/></svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sub-item-body">
+                        <div class="sub-item-details">
+                          Implements parabolic functions ($y^2 = 4ax$) to program curved reflectors and fluid channels. Validates the mathematical precision of high-speed contouring using Sinumerik's high-speed settings (CYCLE832).
                         </div>
                       </div>
                     </li>
@@ -3496,13 +3583,34 @@
       }
     });
 
-    // Toggle publication accordion items
+    // Toggle publication accordion items (lag-free scrollHeight method)
     function toggleAccordion(headerEl) {
       const body = headerEl.nextElementSibling;
       const chevron = headerEl.querySelector('.accordion-chevron');
       if (!body || !chevron) return;
-      body.classList.toggle('open');
-      chevron.classList.toggle('open');
+      
+      const isOpening = !body.classList.contains('open');
+      body.classList.toggle('open', isOpening);
+      chevron.classList.toggle('open', isOpening);
+      
+      if (isOpening) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        const handleTransitionEnd = (e) => {
+          if (e.propertyName === 'max-height') {
+            body.style.maxHeight = 'none';
+            body.removeEventListener('transitionend', handleTransitionEnd);
+          }
+        };
+        body.addEventListener('transitionend', handleTransitionEnd);
+      } else {
+        if (body.style.maxHeight === 'none' || !body.style.maxHeight) {
+          body.style.maxHeight = body.scrollHeight + 'px';
+          body.offsetHeight; // force reflow
+        }
+        requestAnimationFrame(() => {
+          body.style.maxHeight = '0px';
+        });
+      }
     }
 
     // Toggle raw commit history (dev log)
@@ -3510,8 +3618,38 @@
       const toggle = document.getElementById('commit-toggle');
       const body = document.getElementById('commit-body');
       if (!toggle || !body) return;
-      toggle.classList.toggle('open');
-      body.classList.toggle('open');
+      
+      const isOpening = !toggle.classList.contains('open');
+      toggle.classList.toggle('open', isOpening);
+      body.classList.toggle('open', isOpening);
+      
+      if (isOpening) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+      } else {
+        body.style.maxHeight = '0px';
+      }
+    }
+
+    // Toggle sub-accordion items (Part 1 to 6)
+    function toggleSubAccordion(itemEl) {
+      const body = itemEl.querySelector('.sub-item-body');
+      const chevron = itemEl.querySelector('.sub-accordion-chevron');
+      if (!body) return;
+      
+      const isOpening = !body.classList.contains('open');
+      body.classList.toggle('open', isOpening);
+      if (chevron) chevron.classList.toggle('open', isOpening);
+      
+      const parentAccordionBody = itemEl.closest('.accordion-body');
+      if (parentAccordionBody && parentAccordionBody.style.maxHeight !== 'none') {
+        parentAccordionBody.style.maxHeight = 'none';
+      }
+      
+      if (isOpening) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+      } else {
+        body.style.maxHeight = '0px';
+      }
     }
 
     // --- In-page navigation: smooth scroll + active link tracking ---
