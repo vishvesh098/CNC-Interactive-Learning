@@ -192,16 +192,21 @@
       from {
         transform: rotate(0deg);
       }
+
       to {
         transform: rotate(360deg);
       }
     }
 
     @keyframes clampJaws {
-      0%, 30% {
+
+      0%,
+      30% {
         transform: translateY(0);
       }
-      70%, 100% {
+
+      70%,
+      100% {
         transform: translateY(10px);
       }
     }
@@ -261,12 +266,14 @@
         gap: 12px;
         padding: 12px 16px;
       }
+
       .nav-left {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
       }
+
       .nav-links {
         display: flex !important;
         overflow-x: auto;
@@ -276,17 +283,22 @@
         gap: 4px;
         -webkit-overflow-scrolling: touch;
         width: 100%;
-        scrollbar-width: none; /* Firefox */
+        scrollbar-width: none;
+        /* Firefox */
         flex-wrap: nowrap;
       }
-      .nav-links::-webkit-scrollbar { 
-        display: none; /* Chrome/Safari */
+
+      .nav-links::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
       }
+
       .nav-links a {
         flex-shrink: 0;
         padding: 6px 10px;
         font-size: 0.75rem;
       }
+
       .nav-actions {
         display: flex;
         align-items: center;
@@ -1922,9 +1934,9 @@
       bottom: 0;
       width: 2px;
       background: linear-gradient(to bottom,
-        var(--accent-blue) 0%,
-        var(--accent-violet) 50%,
-        var(--accent-emerald) 100%);
+          var(--accent-blue) 0%,
+          var(--accent-violet) 50%,
+          var(--accent-emerald) 100%);
       border-radius: 2px;
       z-index: 0;
     }
@@ -2381,9 +2393,11 @@
       <div class="container nav-inner">
         <div class="nav-left">
           <a href="#" class="nav-logo" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">
-            <svg class="animated-chuck" width="28" height="28" viewBox="-60 -60 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="animated-chuck" width="28" height="28" viewBox="-60 -60 120 120" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <radialGradient id="chuck-body-grad" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="scale(55)">
+                <radialGradient id="chuck-body-grad" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                  gradientTransform="scale(55)">
                   <stop offset="0.7" stop-color="#1e293b" />
                   <stop offset="1" stop-color="#475569" />
                 </radialGradient>
@@ -2395,13 +2409,16 @@
                 <!-- Jaws -->
                 <g class="jaws-group">
                   <g transform="rotate(0)">
-                    <path class="jaw-piece" d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z" fill="#fb923c" stroke="none" />
+                    <path class="jaw-piece" d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z"
+                      fill="#fb923c" stroke="none" />
                   </g>
                   <g transform="rotate(120)">
-                    <path class="jaw-piece" d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z" fill="#fb923c" stroke="none" />
+                    <path class="jaw-piece" d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z"
+                      fill="#fb923c" stroke="none" />
                   </g>
                   <g transform="rotate(240)">
-                    <path class="jaw-piece" d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z" fill="#fb923c" stroke="none" />
+                    <path class="jaw-piece" d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z"
+                      fill="#fb923c" stroke="none" />
                   </g>
                 </g>
               </g>
@@ -2418,7 +2435,8 @@
           <a href="#research">Research</a>
           <a href="#contact" class="connect-btn-nav">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-              stroke-linecap="round" stroke-linejoin="round" style="margin-right: 2px; display: inline-block; vertical-align: middle; transform: translateY(-0.5px);">
+              stroke-linecap="round" stroke-linejoin="round"
+              style="margin-right: 2px; display: inline-block; vertical-align: middle; transform: translateY(-0.5px);">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
               <polyline points="22,6 12,13 2,6" />
             </svg>
@@ -2427,17 +2445,19 @@
         </div>
 
         <div class="nav-actions">
-          <a href="#" id="back-btn" class="back-btn" onclick="if (window.parent) { window.parent.postMessage({ type: 'back_to_dashboard' }, '*'); } else { alert('Back to Dashboard'); }">
-            <svg id="back-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-              stroke-linecap="round" stroke-linejoin="round">
+          <a href="#" id="back-btn" class="back-btn"
+            onclick="if (window.parent) { window.parent.postMessage({ type: 'back_to_dashboard' }, '*'); } else { alert('Back to Dashboard'); }">
+            <svg id="back-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <line x1="19" y1="12" x2="5" y2="12"></line>
               <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
             <span id="back-text">Back</span>
           </a>
           <a href="#" id="fullscreen-toggle-btn" class="back-btn" onclick="toggleFullscreenState(event)">
-            <svg id="fullscreen-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            <svg id="fullscreen-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
             </svg>
             <span id="fullscreen-text">Maximize</span>
           </a>
@@ -2532,9 +2552,9 @@
             <div class="stat-sub">7 IIRATI Awards</div>
           </div>
           <div class="hero-stat">
-                <div class="stat-number violet">v0.1.11</div>
-                <div class="stat-label">Current Release</div>
-                <div class="stat-sub">Encrypted &amp; Secure</div>
+            <div class="stat-number violet">v0.1.11</div>
+            <div class="stat-label">Current Release</div>
+            <div class="stat-sub">Encrypted &amp; Secure</div>
           </div>
         </div>
       </div>
@@ -2548,7 +2568,8 @@
         <div class="section-header">
           <div class="section-tag">App Evolution</div>
           <h2>The Journey — How This App Came to Life</h2>
-          <p>From a simple idea on a laptop to a full desktop application used in classrooms — the story in three stages.</p>
+          <p>From a simple idea on a laptop to a full desktop application used in classrooms — the story in three
+            stages.</p>
         </div>
 
         <div class="card">
@@ -2612,12 +2633,17 @@
                 </div>
                 <details class="tech-drawer">
                   <summary>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
                     Technical details
                   </summary>
                   <div class="drawer-content">
                     <span style="font-size:0.78rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">
-                      Geometry types: hemispheres, circles, rectangles, toroids, ellipses, parabolas. Output formats: DXF technical drawings, coordinate data files, Moodle XML question banks. Toolpaths generated via parametric equations with trigonometric and Pythagorean approaches.
+                      Geometry types: hemispheres, circles, rectangles, toroids, ellipses, parabolas. Output formats:
+                      DXF technical drawings, coordinate data files, Moodle XML question banks. Toolpaths generated via
+                      parametric equations with trigonometric and Pythagorean approaches.
                     </span>
                   </div>
                 </details>
@@ -2694,12 +2720,17 @@
                 </div>
                 <details class="tech-drawer">
                   <summary>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
                     Technical details
                   </summary>
                   <div class="drawer-content">
                     <span style="font-size:0.78rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">
-                      Docker Compose with Traefik v2.11 reverse proxy, Moodle LMS, MariaDB 11.2, Redis 7.2 caching. Tauri 2 secure browser with Ed25519 cryptographic device authentication, screen-capture blocking, and signed sessions.
+                      Docker Compose with Traefik v2.11 reverse proxy, Moodle LMS, MariaDB 11.2, Redis 7.2 caching.
+                      Tauri 2 secure browser with Ed25519 cryptographic device authentication, screen-capture blocking,
+                      and signed sessions.
                     </span>
                   </div>
                 </details>
@@ -2714,7 +2745,8 @@
                   <polyline points="15 10 20 15 15 20" />
                   <path d="M4 4v7a4 4 0 0 0 4 4h12" />
                 </svg>
-                "Too complex for ITI — servers and internet aren't always available. Needed something that works on a single click, no infrastructure."
+                "Too complex for ITI — servers and internet aren't always available. Needed something that works on a
+                single click, no infrastructure."
               </div>
             </div>
 
@@ -2782,12 +2814,17 @@
                 </div>
                 <details class="tech-drawer">
                   <summary>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
                     Technical details
                   </summary>
                   <div class="drawer-content">
                     <span style="font-size:0.78rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">
-                      Frontend: Vue 3 + Pinia 3 + Vite 7 + TypeScript + Monaco Editor + GSAP + TipTap. Backend: Rust via Tauri 2, AES-256-GCM encrypted SQLite, HMAC-SHA256 score signing, Ed25519 content verification. Testing: Vitest + Playwright. 2.1K lines of Rust, 26K+ lines of frontend code.
+                      Frontend: Vue 3 + Pinia 3 + Vite 7 + TypeScript + Monaco Editor + GSAP + TipTap. Backend: Rust via
+                      Tauri 2, AES-256-GCM encrypted SQLite, HMAC-SHA256 score signing, Ed25519 content verification.
+                      Testing: Vitest + Playwright. 2.1K lines of Rust, 26K+ lines of frontend code.
                     </span>
                   </div>
                 </details>
@@ -3060,28 +3097,33 @@
               <div class="macro-dot"></div>
               <div>
                 <div class="macro-date">May 2026</div>
-                <div class="macro-text">Added secure, <span class="highlight">encrypted student score storage</span></div>
+                <div class="macro-text">Added secure, <span class="highlight">encrypted student score storage</span>
+                </div>
               </div>
             </div>
             <div class="macro-item">
               <div class="macro-dot"></div>
               <div>
                 <div class="macro-date">May 2026</div>
-                <div class="macro-text">Built the interactive <span class="highlight">CNC schematic viewer</span> and <span class="highlight">G-Code editor</span></div>
+                <div class="macro-text">Built the interactive <span class="highlight">CNC schematic viewer</span> and
+                  <span class="highlight">G-Code editor</span>
+                </div>
               </div>
             </div>
             <div class="macro-item">
               <div class="macro-dot"></div>
               <div>
                 <div class="macro-date">May 2026</div>
-                <div class="macro-text">Made the whole app work <span class="highlight">fully offline</span> — no internet required</div>
+                <div class="macro-text">Made the whole app work <span class="highlight">fully offline</span> — no
+                  internet required</div>
               </div>
             </div>
             <div class="macro-item">
               <div class="macro-dot"></div>
               <div>
                 <div class="macro-date">May – Jun 2026</div>
-                <div class="macro-text">Added the <span class="highlight">infinite unique-problem practice system</span></div>
+                <div class="macro-text">Added the <span class="highlight">infinite unique-problem practice system</span>
+                </div>
               </div>
             </div>
             <div class="macro-item">
@@ -3096,7 +3138,10 @@
           <!-- Collapsible raw commit history -->
           <div class="collapsible-toggle" id="commit-toggle" onclick="toggleCommits()">
             <span>View raw commit history</span>
-            <svg class="toggle-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg class="toggle-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
           </div>
           <div class="collapsible-body" id="commit-body">
             <div class="terminal-window" style="margin-top: 0.75rem;">
@@ -3126,72 +3171,86 @@
                 <div class="terminal-row">
                   <span class="commit-hash">5694738</span>
                   <span class="commit-date">2026-06-05</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>initialize project structure with MSIX installation and cross-file version synchronization</div>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>initialize project structure with
+                    MSIX installation and cross-file version synchronization</div>
                 </div>
                 <div class="terminal-row">
                   <span class="commit-hash">03f57a7</span>
                   <span class="commit-date">2026-06-05</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement automatic database seeding and legacy image migration via SeedManager</div>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement automatic database
+                    seeding and legacy image migration via SeedManager</div>
                 </div>
                 <div class="terminal-row">
                   <span class="commit-hash">4fe30c6</span>
                   <span class="commit-date">2026-06-04</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add PowerShell script to automate MSIX packaging for Tauri application</div>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add PowerShell script to automate
+                    MSIX packaging for Tauri application</div>
                 </div>
                 <div class="terminal-row">
                   <span class="commit-hash">b751bfa</span>
                   <span class="commit-date">2026-06-01</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement AES-256-GCM content encryption, key derivation, and build-time security hardening</div>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement AES-256-GCM content
+                    encryption, key derivation, and build-time security hardening</div>
                 </div>
                 <div class="terminal-row">
                   <span class="commit-hash">af910b0</span>
                   <span class="commit-date">2026-06-01</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement comprehensive component and store test suite with supporting utility modules</div>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement comprehensive component
+                    and store test suite with supporting utility modules</div>
                 </div>
                 <div class="terminal-row">
                   <span class="commit-hash">e0d995d</span>
                   <span class="commit-date">2026-05-31</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement SurveyDashboardView with data visualization, scroll management, and carousel</div>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement SurveyDashboardView
+                    with data visualization, scroll management, and carousel</div>
                 </div>
                 <div class="terminal-row">
                   <span class="commit-hash">b170dda</span>
                   <span class="commit-date">2026-05-31</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add animated SplashScreen component with GSAP transition sequence</div>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add animated SplashScreen
+                    component with GSAP transition sequence</div>
                 </div>
                 <div class="terminal-row">
                   <span class="commit-hash">81847f1</span>
                   <span class="commit-date">2026-05-29</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement comprehensive testing suite, coverage auditing, and security infrastructure</div>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement comprehensive testing
+                    suite, coverage auditing, and security infrastructure</div>
                 </div>
                 <div class="terminal-row">
                   <span class="commit-hash">46f5f2d</span>
                   <span class="commit-date">2026-05-28</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>scaffold new interactive-glass-schematic project with Tauri and admin dashboard</div>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>scaffold new
+                    interactive-glass-schematic project with Tauri and admin dashboard</div>
                 </div>
                 <div class="terminal-row">
                   <span class="commit-hash">7ecf2bd</span>
                   <span class="commit-date">2026-05-28</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement encrypted content loading and obfuscated passphrase management in Tauri backend</div>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement encrypted content
+                    loading and obfuscated passphrase management in Tauri backend</div>
                 </div>
                 <div class="terminal-row">
                   <span class="commit-hash">09df8d4</span>
                   <span class="commit-date">2026-05-24</span>
-                  <div class="commit-msg"><span class="commit-tag tag-fix">fix</span>remove debug UI and improve scroll behavior in timeline</div>
+                  <div class="commit-msg"><span class="commit-tag tag-fix">fix</span>remove debug UI and improve scroll
+                    behavior in timeline</div>
                 </div>
                 <div class="terminal-row">
                   <span class="commit-hash">e569148</span>
                   <span class="commit-date">2026-05-23</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>animate particle color transitions along journey path in timeline</div>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>animate particle color
+                    transitions along journey path in timeline</div>
                 </div>
                 <div class="terminal-row">
                   <span class="commit-hash">10fec7d</span>
                   <span class="commit-date">2026-05-20</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add core application layout, loading indicators, global state management, and dashboard</div>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add core application layout,
+                    loading indicators, global state management, and dashboard</div>
                 </div>
                 <div class="terminal-row">
                   <span class="commit-hash">1024da7</span>
                   <span class="commit-date">2026-05-18</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement Tauri bridge for secure storage, content protection, and robust scoring/validation</div>
+                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement Tauri bridge for secure
+                    storage, content protection, and robust scoring/validation</div>
                 </div>
               </div>
             </div>
@@ -3208,7 +3267,8 @@
         <div class="section-header">
           <div class="section-tag">Academic Work</div>
           <h2>Research &amp; Publications</h2>
-          <p>9 peer-reviewed papers spanning CNC technology, additive manufacturing, 2D mathematical curves, and UAV structural design.</p>
+          <p>9 peer-reviewed papers spanning CNC technology, additive manufacturing, 2D mathematical curves, and UAV
+            structural design.</p>
         </div>
 
         <div class="card">
@@ -3227,23 +3287,31 @@
                 <div class="accordion-header-left">
                   <span class="pub-category">CNC Technology</span>
                   <span class="series-count">6-Part Series</span>
-                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.3;margin:0;">Manual G-Code Development with Parametric Toolpaths on Siemens Sinumerik 840D SL</h3>
+                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.3;margin:0;">
+                    Manual G-Code Development with Parametric Toolpaths on Siemens Sinumerik 840D SL Part 1 to 6</h3>
                 </div>
                 <div class="award-badge" style="margin:0;">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-                    <path d="M4 22h16" /><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                    <path d="M4 22h16" />
+                    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
                     <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
                     <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
                   </svg>
                   7 IIRATI Awards
                 </div>
-                <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
               </div>
               <div class="accordion-body">
                 <div class="accordion-inner">
                   <div style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;">
-                    <strong>IRJMETS</strong> — International Research Journal of Modernization in Engineering Technology and Science<br>
+                    <strong>IRJMETS</strong> — International Research Journal of Modernization in Engineering Technology
+                    and Science<br>
                     Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot; Impact Factor: 8.187<br>
                     <strong>Sole Author</strong> — Supervisor Instructor, Mechanical Group, ITI Jamnagar, Gujarat, India
                   </div>
@@ -3251,14 +3319,26 @@
                     <li class="sub-item">
                       <span class="part-badge">P1</span>
                       <div class="sub-item-content">
-                        <div class="sub-item-title">Part 1: Manual G-Code Development for Machining a <strong>Hemispherical Boss</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                        <div class="sub-item-title">Part 1: Manual G-Code Development for Machining a
+                          <strong>Hemispherical Boss</strong> Using Flat and Ball Nose Endmills with Parametric
+                          Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System
+                        </div>
                         <div class="sub-item-meta">
                           <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2">
+                              <rect x="3" y="4" width="18" height="18" rx="2" />
+                              <line x1="16" y1="2" x2="16" y2="6" />
+                              <line x1="8" y1="2" x2="8" y2="6" />
+                            </svg>
                             Published Jul 19, 2025
                           </span>
                           <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                            </svg>
                             IIR-26-VID-EUFHZUJE
                           </span>
                         </div>
@@ -3267,14 +3347,26 @@
                     <li class="sub-item">
                       <span class="part-badge">P2</span>
                       <div class="sub-item-content">
-                        <div class="sub-item-title">Part 2: Manual G-Code Development for Machining a <strong>Hemispherical Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                        <div class="sub-item-title">Part 2: Manual G-Code Development for Machining a
+                          <strong>Hemispherical Cavity</strong> Using Flat and Ball Nose Endmills with Parametric
+                          Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System
+                        </div>
                         <div class="sub-item-meta">
                           <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2">
+                              <rect x="3" y="4" width="18" height="18" rx="2" />
+                              <line x1="16" y1="2" x2="16" y2="6" />
+                              <line x1="8" y1="2" x2="8" y2="6" />
+                            </svg>
                             Published Jul 21, 2025
                           </span>
                           <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                            </svg>
                             IIR-26-VID-PJLNOVZN
                           </span>
                         </div>
@@ -3283,14 +3375,25 @@
                     <li class="sub-item">
                       <span class="part-badge">P3</span>
                       <div class="sub-item-content">
-                        <div class="sub-item-title">Part 3: Manual G-Code Development for Machining a <strong>Solid Toroidal Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                        <div class="sub-item-title">Part 3: Manual G-Code Development for Machining a <strong>Solid
+                            Toroidal Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric
+                          Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
                         <div class="sub-item-meta">
                           <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2">
+                              <rect x="3" y="4" width="18" height="18" rx="2" />
+                              <line x1="16" y1="2" x2="16" y2="6" />
+                              <line x1="8" y1="2" x2="8" y2="6" />
+                            </svg>
                             Published Jul 24, 2025
                           </span>
                           <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                            </svg>
                             IIR-26-VID-9KW9M59M
                           </span>
                         </div>
@@ -3299,14 +3402,25 @@
                     <li class="sub-item">
                       <span class="part-badge">P4</span>
                       <div class="sub-item-content">
-                        <div class="sub-item-title">Part 4: Manual G-Code Development for Machining a <strong>Toroidal Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                        <div class="sub-item-title">Part 4: Manual G-Code Development for Machining a <strong>Toroidal
+                            Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths,
+                          Validated on Siemens Sinumerik 840D SL CNC Control System</div>
                         <div class="sub-item-meta">
                           <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2">
+                              <rect x="3" y="4" width="18" height="18" rx="2" />
+                              <line x1="16" y1="2" x2="16" y2="6" />
+                              <line x1="8" y1="2" x2="8" y2="6" />
+                            </svg>
                             Published Jul 24, 2025
                           </span>
                           <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                            </svg>
                             IIR-26-VID-TCRQYFM3
                           </span>
                         </div>
@@ -3315,14 +3429,26 @@
                     <li class="sub-item">
                       <span class="part-badge">P5</span>
                       <div class="sub-item-content">
-                        <div class="sub-item-title">Part 5: Manual G-Code Development for Machining an <strong>Elliptical Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                        <div class="sub-item-title">Part 5: Manual G-Code Development for Machining an
+                          <strong>Elliptical Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric
+                          Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System
+                        </div>
                         <div class="sub-item-meta">
                           <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2">
+                              <rect x="3" y="4" width="18" height="18" rx="2" />
+                              <line x1="16" y1="2" x2="16" y2="6" />
+                              <line x1="8" y1="2" x2="8" y2="6" />
+                            </svg>
                             Published Jul 29, 2025
                           </span>
                           <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                            </svg>
                             IIR-26-VID-R4QOSSPY
                           </span>
                         </div>
@@ -3331,14 +3457,25 @@
                     <li class="sub-item">
                       <span class="part-badge">P6</span>
                       <div class="sub-item-content">
-                        <div class="sub-item-title">Part 6: Manual G-Code Development for Machining a <strong>Parabolic Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                        <div class="sub-item-title">Part 6: Manual G-Code Development for Machining a <strong>Parabolic
+                            Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths,
+                          Validated on Siemens Sinumerik 840D SL CNC Control System</div>
                         <div class="sub-item-meta">
                           <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2">
+                              <rect x="3" y="4" width="18" height="18" rx="2" />
+                              <line x1="16" y1="2" x2="16" y2="6" />
+                              <line x1="8" y1="2" x2="8" y2="6" />
+                            </svg>
                             Published Jul 29, 2025
                           </span>
                           <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                            </svg>
                             IIR-26-VID-PXOA7BHJ
                           </span>
                         </div>
@@ -3353,25 +3490,51 @@
             <div class="accordion-item">
               <div class="accordion-header" onclick="toggleAccordion(this)">
                 <div class="accordion-header-left">
-                  <span class="pub-category" style="color:var(--accent-violet);background:rgba(139,92,246,0.08);">CNC / Mathematics</span>
-                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.3;margin:0;">Programming and Implementation of 2D Mathematical Curves with Validation on Siemens Sinumerik 840D SL CNC Control System</h3>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 9 15"/><path d="M12 3H3v18h18v-9"/><path d="m16 3 5 5"/></svg>
+                  <span class="pub-category" style="color:var(--accent-violet);background:rgba(139,92,246,0.08);">CNC /
+                    Mathematics</span>
+                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.3;margin:0;">
+                    Programming and Implementation of 2D Mathematical Curves with Validation on Siemens Sinumerik 840D
+                    SL CNC Control System</h3>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-violet)"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 3 9 15" />
+                    <path d="M12 3H3v18h18v-9" />
+                    <path d="m16 3 5 5" />
+                  </svg>
                 </div>
-                <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
               </div>
               <div class="accordion-body">
                 <div class="accordion-inner">
-                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.4;margin-bottom:0.6rem;">Programming and Implementation of 2D Mathematical Curves with Validation on Siemens Sinumerik 840D SL CNC Control System</h3>
+                  <h3
+                    style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.4;margin-bottom:0.6rem;">
+                    Programming and Implementation of 2D Mathematical Curves with Validation on Siemens Sinumerik 840D
+                    SL CNC Control System</h3>
                   <div class="pub-detail">
                     <div class="pub-detail-desc">
-                      Explores generating ISO-compliant G-code from mathematical equations — including Ellipse, Parabola, Hyperbola, B&eacute;zier, and Trochoid curves — without commercial CAM software. Validates the generated toolpaths on a Siemens Sinumerik 840D SL controller.
+                      Explores generating ISO-compliant G-code from mathematical equations — including Ellipse,
+                      Parabola, Hyperbola, B&eacute;zier, and Trochoid curves — without commercial CAM software.
+                      Validates the generated toolpaths on a Siemens Sinumerik 840D SL controller.
                     </div>
                     <div class="pub-detail-meta">
-                      <div><strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in Engineering Technology and Science</div>
-                      <div><strong>Volume:</strong> Vol. 07, Issue 06, June 2025 &middot; e-ISSN: 2582-5208 &middot; IF: 8.187</div>
+                      <div><strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                        Engineering Technology and Science</div>
+                      <div><strong>Volume:</strong> Vol. 07, Issue 06, June 2025 &middot; e-ISSN: 2582-5208 &middot; IF:
+                        8.187</div>
                       <div><strong>Role:</strong> Sole Author</div>
                       <div class="award-badge">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                          <path d="M4 22h16" />
+                          <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                          <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                          <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                        </svg>
                         IIRATI VIDYA Award — IIR-26-VID-G99FBS1C (Published Jun 06, 2025)
                       </div>
                     </div>
@@ -3384,22 +3547,40 @@
             <div class="accordion-item">
               <div class="accordion-header" onclick="toggleAccordion(this)">
                 <div class="accordion-header-left">
-                  <span class="pub-category" style="color:var(--accent-cyan);background:rgba(6,182,212,0.08);">Additive Manufacturing</span>
-                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.3;margin:0;">Additive Manufacturing in Aerospace: Revolutionizing Design and Production with 3D Printing at a Glance</h3>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                  <span class="pub-category" style="color:var(--accent-cyan);background:rgba(6,182,212,0.08);">Additive
+                    Manufacturing</span>
+                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.3;margin:0;">
+                    Additive Manufacturing in Aerospace: Revolutionizing Design and Production with 3D Printing at a
+                    Glance</h3>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                    <polyline points="2 17 12 22 22 17" />
+                    <polyline points="2 12 12 17 22 12" />
+                  </svg>
                 </div>
-                <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
               </div>
               <div class="accordion-body">
                 <div class="accordion-inner">
-                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.4;margin-bottom:0.6rem;">Additive Manufacturing in Aerospace: Revolutionizing Design and Production with 3D Printing at a Glance</h3>
+                  <h3
+                    style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.4;margin-bottom:0.6rem;">
+                    Additive Manufacturing in Aerospace: Revolutionizing Design and Production with 3D Printing at a
+                    Glance</h3>
                   <div class="pub-detail">
                     <div class="pub-detail-desc">
-                      A comprehensive review of additive manufacturing applications in aerospace — covering design optimisation, material advances, and production workflows, with a focus on case studies from Indian industry.
+                      A comprehensive review of additive manufacturing applications in aerospace — covering design
+                      optimisation, material advances, and production workflows, with a focus on case studies from
+                      Indian industry.
                     </div>
                     <div class="pub-detail-meta">
-                      <div><strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in Engineering Technology and Science</div>
-                      <div><strong>Volume:</strong> Vol. 07, Issue 06, June 2025 &middot; e-ISSN: 2582-5208 &middot; IF: 8.187</div>
+                      <div><strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                        Engineering Technology and Science</div>
+                      <div><strong>Volume:</strong> Vol. 07, Issue 06, June 2025 &middot; e-ISSN: 2582-5208 &middot; IF:
+                        8.187</div>
                       <div><strong>Role:</strong> Sole Author</div>
                       <div><strong>DOI:</strong> <span class="doi-link">10.56726/IRJMETS79165</span></div>
                     </div>
@@ -3412,25 +3593,42 @@
             <div class="accordion-item">
               <div class="accordion-header" onclick="toggleAccordion(this)">
                 <div class="accordion-header-left">
-                  <span class="pub-category" style="color:var(--accent-emerald);background:rgba(16,185,129,0.08);">UAV Design</span>
-                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.3;margin:0;">Proposed Design of Self-Propelled Aerial Vehicle</h3>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+                  <span class="pub-category" style="color:var(--accent-emerald);background:rgba(16,185,129,0.08);">UAV
+                    Design</span>
+                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.3;margin:0;">
+                    Proposed Design of Self-Propelled Aerial Vehicle</h3>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
+                  </svg>
                 </div>
-                <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
               </div>
               <div class="accordion-body">
                 <div class="accordion-inner">
-                  <h3 style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.4;margin-bottom:0.6rem;">Proposed Design of Self-Propelled Aerial Vehicle</h3>
+                  <h3
+                    style="font-size:0.97rem;font-weight:600;color:var(--text-primary);line-height:1.4;margin-bottom:0.6rem;">
+                    Proposed Design of Self-Propelled Aerial Vehicle</h3>
                   <div class="pub-detail">
                     <div class="pub-detail-desc">
-                      Presents a structural design concept for a self-propelled aerial vehicle (UAV), covering aerodynamic profile calculations, frame design, and propulsion system integration. Focuses on achieving an aerodynamically efficient seamless-joint airframe.
+                      Presents a structural design concept for a self-propelled aerial vehicle (UAV), covering
+                      aerodynamic profile calculations, frame design, and propulsion system integration. Focuses on
+                      achieving an aerodynamically efficient seamless-joint airframe.
                     </div>
                     <div class="pub-detail-meta">
-                      <div><strong>Journal:</strong> IJAERD — International Journal of Advance Engineering and Research Development</div>
-                      <div><strong>Volume:</strong> Vol. 1, Issue 5, May 2014 &middot; e-ISSN: 2348-4470, print-ISSN: 2348-6406</div>
+                      <div><strong>Journal:</strong> IJAERD — International Journal of Advance Engineering and Research
+                        Development</div>
+                      <div><strong>Volume:</strong> Vol. 1, Issue 5, May 2014 &middot; e-ISSN: 2348-4470, print-ISSN:
+                        2348-6406</div>
                       <div><strong>Role:</strong> Co-Author (student project)</div>
-                      <div><strong>Authors:</strong> Asst. Prof. B.J. Saradava, Vishvesh J. Upadhyay, Raj Dadhania, Mayur Gosai</div>
-                      <div><strong>Affiliation:</strong> Mechanical Engineering Department, Atmiya Institute of Technology and Science, Rajkot, Gujarat</div>
+                      <div><strong>Authors:</strong> Asst. Prof. B.J. Saradava, Vishvesh J. Upadhyay, Raj Dadhania,
+                        Mayur Gosai</div>
+                      <div><strong>Affiliation:</strong> Mechanical Engineering Department, Atmiya Institute of
+                        Technology and Science, Rajkot, Gujarat</div>
                     </div>
                   </div>
                 </div>
