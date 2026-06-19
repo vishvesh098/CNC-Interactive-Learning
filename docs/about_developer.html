@@ -1725,6 +1725,7 @@
       padding: 0.2rem 0.55rem;
       border-radius: 5px;
       margin-top: 0.5rem;
+      width: fit-content;
     }
 
     /* ============================================
@@ -2150,17 +2151,44 @@
 
     .pub-stat-chip {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      color: var(--text-secondary);
-      background: rgba(255, 255, 255, 0.025);
-      border: 1px solid var(--border-glass);
-      padding: 0.3rem 0.8rem;
+      padding: 0.45rem 1.2rem;
       border-radius: 100px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all var(--transition-fast);
     }
 
-    .pub-stat-chip span {
+    .pub-stat-chip:hover {
+      transform: translateY(-2px);
+    }
+
+    .pub-stat-chip.papers {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      color: var(--text-primary);
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+    }
+
+    .pub-stat-chip.papers span {
       color: var(--accent-cyan);
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .pub-stat-chip.awards {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(244, 63, 94, 0.1) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: var(--text-primary);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+    }
+
+    .pub-stat-chip.awards span {
+      color: var(--accent-amber);
+      font-weight: 800;
+      font-size: 1.05rem;
     }
 
     .pub-accordion {
@@ -2377,6 +2405,207 @@
       background: rgba(6, 182, 212, 0.16);
       border-color: var(--accent-cyan);
       color: #fff !important;
+    }
+
+    /* Sub-accordion styles */
+    .sub-item {
+      cursor: pointer;
+      user-select: none;
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+
+    .sub-item-header {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .sub-item-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+    }
+
+    .sub-item-body.open {
+      max-height: 200px;
+    }
+
+    .sub-item-details {
+      padding-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.05);
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      padding-left: 2.2rem;
+    }
+
+    .sub-accordion-chevron {
+      transition: transform var(--transition-normal);
+      color: var(--text-muted);
+    }
+
+    .sub-accordion-chevron.open {
+      transform: rotate(180deg);
+    }
+
+    /* Research Header Wrapper and Stats Cards */
+    .research-header-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .research-header-wrapper .section-header {
+      flex: 1;
+      margin-bottom: 0;
+      max-width: 600px;
+    }
+
+    .stat-side-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 160px;
+      height: 160px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: all var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      animation: floatStatCard 6s ease-in-out infinite;
+    }
+
+    .stat-side-card.papers {
+      animation-delay: 0s;
+      border-color: rgba(6, 182, 212, 0.25);
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.08);
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.03) 0%, rgba(59, 130, 246, 0.03) 100%);
+    }
+
+    .stat-side-card.papers:hover {
+      border-color: rgba(6, 182, 212, 0.6);
+      box-shadow: 0 0 35px rgba(6, 182, 212, 0.25), inset 0 0 15px rgba(6, 182, 212, 0.15);
+      transform: translateY(-8px) scale(1.05);
+      animation-play-state: paused;
+    }
+
+    .stat-side-card.awards {
+      animation-delay: 3s;
+      border-color: rgba(245, 158, 11, 0.25);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.08);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.03) 0%, rgba(244, 63, 94, 0.03) 100%);
+    }
+
+    .stat-side-card.awards:hover {
+      border-color: rgba(245, 158, 11, 0.6);
+      box-shadow: 0 0 35px rgba(245, 158, 11, 0.25), inset 0 0 15px rgba(245, 158, 11, 0.15);
+      transform: translateY(-8px) scale(1.05);
+      animation-play-state: paused;
+    }
+
+    @keyframes floatStatCard {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .stat-side-card .number {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 3rem;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-side-card.papers .number {
+      background: linear-gradient(to bottom, #fff 30%, var(--accent-cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 10px rgba(6, 182, 212, 0.3));
+    }
+
+    .stat-side-card.awards .number {
+      background: linear-gradient(to bottom, #fff 30%, var(--accent-amber));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 10px rgba(245, 158, 11, 0.3));
+    }
+
+    .stat-side-card .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    .stat-side-card.papers:hover .label {
+      color: var(--accent-cyan);
+    }
+
+    .stat-side-card.awards:hover .label {
+      color: var(--accent-amber);
+    }
+
+    @media (max-width: 768px) {
+      .research-header-wrapper {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+
+      .research-header-wrapper .section-header {
+        order: 1;
+      }
+
+      .stat-side-card.papers {
+        order: 2;
+      }
+
+      .stat-side-card.awards {
+        order: 3;
+      }
+
+      .stat-side-card {
+        width: 100%;
+        max-width: 320px;
+        height: 100px;
+        flex-direction: row;
+        gap: 1.5rem;
+        animation: none;
+        /* Disable floating on mobile to keep page stable */
+      }
+
+      .stat-side-card .number {
+        margin-bottom: 0;
+        font-size: 2.5rem;
+      }
+
+      .stat-side-card:hover {
+        transform: translateY(-4px) scale(1.02);
+      }
     }
   </style>
 </head>
@@ -3264,20 +3493,26 @@
          ============================================= -->
     <section id="research">
       <div class="container">
-        <div class="section-header">
-          <div class="section-tag">Academic Work</div>
-          <h2>Research &amp; Publications</h2>
-          <p>9 peer-reviewed papers spanning CNC technology, additive manufacturing, 2D mathematical curves, and UAV
-            structural design.</p>
+        <div class="research-header-wrapper">
+          <div class="stat-side-card papers">
+            <div class="number">9</div>
+            <div class="label">Papers</div>
+          </div>
+
+          <div class="section-header">
+            <div class="section-tag">Academic Work</div>
+            <h2>Research &amp; Publications</h2>
+            <p>9 peer-reviewed papers spanning CNC technology, additive manufacturing, 2D mathematical curves, and UAV
+              structural design.</p>
+          </div>
+
+          <div class="stat-side-card awards">
+            <div class="number">7</div>
+            <div class="label">IIRATI Awards</div>
+          </div>
         </div>
 
         <div class="card">
-          <!-- Summary stats -->
-          <div class="pub-stats-strip">
-            <div class="pub-stat-chip"><span>9</span> Papers</div>
-            <div class="pub-stat-chip"><span>7</span> IIRATI Awards</div>
-            <div class="pub-stat-chip"><span>2</span> Journals</div>
-          </div>
 
           <div class="pub-accordion">
 
@@ -3309,175 +3544,310 @@
               </div>
               <div class="accordion-body">
                 <div class="accordion-inner">
-                  <div style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;">
-                    <strong>IRJMETS</strong> — International Research Journal of Modernization in Engineering Technology
-                    and Science<br>
-                    Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot; Impact Factor: 8.187<br>
-                    <strong>Sole Author</strong> — Supervisor Instructor, Mechanical Group, ITI Jamnagar, Gujarat, India
-                  </div>
                   <ul class="sub-list">
-                    <li class="sub-item">
-                      <span class="part-badge">P1</span>
-                      <div class="sub-item-content">
-                        <div class="sub-item-title">Part 1: Manual G-Code Development for Machining a
-                          <strong>Hemispherical Boss</strong> Using Flat and Ball Nose Endmills with Parametric
-                          Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System
+                    <li class="sub-item" onclick="toggleSubAccordion(this, event)">
+                      <div class="sub-item-header">
+                        <span class="part-badge">P1</span>
+                        <div class="sub-item-content">
+                          <div class="sub-item-title">Part 1: Manual G-Code Development for Machining a
+                            <strong>Hemispherical Boss</strong> Using Flat and Ball Nose Endmills with Parametric
+                            Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                          <div class="sub-item-meta">
+                            <span>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                              </svg>
+                              Published Jul 19, 2025
+                            </span>
+                            <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                                <path d="M4 22h16" />
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                              </svg>
+                              IIR-26-VID-EUFHZUJE
+                            </span>
+                            <svg class="sub-accordion-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                              style="margin-left:auto;transition:transform 0.3s;">
+                              <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                          </div>
                         </div>
-                        <div class="sub-item-meta">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                              stroke-width="2">
-                              <rect x="3" y="4" width="18" height="18" rx="2" />
-                              <line x1="16" y1="2" x2="16" y2="6" />
-                              <line x1="8" y1="2" x2="8" y2="6" />
-                            </svg>
-                            Published Jul 19, 2025
-                          </span>
-                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-                              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-                            </svg>
-                            IIR-26-VID-EUFHZUJE
-                          </span>
+                      </div>
+                      <div class="sub-item-body">
+                        <div class="sub-item-details">
+                          <div class="sub-item-meta-block"
+                            style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0rem;line-height:1.4;border-bottom:none;padding-bottom:0rem;">
+                            <strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                            Engineering Technology and Science<br>
+                            <strong>Volume:</strong> Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot;
+                            Impact Factor: 8.187<br>
+                            <strong>Role:</strong> Sole Author — Supervisor Instructor, Mechanical Group, ITI Jamnagar,
+                            Gujarat, India
+                          </div>
                         </div>
                       </div>
                     </li>
-                    <li class="sub-item">
-                      <span class="part-badge">P2</span>
-                      <div class="sub-item-content">
-                        <div class="sub-item-title">Part 2: Manual G-Code Development for Machining a
-                          <strong>Hemispherical Cavity</strong> Using Flat and Ball Nose Endmills with Parametric
-                          Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System
+                    <li class="sub-item" onclick="toggleSubAccordion(this, event)">
+                      <div class="sub-item-header">
+                        <span class="part-badge">P2</span>
+                        <div class="sub-item-content">
+                          <div class="sub-item-title">Part 2: Manual G-Code Development for Machining a
+                            <strong>Hemispherical Cavity</strong> Using Flat and Ball Nose Endmills with Parametric
+                            Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                          <div class="sub-item-meta">
+                            <span>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                              </svg>
+                              Published Jul 21, 2025
+                            </span>
+                            <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                                <path d="M4 22h16" />
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                              </svg>
+                              IIR-26-VID-PJLNOVZN
+                            </span>
+                            <svg class="sub-accordion-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                              style="margin-left:auto;transition:transform 0.3s;">
+                              <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                          </div>
                         </div>
-                        <div class="sub-item-meta">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                              stroke-width="2">
-                              <rect x="3" y="4" width="18" height="18" rx="2" />
-                              <line x1="16" y1="2" x2="16" y2="6" />
-                              <line x1="8" y1="2" x2="8" y2="6" />
-                            </svg>
-                            Published Jul 21, 2025
-                          </span>
-                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-                              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-                            </svg>
-                            IIR-26-VID-PJLNOVZN
-                          </span>
+                      </div>
+                      <div class="sub-item-body">
+                        <div class="sub-item-details">
+                          <div class="sub-item-meta-block"
+                            style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0rem;line-height:1.4;border-bottom:none;padding-bottom:0rem;">
+                            <strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                            Engineering Technology and Science<br>
+                            <strong>Volume:</strong> Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot;
+                            Impact Factor: 8.187<br>
+                            <strong>Role:</strong> Sole Author — Supervisor Instructor, Mechanical Group, ITI Jamnagar,
+                            Gujarat, India
+                          </div>
                         </div>
                       </div>
                     </li>
-                    <li class="sub-item">
-                      <span class="part-badge">P3</span>
-                      <div class="sub-item-content">
-                        <div class="sub-item-title">Part 3: Manual G-Code Development for Machining a <strong>Solid
-                            Toroidal Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric
-                          Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
-                        <div class="sub-item-meta">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                              stroke-width="2">
-                              <rect x="3" y="4" width="18" height="18" rx="2" />
-                              <line x1="16" y1="2" x2="16" y2="6" />
-                              <line x1="8" y1="2" x2="8" y2="6" />
+                    <li class="sub-item" onclick="toggleSubAccordion(this, event)">
+                      <div class="sub-item-header">
+                        <span class="part-badge">P3</span>
+                        <div class="sub-item-content">
+                          <div class="sub-item-title">Part 3: Manual G-Code Development for Machining a <strong>Solid
+                              Toroidal Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric
+                            Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                          <div class="sub-item-meta">
+                            <span>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                              </svg>
+                              Published Jul 24, 2025
+                            </span>
+                            <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                                <path d="M4 22h16" />
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                              </svg>
+                              IIR-26-VID-9KW9M59M
+                            </span>
+                            <svg class="sub-accordion-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                              style="margin-left:auto;transition:transform 0.3s;">
+                              <polyline points="6 9 12 15 18 9" />
                             </svg>
-                            Published Jul 24, 2025
-                          </span>
-                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-                              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-                            </svg>
-                            IIR-26-VID-9KW9M59M
-                          </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sub-item-body">
+                        <div class="sub-item-details">
+                          <div class="sub-item-meta-block"
+                            style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0rem;line-height:1.4;border-bottom:none;padding-bottom:0rem;">
+                            <strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                            Engineering Technology and Science<br>
+                            <strong>Volume:</strong> Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot;
+                            Impact Factor: 8.187<br>
+                            <strong>Role:</strong> Sole Author — Supervisor Instructor, Mechanical Group, ITI Jamnagar,
+                            Gujarat, India
+                          </div>
                         </div>
                       </div>
                     </li>
-                    <li class="sub-item">
-                      <span class="part-badge">P4</span>
-                      <div class="sub-item-content">
-                        <div class="sub-item-title">Part 4: Manual G-Code Development for Machining a <strong>Toroidal
-                            Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths,
-                          Validated on Siemens Sinumerik 840D SL CNC Control System</div>
-                        <div class="sub-item-meta">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                              stroke-width="2">
-                              <rect x="3" y="4" width="18" height="18" rx="2" />
-                              <line x1="16" y1="2" x2="16" y2="6" />
-                              <line x1="8" y1="2" x2="8" y2="6" />
+                    <li class="sub-item" onclick="toggleSubAccordion(this, event)">
+                      <div class="sub-item-header">
+                        <span class="part-badge">P4</span>
+                        <div class="sub-item-content">
+                          <div class="sub-item-title">Part 4: Manual G-Code Development for Machining a <strong>Toroidal
+                              Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths,
+                            Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                          <div class="sub-item-meta">
+                            <span>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                              </svg>
+                              Published Jul 24, 2025
+                            </span>
+                            <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                                <path d="M4 22h16" />
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                              </svg>
+                              IIR-26-VID-TCRQYFM3
+                            </span>
+                            <svg class="sub-accordion-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                              style="margin-left:auto;transition:transform 0.3s;">
+                              <polyline points="6 9 12 15 18 9" />
                             </svg>
-                            Published Jul 24, 2025
-                          </span>
-                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-                              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-                            </svg>
-                            IIR-26-VID-TCRQYFM3
-                          </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sub-item-body">
+                        <div class="sub-item-details">
+                          <div class="sub-item-meta-block"
+                            style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0rem;line-height:1.4;border-bottom:none;padding-bottom:0rem;">
+                            <strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                            Engineering Technology and Science<br>
+                            <strong>Volume:</strong> Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot;
+                            Impact Factor: 8.187<br>
+                            <strong>Role:</strong> Sole Author — Supervisor Instructor, Mechanical Group, ITI Jamnagar,
+                            Gujarat, India
+                          </div>
                         </div>
                       </div>
                     </li>
-                    <li class="sub-item">
-                      <span class="part-badge">P5</span>
-                      <div class="sub-item-content">
-                        <div class="sub-item-title">Part 5: Manual G-Code Development for Machining an
-                          <strong>Elliptical Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric
-                          Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System
+                    <li class="sub-item" onclick="toggleSubAccordion(this, event)">
+                      <div class="sub-item-header">
+                        <span class="part-badge">P5</span>
+                        <div class="sub-item-content">
+                          <div class="sub-item-title">Part 5: Manual G-Code Development for Machining an
+                            <strong>Elliptical Boss and Cavity</strong> Using Flat and Ball Nose Endmills with
+                            Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                          <div class="sub-item-meta">
+                            <span>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                              </svg>
+                              Published Jul 29, 2025
+                            </span>
+                            <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                                <path d="M4 22h16" />
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                              </svg>
+                              IIR-26-VID-R4QOSSPY
+                            </span>
+                            <svg class="sub-accordion-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                              style="margin-left:auto;transition:transform 0.3s;">
+                              <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                          </div>
                         </div>
-                        <div class="sub-item-meta">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                              stroke-width="2">
-                              <rect x="3" y="4" width="18" height="18" rx="2" />
-                              <line x1="16" y1="2" x2="16" y2="6" />
-                              <line x1="8" y1="2" x2="8" y2="6" />
-                            </svg>
-                            Published Jul 29, 2025
-                          </span>
-                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-                              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-                            </svg>
-                            IIR-26-VID-R4QOSSPY
-                          </span>
+                      </div>
+                      <div class="sub-item-body">
+                        <div class="sub-item-details">
+                          <div class="sub-item-meta-block"
+                            style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0rem;line-height:1.4;border-bottom:none;padding-bottom:0rem;">
+                            <strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                            Engineering Technology and Science<br>
+                            <strong>Volume:</strong> Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot;
+                            Impact Factor: 8.187<br>
+                            <strong>Role:</strong> Sole Author — Supervisor Instructor, Mechanical Group, ITI Jamnagar,
+                            Gujarat, India
+                          </div>
                         </div>
                       </div>
                     </li>
-                    <li class="sub-item">
-                      <span class="part-badge">P6</span>
-                      <div class="sub-item-content">
-                        <div class="sub-item-title">Part 6: Manual G-Code Development for Machining a <strong>Parabolic
-                            Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths,
-                          Validated on Siemens Sinumerik 840D SL CNC Control System</div>
-                        <div class="sub-item-meta">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                              stroke-width="2">
-                              <rect x="3" y="4" width="18" height="18" rx="2" />
-                              <line x1="16" y1="2" x2="16" y2="6" />
-                              <line x1="8" y1="2" x2="8" y2="6" />
+                    <li class="sub-item" onclick="toggleSubAccordion(this, event)">
+                      <div class="sub-item-header">
+                        <span class="part-badge">P6</span>
+                        <div class="sub-item-content">
+                          <div class="sub-item-title">Part 6: Manual G-Code Development for Machining a
+                            <strong>Parabolic Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric
+                            Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</div>
+                          <div class="sub-item-meta">
+                            <span>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                              </svg>
+                              Published Jul 29, 2025
+                            </span>
+                            <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                                <path d="M4 22h16" />
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                              </svg>
+                              IIR-26-VID-PXOA7BHJ
+                            </span>
+                            <svg class="sub-accordion-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                              style="margin-left:auto;transition:transform 0.3s;">
+                              <polyline points="6 9 12 15 18 9" />
                             </svg>
-                            Published Jul 29, 2025
-                          </span>
-                          <span class="award-badge" style="margin:0;padding:0.1rem 0.4rem;font-size:0.62rem;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-                              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-                            </svg>
-                            IIR-26-VID-PXOA7BHJ
-                          </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="sub-item-body">
+                        <div class="sub-item-details">
+                          <div class="sub-item-meta-block"
+                            style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0rem;line-height:1.4;border-bottom:none;padding-bottom:0rem;">
+                            <strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                            Engineering Technology and Science<br>
+                            <strong>Volume:</strong> Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot;
+                            Impact Factor: 8.187<br>
+                            <strong>Role:</strong> Sole Author — Supervisor Instructor, Mechanical Group, ITI Jamnagar,
+                            Gujarat, India
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -3582,7 +3952,6 @@
                       <div><strong>Volume:</strong> Vol. 07, Issue 06, June 2025 &middot; e-ISSN: 2582-5208 &middot; IF:
                         8.187</div>
                       <div><strong>Role:</strong> Sole Author</div>
-                      <div><strong>DOI:</strong> <span class="doi-link">10.56726/IRJMETS79165</span></div>
                     </div>
                   </div>
                 </div>
@@ -3753,13 +4122,34 @@
       }
     });
 
-    // Toggle publication accordion items
+    // Toggle publication accordion items (lag-free scrollHeight method)
     function toggleAccordion(headerEl) {
       const body = headerEl.nextElementSibling;
       const chevron = headerEl.querySelector('.accordion-chevron');
       if (!body || !chevron) return;
-      body.classList.toggle('open');
-      chevron.classList.toggle('open');
+
+      const isOpening = !body.classList.contains('open');
+      body.classList.toggle('open', isOpening);
+      chevron.classList.toggle('open', isOpening);
+
+      if (isOpening) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        const handleTransitionEnd = (e) => {
+          if (e.propertyName === 'max-height') {
+            body.style.maxHeight = 'none';
+            body.removeEventListener('transitionend', handleTransitionEnd);
+          }
+        };
+        body.addEventListener('transitionend', handleTransitionEnd);
+      } else {
+        if (body.style.maxHeight === 'none' || !body.style.maxHeight) {
+          body.style.maxHeight = body.scrollHeight + 'px';
+          body.offsetHeight; // force reflow
+        }
+        requestAnimationFrame(() => {
+          body.style.maxHeight = '0px';
+        });
+      }
     }
 
     // Toggle raw commit history (dev log)
@@ -3767,8 +4157,41 @@
       const toggle = document.getElementById('commit-toggle');
       const body = document.getElementById('commit-body');
       if (!toggle || !body) return;
-      toggle.classList.toggle('open');
-      body.classList.toggle('open');
+
+      const isOpening = !toggle.classList.contains('open');
+      toggle.classList.toggle('open', isOpening);
+      body.classList.toggle('open', isOpening);
+
+      if (isOpening) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+      } else {
+        body.style.maxHeight = '0px';
+      }
+    }
+
+    // Toggle sub-accordion items (Part 1 to 6)
+    function toggleSubAccordion(itemEl, event) {
+      if (event && event.target.closest('.sub-item-body')) {
+        return;
+      }
+      const body = itemEl.querySelector('.sub-item-body');
+      const chevron = itemEl.querySelector('.sub-accordion-chevron');
+      if (!body) return;
+
+      const isOpening = !body.classList.contains('open');
+      body.classList.toggle('open', isOpening);
+      if (chevron) chevron.classList.toggle('open', isOpening);
+
+      const parentAccordionBody = itemEl.closest('.accordion-body');
+      if (parentAccordionBody && parentAccordionBody.style.maxHeight !== 'none') {
+        parentAccordionBody.style.maxHeight = 'none';
+      }
+
+      if (isOpening) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+      } else {
+        body.style.maxHeight = '0px';
+      }
     }
 
     // --- In-page navigation: smooth scroll + active link tracking ---
