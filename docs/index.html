@@ -10,11 +10,25 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="User guide for CNC Interactive Learning: installation, system requirements, the infinite practice system, student activities, and the admin dashboard." />
     <title>CNC Interactive Learning — User Guide</title>
     <script type="module" crossorigin src="./assets/index.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index.css">
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <!-- Replaced the moment the guide mounts. Without it the first paint on a
+           slow connection is an empty page, and a failed bundle says nothing. -->
+      <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;background:#0B1120;color:#94a3b8;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;padding:2rem;">
+        <p style="margin:0;font-size:1.15rem;font-weight:800;letter-spacing:-0.02em;color:#f1f5f9;">CNC Interactive Learning</p>
+        <p style="margin:0;font-size:0.85rem;">Loading the user guide</p>
+      </div>
+      <noscript>
+        <p style="margin:2rem auto 0;max-width:34ch;font-size:0.85rem;line-height:1.6;color:#94a3b8;text-align:center;">
+          This user guide renders with JavaScript. Turn it on to read the guide, or open
+          the same content as markdown from the project repository.
+        </p>
+      </noscript>
+    </div>
   </body>
 </html>
