@@ -33,11 +33,13 @@ To ensure optimal performance and visibility of technical schematics and editor 
 
 | Component | Minimum Requirement | Recommended Specification |
 | :--- | :--- | :--- |
-| **Operating System** | Windows 10 version 1809 (build 17763) or later, 64-bit | Windows 10 or Windows 11, 64-bit |
-| **Display/Screen Size** | 1280 × 800 resolution | **18 inches (18") or larger** physical display for an optimum experience |
+| **Operating System** | Windows 10 version 17763.0 (1809) or higher, 64-bit | Windows 10 or Windows 11, 64-bit |
+| **Processor** | 1 GHz or faster Dual-Core | 2 GHz or faster Quad-Core |
 | **Memory (RAM)** | 4 GB | 8 GB or more |
+| **Keyboard** | Integrated Keyboard | — |
+| **Mouse** | Integrated Mouse | — |
+| **Display/Screen Size** | 1280 × 800 resolution | **18 inches (18") or larger** physical display for an optimum experience |
 | **Disk Space** | 200 MB free space | 500 MB free space |
-| **Processor** | Intel Core i3 / AMD Ryzen 3 | Intel Core i5 / AMD Ryzen 5 or better |
 
 > [!NOTE]
 > **Microsoft Store Required**: The application is installed through the Microsoft Store, so the Store app must be available on your PC. Windows editions that omit it (such as Windows Server or LTSC images without the Store) cannot install the app.
