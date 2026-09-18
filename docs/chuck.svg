@@ -13,13 +13,13 @@
   <!-- Jaws -->
   <g>
       <g transform="rotate(0)">
-          <path d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z" fill="#fb923c" stroke="none" />
+          <path d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z" fill="#FF9933" stroke="none" />
       </g>
       <g transform="rotate(120)">
-          <path d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z" fill="#fb923c" stroke="none" />
+          <path d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z" fill="#FF9933" stroke="none" />
       </g>
       <g transform="rotate(240)">
-          <path d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z" fill="#fb923c" stroke="none" />
+          <path d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z" fill="#FF9933" stroke="none" />
       </g>
   </g>
 </svg>
