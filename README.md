@@ -6,23 +6,24 @@ Welcome to **CNC Interactive Learning**, a professional desktop application desi
 
 ## 🚀 Download & Installation Guide
 
-Get the latest stable release of the application using our permanent, static download link:
+CNC Interactive Learning is distributed exclusively through the **Microsoft Store**, which handles the download, installation, and all future updates for you.
 
-> ### **[📥 Download Latest Windows Release (ZIP)](https://github.com/vishvesh098/CNC-Interactive-Learning/releases/latest/download/CNC-Interactive-Learning-Latest.zip)**
-> *This link always redirects to the most recent release installer.*
+> ### **[🛍️ Get CNC Interactive Learning from the Microsoft Store](https://apps.microsoft.com/detail/9NKCJFQ0XQ60)**
+> *Installs and updates are managed by the Microsoft Store.*
 
 ### Step-by-Step Installation Process:
-1. **Download the ZIP**: Click the download link above to download `CNC-Interactive-Learning-Latest.zip`.
-2. **Extract the Archive**: Right-click the downloaded ZIP file and select **Extract All...** to extract the files to a folder of your choice (e.g., your Desktop or Downloads folder).
-3. **Run the Installer**:
-   - Open the extracted folder and locate the installer executable (e.g., `CNC Interactive Learning_x.x.x_x64-setup.exe`).
-   - Double-click the installer to start the setup process.
-4. **Follow Setup Prompts**:
-   - The application installs in **Current User** mode, meaning it runs in your local user space and does not require administrator privileges.
-   - Choose the installation path or leave the default path.
-   - Choose whether you want to create a desktop shortcut (recommended for easy access).
-   - Click **Install** to complete the setup.
-5. **Launch the App**: Once installation is complete, click **Finish** and open the app from the Start Menu or your desktop shortcut.
+1. **Open the Store page**: Use the link above, or open the Microsoft Store app on Windows and search for "CNC Interactive Learning".
+2. **Click Get**: Press the **Get** button on the Store page. The Store may ask you to sign in with your Microsoft account first.
+3. **Wait for the install**: The Store downloads and installs the application automatically — there are no setup prompts, installation paths, or shortcut options to choose.
+4. **Launch the App**: Once installation finishes, open **CNC Interactive Learning** from the Start menu. Pin it to Start or the taskbar for quick access.
+
+> [!TIP]
+> **No Administrator Rights Needed**: Store apps install into a Windows-managed location for your user account, so no elevation prompt appears and nothing is added to Program Files.
+
+### Keeping the App Updated:
+- Updates are delivered automatically through the **Microsoft Store** and apply the next time the app restarts.
+- To check for updates manually: open the **Microsoft Store** → **Library** → **Get updates**.
+- The app also prompts you when a newer version is available, and choosing to update opens the Store's own update flow.
 
 ---
 
@@ -32,11 +33,14 @@ To ensure optimal performance and visibility of technical schematics and editor 
 
 | Component | Minimum Requirement | Recommended Specification |
 | :--- | :--- | :--- |
-| **Operating System** | Windows 10 (64-bit) | Windows 10 or Windows 11 (64-bit) |
+| **Operating System** | Windows 10 version 1809 (build 17763) or later, 64-bit | Windows 10 or Windows 11, 64-bit |
 | **Display/Screen Size** | 1280 × 800 resolution | **18 inches (18") or larger** physical display for an optimum experience |
 | **Memory (RAM)** | 4 GB | 8 GB or more |
 | **Disk Space** | 200 MB free space | 500 MB free space |
 | **Processor** | Intel Core i3 / AMD Ryzen 3 | Intel Core i5 / AMD Ryzen 5 or better |
+
+> [!NOTE]
+> **Microsoft Store Required**: The application is installed through the Microsoft Store, so the Store app must be available on your PC. Windows editions that omit it (such as Windows Server or LTSC images without the Store) cannot install the app.
 
 > [!TIP]
 > **Screen Size Recommendation**: The application runs in full-screen mode and renders detailed technical drawings alongside coordinates and G-Code input side-by-side. A screen size of **18 inches or larger** is highly recommended to comfortably view all elements without visual crowding.
@@ -86,16 +90,10 @@ Explore the comprehensive online user guide and administration documentation:
 > ### **[🌐 Open Live Interactive Documentation](https://vishvesh098.github.io/CNC-Interactive-Learning/)**
 > *Includes step-by-step guides for students and administrators, system requirements, and installation instructions.*
 
-Or explore the detailed markdown files directly in our [docs](docs/) directory:
+Or read the same content as markdown in the [obsidian-vault/User_Manual](obsidian-vault/User_Manual/) directory:
 
-### For Students
-* [Getting Started Guide](docs/user-guide/getting-started.md) — First-time launch, login, and dashboard navigation.
-* [Student Dashboard Guide](docs/user-guide/student-dashboard.md) — Finding chapters, viewing timelines, and starting exercises.
-* [CNC Practice Guide](docs/user-guide/cnc-activity.md) — Detailed instruction on entering coordinates and programming G-Code.
-* [Schematics Guide](docs/user-guide/schematic-activity.md) — Navigating interactive drawings and clicking hotspots.
-* [Lessons Guide](docs/user-guide/lesson-activity.md) — Viewing formatted reading lessons.
-* [Scientific Calculator Guide](docs/user-guide/calculator.md) — Using the integrated scientific tool.
-* [Attempt History Guide](docs/user-guide/history.md) — Reviewing your past scores and code submissions.
-
-### For Administrators
-* [Admin Panel Guide](docs/user-guide/admin-guide.md) — Comprehensive guide to creating courses, importing QBanks, configuring exercises, and handling student reports.
+* [Getting Started](obsidian-vault/User_Manual/Getting_Started.md) — Store installation, first launch, login, and system requirements.
+* [Student Dashboard](obsidian-vault/User_Manual/Student_Dashboard.md) — Courses, chapters, activities, lessons, and attempt history.
+* [CNC Practice](obsidian-vault/User_Manual/CNC_Practice.md) — Coordinate verification, G-Code programming, schematics, calculators, and reporting.
+* [Admin Console](obsidian-vault/User_Manual/Admin_Console.md) — Courses, QBank management, test generation, asset pool, and reports.
+* [Reference](obsidian-vault/User_Manual/Reference.md) — Glossary, style guide, data storage & privacy, and troubleshooting.
