@@ -108,7 +108,7 @@
 <body>
     <div class="container">
         <h1>Privacy Policy</h1>
-        <div class="meta-info">Last Updated: June 2, 2026</div>
+        <div class="meta-info">Last Updated: September 18, 2026</div>
 
         <p>This Privacy Policy describes how <strong>CNC Interactive Learning</strong> (the "Application") collects, uses, protects, and handles user data. The Application is a desktop platform for teaching CNC machining concepts.</p>
 
@@ -126,7 +126,17 @@
             <li><strong>Issue Reports</strong>: Question code, report type, and description submitted by users</li>
         </ul>
 
-        <h3>B. Third-Party Review Form & Survey Dashboard</h3>
+        <h3>B. Device Activation &amp; Content Delivery</h3>
+        <p>On first launch the Application activates the device against a license key. During activation and each subsequent content/version check, the following is sent to our Supabase backend and Cloudflare content service:</p>
+        <ul>
+            <li><strong>License Reference</strong>: a one-way hash of the license key, plus an opaque device identifier and device secret</li>
+            <li><strong>Device Fingerprint</strong>: a non-reversible hardware hash and &mdash; only when a key is rotated to a new device &mdash; an aggregated set of hardware component identifiers used for fraud prevention</li>
+            <li><strong>Application Version</strong> and the requested content version/manifest identifier</li>
+            <li><strong>Network Address</strong>: the requesting IP address, used only for rate-limiting and abuse prevention</li>
+        </ul>
+        <p>This exchange powers license enforcement, content downloads (encrypted question chunks and their decryption keys), and update checks. It is not used for advertising or analytics.</p>
+
+        <h3>C. Third-Party Review Form &amp; Survey Dashboard</h3>
         <p>The Application includes an optional review form provided by Tally.so. This form is embedded as an iframe and is entirely managed by Tally. Data collected via this form is subject to <a href="https://tally.so/privacy" target="_blank" rel="noopener noreferrer">Tally's Privacy Policy</a>.</p>
         <p>Review data is transferred from Tally.so to Supabase for aggregation and analysis. Survey results are then fetched from Supabase and displayed within the Application's Survey Dashboard, which includes:</p>
         <ul>
@@ -141,10 +151,16 @@
         </ul>
 
         <h2>3. Data Collected Automatically</h2>
-        <p>The application itself does not collect analytics, advertising identifiers, location information, or usage telemetry. Third-party services such as Microsoft Store, Tally.so, or Supabase may collect technical information necessary to provide their services.</p>
+        <p>The application itself does not collect analytics, advertising identifiers, location information, or usage telemetry. The only automatic network exchange is the service handshake described in Section 2B (license activation, content delivery, and update checks). Third-party services such as Microsoft Store, Tally.so, or Supabase may collect technical information necessary to provide their services.</p>
 
         <h2>4. Internet Connections</h2>
-        <p>The application may connect to Supabase solely to retrieve survey information. The application does not contact GitHub Pages or check for updates automatically.</p>
+        <p>The application connects to:</p>
+        <ul>
+            <li><strong>Supabase</strong>: device activation, content-version checks, and retrieval of survey results for the in-app Survey Dashboard.</li>
+            <li><strong>Cloudflare</strong>: download of encrypted content chunks and decryption keys, and retrieval of the developer profile page.</li>
+            <li><strong>Tally.so</strong>: only when you choose to open the optional review form, which is embedded as an iframe.</li>
+        </ul>
+        <p>The application also checks for updates automatically: at startup and periodically while running. If the installed version is below the minimum supported version, a non-dismissable update screen is shown until the update is installed through the Microsoft Store.</p>
 
         <h2>5. Data Security and Integrity</h2>
         <p>We take the security of your data seriously:</p>
@@ -158,7 +174,8 @@
         <ul>
           <li><strong>Microsoft Store</strong>: When downloaded through the Microsoft Store, Microsoft may collect telemetry, crash dumps, and download statistics associated with your Microsoft account. Please refer to the <a href="https://privacy.microsoft.com/" target="_blank" rel="noopener noreferrer">Microsoft Privacy Statement</a> for details.</li>
           <li><strong>Tally.so</strong>: As described above, the optional review form is provided by Tally.so. Data submitted through this form is governed by Tally's privacy policy.</li>
-          <li><strong>Supabase</strong>: Review data from Tally.so is transferred to Supabase for aggregation and analysis. Aggregated survey results are fetched from Supabase and displayed in the Application's Survey Dashboard. For more information, see <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">Supabase's Privacy Policy</a>.</li>
+          <li><strong>Supabase</strong>: Handles device activation and content-version checks (Section 2B), and survey aggregation &mdash; review data from Tally.so is transferred to Supabase for aggregation and analysis; aggregated results are fetched and displayed in the Application's Survey Dashboard. For more information, see <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">Supabase's Privacy Policy</a>.</li>
+          <li><strong>Cloudflare</strong>: Serves the encrypted content chunks, decryption keys, and the developer profile page used by the Application. For more information, see <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Cloudflare's Privacy Policy</a>.</li>
         </ul>
 
         <h2>7. Data Retention</h2>

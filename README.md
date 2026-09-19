@@ -77,7 +77,7 @@ The application is designed specifically to solve shortcomings in current CNC tr
 ## 🌟 Core Features
 
 - **Double-Phase CNC Workflow**: Real-world CNC programming workflow. Verify X/Z coordinate points in Phase 1 before moving to G-Code writing in Phase 2.
-- **Advanced G-Code Editor**: Native line numbers, automated uppercase formatting, syntax highlighting (Pink for codes, Teal for coordinates), and scroll line-snapping to prevent text clipping.
+- **Advanced G-Code Editor**: A Monaco-powered editor with automated uppercase formatting, context-aware syntax highlighting, a per-line reference pane, and a strict expected-line workspace.
 - **Interactive Technical Schematics**: Explore engineering drawings by locating and clicking highlighted hotspots to learn component functions.
 - **Rich Text-Based Lessons**: Instructor-authored rich text guides with embedded images, lists, and reference tables.
 - **Local Progress & Attempts History**: Work results and quiz history are saved locally on your device and are fully reviewable via the history log.
@@ -92,10 +92,4 @@ Explore the comprehensive online user guide and administration documentation:
 > ### **[🌐 Open Live Interactive Documentation](https://vishvesh098.github.io/CNC-Interactive-Learning/)**
 > *Includes step-by-step guides for students and administrators, system requirements, and installation instructions.*
 
-Or read the same content as markdown in the [obsidian-vault/User_Manual](obsidian-vault/User_Manual/) directory:
-
-* [Getting Started](obsidian-vault/User_Manual/Getting_Started.md) — Store installation, first launch, login, and system requirements.
-* [Student Dashboard](obsidian-vault/User_Manual/Student_Dashboard.md) — Courses, chapters, activities, lessons, and attempt history.
-* [CNC Practice](obsidian-vault/User_Manual/CNC_Practice.md) — Coordinate verification, G-Code programming, schematics, calculators, and reporting.
-* [Admin Console](obsidian-vault/User_Manual/Admin_Console.md) — Courses, QBank management, test generation, asset pool, and reports.
-* [Reference](obsidian-vault/User_Manual/Reference.md) — Glossary, style guide, data storage & privacy, and troubleshooting.
+The guide covers installation and updates, first-run license activation, the student workflow (dashboard, practice activities, schematics, lessons), the admin console, and a reference section with data storage, privacy, and troubleshooting.
