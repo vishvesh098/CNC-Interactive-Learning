@@ -49,7 +49,7 @@
                                            "PHASE n" label, so the hue is redundant
                                            with text rather than load-bearing
        awards      --accent-amber          IIRATI badges, publication counters
-       status      --accent-rose           the "fix" commit tag
+                   --accent-rose           the awards card's second gradient stop
        --text-muted is the page's whole supporting layer — labels, dates, units.
        It was #556170, which measured 2.83-3.06:1 across 92 text roles. It is
        now the same value SurveyDashboardView already ships (#7a8699), so the two
@@ -110,10 +110,8 @@
 
     /* ============================================
        FOCUS — every control, one visible ring.
-       The commit log scroller joins this list because Chromium puts it in the
-       tab order on its own; without a rule it keeps the thinner UA ring.
        ============================================ */
-    :where(a[href], button, summary, [tabindex], .terminal-body):focus-visible {
+    :where(a[href], button, summary, [tabindex]):focus-visible {
       outline: 2px solid var(--focus-ring);
       outline-offset: 2px;
     }
@@ -182,8 +180,6 @@
     .git-stat-val,
     .phase-stat-val,
     .stat-side-card .number,
-    .commit-hash,
-    .commit-date,
     .macro-date,
     .phase-period,
     .detail-tag {
@@ -1292,133 +1288,6 @@
       letter-spacing: 0.5px;
     }
 
-    .terminal-window {
-      background: rgba(6, 8, 15, 0.9);
-      border: 1px solid var(--border-glass);
-      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      min-height: 0;
-    }
-
-    .terminal-header {
-      background: rgba(255, 255, 255, 0.025);
-      border-bottom: 1px solid var(--border-glass);
-      padding: 0.65rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .terminal-dots {
-      display: flex;
-      gap: 6px;
-    }
-
-    .dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: rgba(var(--accent-rose-rgb), 0.7);
-    }
-
-    .dot.yellow {
-      background: rgba(var(--accent-amber-rgb), 0.7);
-    }
-
-    .dot.green {
-      background: rgba(var(--accent-emerald-rgb), 0.7);
-    }
-
-    .terminal-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .terminal-body {
-      padding: 1.25rem;
-      max-height: 380px;
-      overflow-y: auto;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      line-height: 1.6;
-    }
-
-    .terminal-body::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .terminal-body::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .terminal-body::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 3px;
-    }
-
-    .terminal-welcome {
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
-      padding-bottom: 0.5rem;
-    }
-
-    .terminal-row {
-      display: flex;
-      gap: 0.75rem;
-      margin-bottom: 0.5rem;
-      padding: 0.2rem 0.4rem;
-      border-radius: 4px;
-      align-items: flex-start;
-      transition: background-color var(--transition-fast);
-    }
-
-    .terminal-row:hover {
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    .commit-hash {
-      color: var(--accent-blue);
-      font-weight: 600;
-      flex-shrink: 0;
-    }
-
-    .commit-date {
-      color: var(--text-muted);
-      flex-shrink: 0;
-    }
-
-    .commit-msg {
-      color: var(--text-primary);
-      word-break: break-all;
-    }
-
-    .commit-tag {
-      padding: 0.08rem 0.35rem;
-      border-radius: 3px;
-      font-size: var(--text-caption);
-      font-weight: 700;
-      margin-right: 0.4rem;
-      text-transform: uppercase;
-    }
-
-    .tag-feat {
-      background: rgba(var(--accent-emerald-rgb), 0.12);
-      color: var(--accent-emerald);
-      border: 1px solid rgba(var(--accent-emerald-rgb), 0.2);
-    }
-
-    .tag-fix {
-      background: rgba(var(--accent-rose-rgb), 0.12);
-      color: var(--accent-rose);
-      border: 1px solid rgba(var(--accent-rose-rgb), 0.2);
-    }
-
     .pub-category {
       font-size: var(--text-caption);
       font-weight: 700;
@@ -2050,53 +1919,6 @@
       font-weight: 600;
     }
 
-    /* Collapsible commit section toggle */
-    .collapsible-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.65rem 1rem;
-      background: rgba(255, 255, 255, 0.025);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      margin-top: 1rem;
-      transition: border-color var(--transition-fast), background-color var(--transition-fast),
-        color var(--transition-fast);
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      /* Native reset — this is the disclosure control. */
-      width: 100%;
-      font-family: inherit;
-      text-align: left;
-    }
-
-    .collapsible-toggle:hover {
-      border-color: var(--border-hover);
-      background: rgba(255, 255, 255, 0.04);
-    }
-
-    .collapsible-toggle .toggle-arrow {
-      transition: transform var(--transition-normal);
-      color: var(--text-muted);
-    }
-
-    .collapsible-toggle[aria-expanded='true'] .toggle-arrow {
-      transform: rotate(180deg);
-    }
-
-    .collapsible-body {
-      display: grid;
-      grid-template-rows: minmax(0, 0fr);
-      overflow: hidden;
-      transition: grid-template-rows var(--transition-panel);
-    }
-
-    .collapsible-body.open {
-      grid-template-rows: minmax(0, 1fr);
-    }
-
     /* ============================================
        IN-PAGE NAV — scroll offset + active state
        ============================================ */
@@ -2383,14 +2205,17 @@
     /* The four dev-log figures are the widest text in their cards ("Encrypted"
        is nine mono characters); at 320px they need to step down to stay inside
        a two-column track. The card padding comes in too: 28px inside a 24px
-       container on a 320px screen is 56px of the 320 spent on nothing. */
+       container on a 320px screen is 56px of the 320 spent on nothing.
+       Nine characters at a flat 1.15rem still measure 99.4px against a 99px
+       content box at 375px, which broke the word as "Encrypte/d", so the value
+       scales with the viewport instead of stepping once and stopping. */
     @media (max-width: 480px) {
       .card {
         padding: 1.25rem;
       }
 
       .git-stat-val {
-        font-size: 1.15rem;
+        font-size: clamp(0.95rem, 4.4vw, 1.15rem);
       }
     }
 
@@ -2464,29 +2289,6 @@
         height: 30px;
         font-size: 0.85rem;
       }
-    }
-
-    /* ============================================
-       COMMIT LOG — the row stacks.
-       Three columns, two of them pinned, held the message to 19px at 320px and
-       60px at 375px. Stacking gives it the full width.
-       ============================================ */
-    @media (max-width: 640px) {
-      .terminal-row {
-        flex-direction: column;
-        gap: 0.15rem;
-      }
-
-      .terminal-body {
-        padding: 1rem;
-      }
-    }
-
-    /* With the message off a 19px column it no longer has to break words at
-       arbitrary characters. */
-    .commit-msg {
-      word-break: normal;
-      overflow-wrap: anywhere;
     }
 
     /* ============================================
@@ -2696,8 +2498,7 @@
     }
 
     .accordion-header:active,
-    .sub-item-header:active,
-    .collapsible-toggle:active {
+    .sub-item-header:active {
       background-color: rgba(255, 255, 255, 0.045);
     }
 
@@ -2888,12 +2689,12 @@
         <!-- Hero Stats — Matching survey page hero stats -->
         <div class="hero-stats">
           <div class="hero-stat">
-            <div class="stat-number">374+</div>
+            <div class="stat-number" data-devstat="commits">394+</div>
             <div class="stat-label">Git Commits</div>
-            <div class="stat-sub">Since May 2026</div>
+            <div class="stat-sub">Since Feb 2026</div>
           </div>
           <div class="hero-stat">
-            <div class="stat-number">28K+</div>
+            <div class="stat-number" data-devstat="loc-total">59K+</div>
             <div class="stat-label">Lines of Code</div>
             <div class="stat-sub">Frontend + Rust</div>
           </div>
@@ -3120,14 +2921,18 @@
                   </div>
                 </div>
                 <p class="phase-desc">
-                  <strong>One installer. One application. Works on any Windows PC with no internet connection.</strong>
-                  Everything the previous phases built is now packed into a single, standalone desktop app —
-                  interactive CNC schematics, a G-Code practice editor, encrypted student records, an admin
-                  dashboard for teachers, and the infinite unique-problem system. No servers. No Docker. No
-                  accounts to create. Just install and start learning.
+                  <strong>One installer. One application. Activate once, then the classroom runs offline.</strong>
+                  Everything the previous phases built now lives in a single desktop app — interactive CNC
+                  schematics, a two-phase G-Code workspace with weighted scoring and a Monaco editor, rich
+                  lessons, encrypted student records, searchable attempt history with locked review, a question
+                  bank with a recommendation engine, a scientific calculator, guided onboarding tours, issue
+                  reporting, a live survey analytics dashboard, and the infinite unique-problem system. Licences
+                  are activated and devices enrolled once; content and app updates then arrive signed, from the
+                  Microsoft Store and the content delivery worker. Nothing to run on site, nothing for the
+                  student to configure.
                 </p>
                 <div class="phase-insight">
-                  “One installer. No server. No internet. Just works. This is what an ITI classroom needs.”
+                  “One installer. Nothing to run on site. The classroom works offline. This is what an ITI needs.”
                 </div>
                 <div class="tech-stack">
                   <span class="tech-pill highlight">Vue 3</span>
@@ -3139,18 +2944,20 @@
                   <span class="tech-pill">Interactive SVG</span>
                   <span class="tech-pill">Encrypted Storage</span>
                   <span class="tech-pill">Admin Dashboard</span>
+                  <span class="tech-pill">Microsoft Store</span>
+                  <span class="tech-pill">Signed Content Delivery</span>
                 </div>
                 <div class="phase-stats">
                   <div class="phase-stat">
-                    <span class="phase-stat-val p3">81</span>
+                    <span class="phase-stat-val p3" data-devstat="source-files">136</span>
                     <span class="phase-stat-lbl">Source Files</span>
                   </div>
                   <div class="phase-stat">
-                    <span class="phase-stat-val p3">26K+</span>
+                    <span class="phase-stat-val p3" data-devstat="loc-total">59K+</span>
                     <span class="phase-stat-lbl">Lines of Code</span>
                   </div>
                   <div class="phase-stat">
-                    <span class="phase-stat-val p3">374+</span>
+                    <span class="phase-stat-val p3" data-devstat="commits">394+</span>
                     <span class="phase-stat-lbl">Git Commits</span>
                   </div>
                   <div class="phase-stat">
@@ -3169,8 +2976,12 @@
                   <div class="drawer-content">
                     <span class="drawer-note">
                       Frontend: Vue 3 + Pinia 3 + Vite 7 + TypeScript + Monaco Editor + GSAP + TipTap. Backend: Rust via
-                      Tauri 2, AES-256-GCM encrypted SQLite, HMAC-SHA256 score signing, Ed25519 content verification.
-                      Testing: Vitest + Playwright. 2.1K lines of Rust, 26K+ lines of frontend code.
+                      Tauri 2, AES-256-GCM encrypted SQLite, HMAC-SHA256 score signing, Ed25519-signed content verified
+                      on device. Delivery: MSIX from the Microsoft Store; encrypted content and update policy fetched
+                      from a Cloudflare Worker. Testing: Vitest across components, stores and end-to-end flows.
+                      <span data-devstat="loc-rust">6.5K</span> lines of Rust and
+                      <span data-devstat="loc-frontend">52K+</span> lines of frontend code across
+                      <span data-devstat="source-files">136</span> source files (tests and build output excluded).
                     </span>
                   </div>
                 </details>
@@ -3212,7 +3023,7 @@
                 manufacturing with state-of-the-art AI tools, the entire application was designed, architected, and
                 validated — from interactive schematic viewers to encrypted score storage, from G-Code editors to
                 the recommendation engine. AI didn't replace expertise; it <strong>amplified</strong> it.
-                <strong>28,000+ lines of production-ready code</strong> shipped by a single domain-expert builder.
+                <strong><span data-devstat="loc-verbatim">59,000+</span> lines of production-ready code</strong> shipped by a single domain-expert builder.
               </p>
               <div class="ai-tools">
                 <span class="ai-tool-tag">Google Gemini AI</span>
@@ -3304,7 +3115,8 @@
                   <div class="card-details">
                     <h3>Published Researcher</h3>
                     <p>9 peer-reviewed publications spanning CNC technology, additive manufacturing, 2D mathematical
-                      curves, and UAV structural design — with 7 IIRATI awards for the CNC paper series.</p>
+                      curves, and UAV structural design — with 6 IIRATI awards for the CNC series and 1 for the
+                      curves paper.</p>
                     <span class="detail-tag">9 Papers</span>
                     <span class="detail-tag">7 IIRATI Awards</span>
                   </div>
@@ -3413,11 +3225,11 @@
         <div class="card">
           <div class="git-stats">
             <div class="git-stat-card">
-              <div class="git-stat-val">374+</div>
+              <div class="git-stat-val" data-devstat="commits">394+</div>
               <div class="git-stat-lbl">Total Commits</div>
             </div>
             <div class="git-stat-card">
-              <div class="git-stat-val">28K+</div>
+              <div class="git-stat-val" data-devstat="loc-total">59K+</div>
               <div class="git-stat-lbl">Lines of Code</div>
             </div>
             <div class="git-stat-card">
@@ -3435,7 +3247,7 @@
             <div class="macro-item">
               <div class="macro-dot"></div>
               <div>
-                <div class="macro-date">May 2026</div>
+                <div class="macro-date">Feb 2026</div>
                 <div class="macro-text">Started building the app from <span class="highlight">scratch</span></div>
               </div>
             </div>
@@ -3460,8 +3272,15 @@
               <div class="macro-dot"></div>
               <div>
                 <div class="macro-date">May 2026</div>
-                <div class="macro-text">Made the whole app work <span class="highlight">fully offline</span> — no
-                  internet required</div>
+                <div class="macro-text">Made the core learning flow <span class="highlight">offline-first</span> — the
+                  classroom never depends on the network</div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">May 2026</div>
+                <div class="macro-text">Shipped the live <span class="highlight">survey analytics dashboard</span></div>
               </div>
             </div>
             <div class="macro-item">
@@ -3476,132 +3295,44 @@
               <div class="macro-dot"></div>
               <div>
                 <div class="macro-date">Jun 2026</div>
-                <div class="macro-text">Packaged for the <span class="highlight">Microsoft Store</span> (v0.1.14)</div>
+                <div class="macro-text">Added <span class="highlight">license activation</span> and device-locked,
+                  <span class="highlight">encrypted content delivery</span></div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">Jun 2026</div>
+                <div class="macro-text">Added <span class="highlight">guided onboarding tours</span>, and made this page
+                  updatable without shipping an app release</div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">Jun 2026</div>
+                <div class="macro-text">Packaged for the <span class="highlight">Microsoft Store</span> and added the
+                  <span class="highlight">update gate</span> — soft prompt, then a mandatory block</div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">Jun 2026</div>
+                <div class="macro-text">Moved content delivery to <span class="highlight">chunked, resumable</span>
+                  encrypted downloads</div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">Sep 2026</div>
+                <div class="macro-text">Moved <span class="highlight">distribution and updates</span> to the Microsoft
+                  Store</div>
               </div>
             </div>
           </div>
 
-          <!-- Collapsible raw commit history -->
-          <button type="button" class="collapsible-toggle" id="commit-toggle"
-            aria-expanded="false" aria-controls="commit-body">
-            <span>View raw commit history</span>
-            <svg class="toggle-arrow" aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24"
-              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </button>
-          <div class="collapsible-body" id="commit-body" role="region" aria-labelledby="commit-toggle" inert>
-            <div class="terminal-window" style="margin-top: 0.75rem;">
-              <div class="terminal-header">
-                <div class="terminal-dots">
-                  <div class="dot"></div>
-                  <div class="dot yellow"></div>
-                  <div class="dot green"></div>
-                </div>
-                <div class="terminal-title">
-                  <svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="4 17 10 11 4 5" />
-                    <line x1="12" y1="19" x2="20" y2="19" />
-                  </svg>
-                  git-log: latest milestones
-                </div>
-                <div></div>
-              </div>
-
-              <div class="terminal-body" tabindex="0">
-                <div class="terminal-welcome">
-                  $ git log --oneline -14<br>
-                  Showing latest development milestones:
-                </div>
-
-                <div class="terminal-row">
-                  <span class="commit-hash">5694738</span>
-                  <span class="commit-date">2026-06-05</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>initialize project structure with
-                    MSIX installation and cross-file version synchronization</div>
-                </div>
-                <div class="terminal-row">
-                  <span class="commit-hash">03f57a7</span>
-                  <span class="commit-date">2026-06-05</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement automatic database
-                    seeding and legacy image migration via SeedManager</div>
-                </div>
-                <div class="terminal-row">
-                  <span class="commit-hash">4fe30c6</span>
-                  <span class="commit-date">2026-06-04</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add PowerShell script to automate
-                    MSIX packaging for Tauri application</div>
-                </div>
-                <div class="terminal-row">
-                  <span class="commit-hash">b751bfa</span>
-                  <span class="commit-date">2026-06-01</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement AES-256-GCM content
-                    encryption, key derivation, and build-time security hardening</div>
-                </div>
-                <div class="terminal-row">
-                  <span class="commit-hash">af910b0</span>
-                  <span class="commit-date">2026-06-01</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement comprehensive component
-                    and store test suite with supporting utility modules</div>
-                </div>
-                <div class="terminal-row">
-                  <span class="commit-hash">e0d995d</span>
-                  <span class="commit-date">2026-05-31</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement SurveyDashboardView
-                    with data visualization, scroll management, and carousel</div>
-                </div>
-                <div class="terminal-row">
-                  <span class="commit-hash">b170dda</span>
-                  <span class="commit-date">2026-05-31</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add animated SplashScreen
-                    component with GSAP transition sequence</div>
-                </div>
-                <div class="terminal-row">
-                  <span class="commit-hash">81847f1</span>
-                  <span class="commit-date">2026-05-29</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement comprehensive testing
-                    suite, coverage auditing, and security infrastructure</div>
-                </div>
-                <div class="terminal-row">
-                  <span class="commit-hash">46f5f2d</span>
-                  <span class="commit-date">2026-05-28</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>scaffold new
-                    interactive-glass-schematic project with Tauri and admin dashboard</div>
-                </div>
-                <div class="terminal-row">
-                  <span class="commit-hash">7ecf2bd</span>
-                  <span class="commit-date">2026-05-28</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement encrypted content
-                    loading and obfuscated passphrase management in Tauri backend</div>
-                </div>
-                <div class="terminal-row">
-                  <span class="commit-hash">09df8d4</span>
-                  <span class="commit-date">2026-05-24</span>
-                  <div class="commit-msg"><span class="commit-tag tag-fix">fix</span>remove debug UI and improve scroll
-                    behavior in timeline</div>
-                </div>
-                <div class="terminal-row">
-                  <span class="commit-hash">e569148</span>
-                  <span class="commit-date">2026-05-23</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>animate particle color
-                    transitions along journey path in timeline</div>
-                </div>
-                <div class="terminal-row">
-                  <span class="commit-hash">10fec7d</span>
-                  <span class="commit-date">2026-05-20</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>add core application layout,
-                    loading indicators, global state management, and dashboard</div>
-                </div>
-                <div class="terminal-row">
-                  <span class="commit-hash">1024da7</span>
-                  <span class="commit-date">2026-05-18</span>
-                  <div class="commit-msg"><span class="commit-tag tag-feat">feat</span>implement Tauri bridge for secure
-                    storage, content protection, and robust scoring/validation</div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -3655,7 +3386,7 @@
                       <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
                       <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
                     </svg>
-                    7 IIRATI Awards
+                    6 IIRATI Awards
                   </span>
                   <svg class="accordion-chevron" aria-hidden="true" focusable="false" width="20" height="20"
                     viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round"
@@ -4175,6 +3906,15 @@
             </svg>
             Google Scholar
           </a>
+          <a href="https://apps.microsoft.com/detail/9NKCJFQ0XQ60" target="_blank" rel="noopener" class="contact-btn">
+            <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <path d="M16 10a4 4 0 0 1-8 0" />
+            </svg>
+            Microsoft Store
+          </a>
         </div>
       </div>
     </section>
@@ -4244,7 +3984,7 @@
 
     document.addEventListener('click', (e) => {
       if (!(e.target instanceof Element)) return;
-      const btn = e.target.closest('.accordion-header, .sub-item-header, .collapsible-toggle');
+      const btn = e.target.closest('.accordion-header, .sub-item-header');
       if (btn) toggleDisclosure(btn);
     });
 
