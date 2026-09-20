@@ -14,7 +14,6 @@
             --text-muted: #94a3b8;
             --accent-color: #f59e0b;
             --border-color: #2d2d38;
-            --container-width: 800px;
         }
 
         body {
@@ -27,7 +26,11 @@
         }
 
         .container {
-            max-width: var(--container-width);
+            /* Same reading column as the user guide. The card is the measure, so the
+               text inside it runs edge to edge rather than stopping short.
+               border-box keeps the 1080px the card's outer width, not its content box. */
+            box-sizing: border-box;
+            max-width: 1080px;
             margin: 0 auto;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
