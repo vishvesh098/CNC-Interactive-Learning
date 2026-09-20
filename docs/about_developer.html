@@ -292,6 +292,8 @@
     }
 
     .container {
+      /* Same 1080px reading column as the user guide. */
+      max-width: 1080px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -306,6 +308,22 @@
       backdrop-filter: blur(24px) saturate(1.3);
       background: rgba(6, 8, 15, 0.85);
       border-bottom: 1px solid var(--border-glass);
+    }
+
+    /* Reading position, drawn on the nav's own edge — the same treatment the survey
+       dashboard uses. Scroll-linked, so it tracks the finger one to one and carries
+       no transition of its own. The 0–1 fraction arrives as a custom property. */
+    .nav::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      bottom: -1px;
+      height: 2px;
+      background: var(--accent-orange);
+      opacity: 0.75;
+      transform: scaleX(var(--read-progress, 0));
+      transform-origin: left center;
+      pointer-events: none;
     }
 
     .nav-inner {
@@ -2685,7 +2703,7 @@
         <!-- Hero Stats — Matching survey page hero stats -->
         <div class="hero-stats">
           <div class="hero-stat">
-            <div class="stat-number" data-devstat="commits">395+</div>
+            <div class="stat-number" data-devstat="commits">396+</div>
             <div class="stat-label">Git Commits</div>
             <div class="stat-sub">Since Feb 2026</div>
           </div>
@@ -2953,7 +2971,7 @@
                     <span class="phase-stat-lbl">Lines of Code</span>
                   </div>
                   <div class="phase-stat">
-                    <span class="phase-stat-val p3" data-devstat="commits">395+</span>
+                    <span class="phase-stat-val p3" data-devstat="commits">396+</span>
                     <span class="phase-stat-lbl">Git Commits</span>
                   </div>
                   <div class="phase-stat">
@@ -3221,7 +3239,7 @@
         <div class="card">
           <div class="git-stats">
             <div class="git-stat-card">
-              <div class="git-stat-val" data-devstat="commits">395+</div>
+              <div class="git-stat-val" data-devstat="commits">396+</div>
               <div class="git-stat-lbl">Total Commits</div>
             </div>
             <div class="git-stat-card">
@@ -4029,6 +4047,31 @@
       }
       window.addEventListener('scroll', updateActiveLink, { passive: true });
       updateActiveLink();
+    })();
+
+    // --- Reading position ---
+    // How far the page has been scrolled, as a 0-1 fraction, handed to the nav's
+    // edge as a custom property. One layout read per frame, not one per scroll
+    // event: a wheel fires scroll far faster than the compositor paints, and the
+    // read competes with the scroll it is describing.
+    (function () {
+      let frame = 0;
+
+      function paintReadProgress() {
+        frame = 0;
+        const range = document.documentElement.scrollHeight - window.innerHeight;
+        const value = range > 0 ? Math.min(1, window.scrollY / range) : 0;
+        document.documentElement.style.setProperty('--read-progress', String(value));
+      }
+
+      function requestPaint() {
+        if (frame) return;
+        frame = window.requestAnimationFrame(paintReadProgress);
+      }
+
+      window.addEventListener('scroll', requestPaint, { passive: true });
+      window.addEventListener('resize', requestPaint);
+      paintReadProgress();
     })();
   </script>
 
