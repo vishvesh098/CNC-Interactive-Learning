@@ -1,0 +1,4080 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About the Developer — CNC Interactive Learning</title>
+  <meta name="description"
+    content="Meet the developer behind CNC Interactive Learning — Vishvesh Upadhyay, Mechanical Engineer, Government Educator, and Published Researcher.">
+
+  <!-- Fonts matching the Survey Result page -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <!-- Lucide script removed because all icons are inline SVG -->
+
+  <!-- The mark sits beside this file in both the app bundle and the docs build. -->
+  <link rel="icon" type="image/svg+xml" href="chuck.svg">
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS — Matching SurveyDashboardView
+       ============================================ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ============================================
+       COLOR ROLES
+       canvas      --bg-primary            the navy field everything sits on
+       surface     --bg-glass / -hover     cards, panels, controls; never a solid
+       border      --border-glass / -hover hairlines, and the accent border on hover
+       text        --text-primary          headings, numerals, values
+                   --text-secondary        body prose
+                   --text-muted            captions, dates, labels, units
+       focus       --focus-ring            the only focus ring on the page
+       brand       --accent-orange         wordmark, chuck jaws, hero evidence bars
+       structure   --accent-cyan           section tags, overlines, eyebrow rules
+       phase 1/2/3 --accent-blue / -violet / -emerald
+                                           the journey rail; always beside a
+                                           "PHASE n" label, so the hue is redundant
+                                           with text rather than load-bearing
+       awards      --accent-amber          IIRATI badges, publication counters
+                   --accent-rose           the awards card's second gradient stop
+       --text-muted is the page's whole supporting layer — labels, dates, units.
+       It was #556170, which measured 2.83-3.06:1 across 92 text roles. It is
+       now the same value SurveyDashboardView already ships (#7a8699), so the two
+       surfaces stop disagreeing about the same token.
+       ============================================ */
+    :root {
+      --bg-primary: #06080f;
+      --bg-glass: rgba(255, 255, 255, 0.025);
+      --bg-glass-hover: rgba(255, 255, 255, 0.045);
+      --border-glass: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(var(--accent-blue-rgb), 0.25);
+      --text-primary: #f0f4f8;
+      --text-secondary: #8b97a8;
+      --text-muted: #7a8699;
+      /* The supporting layer — labels, dates, units, badges. Six separate sizes
+         (0.62 to 0.72rem) had accumulated here, all of them under 12px, which is
+         the floor where small text stops being readable at arm's length. One
+         step at 12px replaces all six. */
+      --text-caption: 0.75rem;
+      --accent-blue: #3b82f6;
+      --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-violet: #9d7bf8;
+      --accent-orange: #FF9933;
+      /* Channel forms of the accents above, so a tint can be written as
+         rgba(var(--accent-blue-rgb), 0.08) instead of a second hard-coded copy of
+         the colour. Every accent tint on the page was one of those copies, which
+         is how the violet tints kept rgb(139,92,246) for a full pass after the
+         token itself moved to #9d7bf8. Keep each triplet in step with its hex. */
+      --accent-blue-rgb: 59, 130, 246;
+      --accent-cyan-rgb: 6, 182, 212;
+      --accent-emerald-rgb: 16, 185, 129;
+      --accent-amber-rgb: 245, 158, 11;
+      --accent-rose-rgb: 244, 63, 94;
+      --accent-violet-rgb: 157, 123, 248;
+      --accent-orange-rgb: 255, 153, 51;
+      --gradient-hero: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+      --shadow-glow: 0 0 80px rgba(var(--accent-blue-rgb), 0.12);
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      /* Motion budget. 150ms is the baseline for press, hover and focus — faster
+         reads twitchy, slower reads laggy. 250ms covers small state changes,
+         300ms covers a panel opening because the eye has to track the space.
+         Exits run at about 70% of these. */
+      --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-panel: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
+      /* Declared, so the UA focus ring stops resolving to its light-theme
+         value — near-black on a near-black page. */
+      color-scheme: dark;
+      /* The one ring, on both navy and card glass. */
+      --focus-ring: #ff9933;
+    }
+
+    /* ============================================
+       FOCUS — every control, one visible ring.
+       ============================================ */
+    :where(a[href], button, summary, [tabindex]):focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: 8px;
+      inset-inline-start: -999px;
+      z-index: 200;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      background: var(--focus-ring);
+      color: #0b0b0f;
+      font-weight: 700;
+      font-size: 0.82rem;
+      text-decoration: none;
+    }
+
+    .skip-link:focus-visible {
+      inset-inline-start: 16px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ============================================
+       TYPE DETAILS — the small decisions that make reading effortless.
+       ============================================ */
+
+    /* A long word, award ID, journal name or DOI must never push its container
+       wider than the page. This only bites when a word genuinely cannot fit. */
+    body {
+      overflow-wrap: break-word;
+    }
+
+    /* Headings wrap evenly rather than leaving one orphaned word on line two.
+       Browsers ignore `balance` past a handful of lines, which is the correct
+       behaviour for the short headings it is applied to here. */
+    h1,
+    h2,
+    h3,
+    .hero-name,
+    .phase-name,
+    .pub-title,
+    .sub-item-title,
+    .stat-side-card .label {
+      text-wrap: balance;
+    }
+
+    /* Descriptions avoid a lone last word on their final line. Deliberately not
+       applied to long-form: evening out a whole article wastes space and slows
+       reading, so the prose blocks take this only where they are short. */
+    .section-header p,
+    .card-details p,
+    .connector-text,
+    .phase-insight,
+    .pub-detail-meta,
+    .sub-item-meta {
+      text-wrap: pretty;
+    }
+
+    /* Figures that sit in columns or beside each other line up on the same
+       advance width, and keep doing so if the mono face ever falls back. */
+    .stat-number,
+    .git-stat-val,
+    .phase-stat-val,
+    .stat-side-card .number,
+    .macro-date,
+    .phase-period,
+    .detail-tag {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ============================================
+       SHARED CLASSES — four styles that were being pasted inline every time they
+       were needed. Each one is a single decision written once.
+       ============================================ */
+
+    /* The publication metadata line inside an expanded series part. This had six
+       copies of the same 120-character inline style, three declarations of which
+       were no-ops (margin-bottom:0rem, border-bottom:none, padding-bottom:0rem). */
+    .sub-item-meta-block {
+      font-size: var(--text-caption);
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* The award pill at list scale, where the full-size badge is too heavy. */
+    .award-badge.compact {
+      margin: 0;
+      padding: 0.1rem 0.4rem;
+    }
+
+    /* A badge sitting in an accordion header sits in a row with other inline
+       items, so it does not want the base rule's top margin. */
+    .accordion-header .award-badge {
+      margin: 0;
+    }
+
+    /* The monospace aside inside a tech drawer. */
+    .drawer-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Custom Scrollbar styling to match SurveyResults page */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      /* Declared once at the root, for both engines. */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ============================================
+       AMBIENT BACKGROUND — exact match to survey page
+       ============================================ */
+    .ambient-bg {
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(var(--accent-blue-rgb), 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(var(--accent-violet-rgb), 0.05) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.03) 0%, transparent 50%);
+      z-index: 0;
+      pointer-events: none;
+      animation: ambientDrift 25s ease-in-out infinite;
+    }
+
+    @keyframes ambientDrift {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      33% {
+        transform: translate(-1.5%, -1%) scale(1.02);
+      }
+
+      66% {
+        transform: translate(1%, 1.5%) scale(0.98);
+      }
+    }
+
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      /* Same 1080px reading column as the user guide. */
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ============================================
+       NAVBAR — Matching survey page nav
+       ============================================ */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(24px) saturate(1.3);
+      background: rgba(6, 8, 15, 0.85);
+      border-bottom: 1px solid var(--border-glass);
+    }
+
+    /* Reading position, drawn on the nav's own edge — the same treatment the survey
+       dashboard uses. Scroll-linked, so it tracks the finger one to one and carries
+       no transition of its own. The 0–1 fraction arrives as a custom property. */
+    .nav::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      bottom: -1px;
+      height: 2px;
+      background: var(--accent-orange);
+      opacity: 0.75;
+      transform: scaleX(var(--read-progress, 0));
+      transform-origin: left center;
+      pointer-events: none;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+      padding: 14px 24px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .animated-chuck {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .chuck-rotator {
+      transform-origin: 0px 0px;
+      animation: spinChuck 12s linear infinite;
+    }
+
+    .jaw-piece {
+      transform-origin: 0px 0px;
+      animation: clampJaws 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes spinChuck {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes clampJaws {
+
+      0%,
+      30% {
+        transform: translateY(0);
+      }
+
+      70%,
+      100% {
+        transform: translateY(10px);
+      }
+    }
+
+
+    .nav-logo span {
+      font-weight: 800;
+      font-size: 1.1rem;
+      background: linear-gradient(to right, #ffedd5, #FF9933, #ffedd5);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+      animation: logoShimmer 3s linear infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes logoShimmer {
+      to {
+        background-position: -200% center;
+      }
+    }
+
+    .nav-badge {
+      font-size: var(--text-caption);
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: rgba(var(--accent-blue-rgb), 0.1);
+      color: var(--accent-blue);
+      border: 1px solid rgba(var(--accent-blue-rgb), 0.2);
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      min-width: 0;
+      gap: 4px;
+      flex: 1;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .connect-btn-nav {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(var(--accent-cyan-rgb), 0.08);
+      border: 1px solid rgba(var(--accent-cyan-rgb), 0.2);
+      color: var(--accent-cyan) !important;
+    }
+
+    .connect-btn-nav:hover {
+      background: rgba(var(--accent-cyan-rgb), 0.16);
+      border-color: var(--accent-cyan);
+      color: #fff !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(var(--accent-cyan-rgb), 0.15);
+    }
+
+
+    .back-btn {
+      border: 1px solid var(--border-glass);
+      background: rgba(255, 255, 255, 0.025);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .back-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* ============================================
+       HIT AREAS — 44px tall, visual size unchanged.
+       Each pseudo-element stays inside its own element's width, so no two
+       targets overlap and the vertical neighbours are all non-interactive.
+       ============================================ */
+    .nav-logo,
+    .nav-links a,
+    .connect-btn-nav,
+    .back-btn,
+    .tech-drawer summary {
+      position: relative;
+    }
+
+    .nav-logo::after,
+    .nav-links a::after,
+    .connect-btn-nav::after,
+    .back-btn::after,
+    .tech-drawer summary::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 44px;
+      transform: translateY(-50%);
+    }
+
+    /* ============================================
+       CARD — Matching survey page .card
+       ============================================ */
+    .card {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      transition: transform 0.3s ease, border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* ============================================
+       SECTION LAYOUT
+       ============================================ */
+    section {
+      padding: 70px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+
+    .section-tag {
+      font-size: var(--text-caption);
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-tag::before,
+    .section-tag::after {
+      content: '';
+      width: 36px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-cyan));
+    }
+
+    .section-tag::after {
+      background: linear-gradient(90deg, var(--accent-cyan), transparent);
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.7rem, 3.5vw, 2.3rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      /* Headings take display leading, not the 1.6 inherited from body. */
+      line-height: 1.15;
+      text-wrap: balance;
+      margin: 0 0 10px;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      margin: 0 auto;
+    }
+
+    /* ============================================
+       HERO SECTION
+       ============================================ */
+    .hero {
+      padding: 80px 0 70px;
+    }
+
+    .hero-overline {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-overline::before,
+    .hero-overline::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-cyan));
+    }
+
+    .hero-overline::after {
+      background: linear-gradient(90deg, var(--accent-cyan), transparent);
+    }
+
+    .hero-layout {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .hero-layout {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+    }
+
+    /* Avatar */
+    .avatar-wrapper {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .avatar-ring {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #3b82f6, #9d7bf8, #ec4899, #06b6d4, #3b82f6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      box-shadow: 0 0 40px rgba(var(--accent-blue-rgb), 0.3);
+      animation: rotateRing 12s linear infinite;
+    }
+
+    @keyframes rotateRing {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--bg-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-initials {
+      font-size: 2.6rem;
+      font-weight: 900;
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--gradient-hero);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: keepUpright 12s linear infinite;
+    }
+
+    @keyframes keepUpright {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(-360deg);
+      }
+    }
+
+    .hero-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .dev-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: var(--text-caption);
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: rgba(var(--accent-blue-rgb), 0.1);
+      color: var(--accent-blue);
+      border: 1px solid rgba(var(--accent-blue-rgb), 0.2);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+
+    @media (max-width: 768px) {
+      .dev-badge {
+        margin: 0 auto;
+      }
+    }
+
+    .hero-name {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #f0f4f8 0%, #a0aec0 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--accent-cyan);
+      font-weight: 500;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 1.5rem;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      margin-top: 0.25rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .hero-meta {
+        justify-content: center;
+      }
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+    }
+
+    .meta-item svg {
+      color: var(--accent-blue);
+    }
+
+    .bio-text {
+      color: var(--text-secondary);
+      line-height: 1.65;
+      /* This is the page's first real paragraph — it reads at the body size,
+         not one step below it. */
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      text-wrap: pretty;
+    }
+
+    @media (max-width: 768px) {
+      .bio-text {
+        text-align: left;
+      }
+    }
+
+    /* ============================================
+       HERO STATS — Matching survey page hero-stat cards
+       ============================================ */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin: 44px 0 0;
+    }
+
+    .hero-stat {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 28px 20px;
+      backdrop-filter: blur(12px);
+      transition: transform 0.3s ease, border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .hero-stat:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-hover);
+    }
+
+    /* One accent and one treatment across all four. Four hues for four peer
+       values made colour that encoded nothing compete with the phase colours,
+       which do encode something. Saffron is the brand mark's own colour and
+       this row is the page's headline claim, so it is the one place the brand
+       accent is allowed to carry weight. */
+    .hero-stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent-orange);
+    }
+
+    .stat-number {
+      font-size: 2.4rem;
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-primary);
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .stat-sub {
+      font-size: var(--text-caption);
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .phase-timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .phase-timeline::before {
+      content: '';
+      position: absolute;
+      left: 32px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom,
+          var(--accent-blue) 0%,
+          var(--accent-violet) 40%,
+          var(--accent-emerald) 70%,
+          rgba(var(--accent-emerald-rgb), 0.2) 100%);
+      border-radius: 2px;
+      z-index: 0;
+    }
+
+    .phase-card {
+      position: relative;
+      padding-left: 80px;
+      padding-bottom: 3rem;
+    }
+
+    .phase-card:last-child {
+      padding-bottom: 0;
+    }
+
+    .phase-badge {
+      position: absolute;
+      left: 8px;
+      top: 0;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      z-index: 2;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .phase-card:hover .phase-badge {
+      transform: scale(1.1);
+    }
+
+    .phase-badge.p1 {
+      background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+      box-shadow: 0 0 20px rgba(var(--accent-blue-rgb), 0.5);
+    }
+
+    .phase-badge.p2 {
+      background: linear-gradient(135deg, #6d28d9, #9d7bf8);
+      box-shadow: 0 0 20px rgba(var(--accent-violet-rgb), 0.5);
+    }
+
+    .phase-badge.p3 {
+      background: linear-gradient(135deg, #059669, #10b981);
+      box-shadow: 0 0 20px rgba(var(--accent-emerald-rgb), 0.5);
+      animation: pulsePhase3 3s ease-in-out infinite;
+    }
+
+    @keyframes pulsePhase3 {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(var(--accent-emerald-rgb), 0.4);
+      }
+
+      50% {
+        box-shadow: 0 0 35px rgba(var(--accent-emerald-rgb), 0.7);
+      }
+    }
+
+    .phase-content {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      transition: all var(--transition-normal);
+    }
+
+    .phase-card:hover .phase-content {
+      border-color: var(--border-hover);
+      background: rgba(var(--accent-blue-rgb), 0.03);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .phase-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .phase-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .phase-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--text-caption);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .phase-label.p1 {
+      color: var(--accent-blue);
+    }
+
+    .phase-label.p2 {
+      color: var(--accent-violet);
+    }
+
+    .phase-label.p3 {
+      color: var(--accent-emerald);
+    }
+
+    .phase-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .phase-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .current-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(var(--accent-emerald-rgb), 0.12);
+      border: 1px solid rgba(var(--accent-emerald-rgb), 0.25);
+      color: var(--accent-emerald);
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: var(--text-caption);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .current-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent-emerald);
+      border-radius: 50%;
+      animation: livePulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes livePulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(0.7);
+      }
+    }
+
+    .phase-desc {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: 1rem;
+      margin-bottom: 1.25rem;
+      text-wrap: pretty;
+    }
+
+    .phase-desc strong {
+      color: var(--text-primary);
+    }
+
+    .phase-insight {
+      background: rgba(var(--accent-blue-rgb), 0.04);
+      border-left: 3px solid var(--accent-blue);
+      padding: 0.75rem 1rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.25rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .phase-card:nth-child(3) .phase-insight {
+      border-left-color: var(--accent-violet);
+      background: rgba(var(--accent-violet-rgb), 0.04);
+    }
+
+    .phase-card:nth-child(5) .phase-insight {
+      border-left-color: var(--accent-emerald);
+      background: rgba(var(--accent-emerald-rgb), 0.04);
+    }
+
+    /* Tech stack pills */
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tech-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--text-caption);
+      padding: 0.2rem 0.55rem;
+      border-radius: 5px;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+    }
+
+    .tech-pill:hover {
+      border-color: var(--accent-cyan);
+      color: var(--text-primary);
+    }
+
+    .tech-pill.highlight {
+      border-color: rgba(var(--accent-blue-rgb), 0.3);
+      color: var(--accent-blue);
+      background: rgba(var(--accent-blue-rgb), 0.06);
+    }
+
+    /* Phase stats row */
+    .phase-stats {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .phase-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .phase-stat-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+
+    .phase-stat-val.p1 {
+      color: var(--accent-blue);
+    }
+
+    .phase-stat-val.p2 {
+      color: var(--accent-violet);
+    }
+
+    .phase-stat-val.p3 {
+      color: var(--accent-emerald);
+    }
+
+    .phase-stat-lbl {
+      font-size: var(--text-caption);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    /* Phase connectors */
+    .phase-connector {
+      position: relative;
+      padding-left: 80px;
+      padding-bottom: 1.5rem;
+      padding-top: 0.5rem;
+    }
+
+    .connector-text {
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+    }
+
+    /* ============================================
+       INFO GRID (Skills + Highlights)
+       ============================================ */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @keyframes fillBar {
+      to {
+        width: var(--fill-width);
+      }
+    }
+
+    /* ============================================
+       HIGHLIGHT CARDS
+       ============================================ */
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .highlight-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-sm);
+      padding: 1.15rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: transform var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .highlight-card:hover {
+      transform: translateX(4px);
+      border-color: rgba(var(--accent-blue-rgb), 0.2);
+      background: rgba(var(--accent-blue-rgb), 0.02);
+    }
+
+    .icon-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: rgba(var(--accent-blue-rgb), 0.08);
+      border: 1px solid rgba(var(--accent-blue-rgb), 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-blue);
+      flex-shrink: 0;
+    }
+
+    .icon-box.emerald {
+      background: rgba(var(--accent-emerald-rgb), 0.08);
+      border-color: rgba(var(--accent-emerald-rgb), 0.15);
+      color: var(--accent-emerald);
+    }
+
+    .icon-box.amber {
+      background: rgba(var(--accent-amber-rgb), 0.08);
+      border-color: rgba(var(--accent-amber-rgb), 0.15);
+      color: var(--accent-amber);
+    }
+
+    .icon-box.violet {
+      background: rgba(var(--accent-violet-rgb), 0.08);
+      border-color: rgba(var(--accent-violet-rgb), 0.15);
+      color: var(--accent-violet);
+    }
+
+    .card-details h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.3;
+      margin-bottom: 0.2rem;
+    }
+
+    .card-details p {
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .detail-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--text-caption);
+      background: rgba(var(--accent-blue-rgb), 0.07);
+      border: 1px solid rgba(var(--accent-blue-rgb), 0.13);
+      color: var(--accent-blue);
+      padding: 0.12rem 0.45rem;
+      border-radius: 4px;
+      margin-top: 0.4rem;
+      margin-right: 0.3rem;
+    }
+
+    /* ============================================
+       GIT COMMIT TERMINAL
+       ============================================ */
+    .git-stats {
+      display: grid;
+      /* minmax(0, 1fr) rather than 1fr: a 1fr track refuses to shrink below its
+         content, which is what pushed the document past 320px. */
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .git-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .git-stat-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      text-align: center;
+      transition: border-color var(--transition-fast);
+    }
+
+    .git-stat-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .git-stat-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      margin-bottom: 0.2rem;
+    }
+
+    .git-stat-card:nth-child(even) .git-stat-val {
+      color: var(--accent-violet);
+    }
+
+    .git-stat-lbl {
+      font-size: var(--text-caption);
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .pub-category {
+      font-size: var(--text-caption);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--accent-blue);
+      background: rgba(var(--accent-blue-rgb), 0.08);
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+    }
+
+    .series-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--text-caption);
+      background: rgba(var(--accent-blue-rgb), 0.08);
+      border: 1px solid rgba(var(--accent-blue-rgb), 0.15);
+      color: var(--accent-blue);
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      font-weight: 600;
+    }
+
+    /* Award badge */
+    .award-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--text-caption);
+      font-weight: 600;
+      color: var(--accent-amber);
+      background: rgba(var(--accent-amber-rgb), 0.08);
+      border: 1px solid rgba(var(--accent-amber-rgb), 0.2);
+      padding: 0.2rem 0.55rem;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+      width: fit-content;
+    }
+
+    /* ============================================
+       AI CO-CREATION
+       ============================================ */
+    .ai-banner {
+      background: linear-gradient(135deg, rgba(var(--accent-blue-rgb), 0.04) 0%, rgba(var(--accent-violet-rgb), 0.04) 100%);
+      border: 1px solid rgba(var(--accent-violet-rgb), 0.15) !important;
+    }
+
+    .ai-layout {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .ai-layout {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    .ai-visual {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      border: 2px dashed rgba(var(--accent-violet-rgb), 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent-violet);
+      animation: pulseAI 4s ease-in-out infinite;
+    }
+
+    @keyframes pulseAI {
+
+      0%,
+      100% {
+        box-shadow: 0 0 10px rgba(var(--accent-violet-rgb), 0.1);
+      }
+
+      50% {
+        box-shadow: 0 0 24px rgba(var(--accent-violet-rgb), 0.25);
+      }
+    }
+
+    .ai-details h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.2;
+      text-wrap: balance;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .ai-details p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: 1rem;
+      text-wrap: pretty;
+    }
+
+    .ai-details p strong {
+      color: var(--text-primary);
+    }
+
+    .ai-tools {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .ai-tool-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--text-caption);
+      padding: 0.2rem 0.55rem;
+      border-radius: 5px;
+      background: rgba(var(--accent-violet-rgb), 0.07);
+      border: 1px solid rgba(var(--accent-violet-rgb), 0.15);
+      color: var(--accent-violet);
+      font-weight: 500;
+    }
+
+    /* ============================================
+       CONTACT & FOOTER
+       ============================================ */
+    .contact-section {
+      padding: 60px 0 20px;
+      text-align: center;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 10px 22px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--border-glass);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      transition: background-color var(--transition-fast), border-color var(--transition-fast),
+        color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .contact-btn:hover {
+      background: rgba(var(--accent-blue-rgb), 0.08);
+      border-color: rgba(var(--accent-blue-rgb), 0.3);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(var(--accent-blue-rgb), 0.12);
+    }
+
+    .contact-btn.primary {
+      background: rgba(var(--accent-blue-rgb), 0.08);
+      border-color: rgba(var(--accent-blue-rgb), 0.25);
+      color: var(--accent-blue);
+    }
+
+    .contact-btn.primary:hover {
+      background: rgba(var(--accent-blue-rgb), 0.16);
+      border-color: var(--accent-blue);
+    }
+
+    footer {
+      border-top: 1px solid var(--border-glass);
+      padding: 20px 24px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ============================================
+       SECTION TITLE (inline use inside cards)
+       ============================================ */
+    .card-section-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--border-glass);
+      padding-bottom: 0.75rem;
+      letter-spacing: -0.5px;
+    }
+
+    .card-section-title svg {
+      color: var(--accent-blue);
+    }
+
+    /* ============================================
+       MACRO TIMELINE (Dev Log milestones + Journey
+       de-jargon arc tags)
+       ============================================ */
+    .macro-timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .macro-timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom,
+          var(--accent-blue) 0%,
+          var(--accent-violet) 50%,
+          var(--accent-emerald) 100%);
+      border-radius: 2px;
+      z-index: 0;
+    }
+
+    .macro-item {
+      position: relative;
+      padding-left: 48px;
+      padding-bottom: 1.5rem;
+    }
+
+    .macro-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .macro-dot {
+      position: absolute;
+      left: 7px;
+      top: 4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--bg-primary);
+      border: 2px solid var(--accent-blue);
+      z-index: 2;
+    }
+
+    .macro-item:nth-child(even) .macro-dot {
+      border-color: var(--accent-violet);
+    }
+
+    .macro-item:nth-child(3n) .macro-dot,
+    .macro-item:last-child .macro-dot {
+      border-color: var(--accent-emerald);
+    }
+
+    .macro-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--text-caption);
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .macro-text {
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .macro-text .highlight {
+      color: var(--accent-cyan);
+    }
+
+    /* Collapsible details (tech drawers) */
+    .tech-drawer {
+      margin-top: 1rem;
+    }
+
+    .tech-drawer summary {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--text-caption);
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.35rem 0.7rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-glass);
+      background: rgba(255, 255, 255, 0.02);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: border-color var(--transition-fast), color var(--transition-fast);
+    }
+
+    .tech-drawer summary:hover {
+      border-color: var(--border-hover);
+      color: var(--text-secondary);
+    }
+
+    .tech-drawer[open] summary {
+      border-color: var(--border-hover);
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    /* The drawer is the one disclosure a keyboard can reach — it has to show
+       that it opened, like the other three do. */
+    .tech-drawer summary svg {
+      transition: transform var(--transition-fast);
+    }
+
+    .tech-drawer[open] summary svg {
+      transform: rotate(180deg);
+    }
+
+    .tech-drawer .drawer-content {
+      padding-top: 0.5rem;
+    }
+
+    /* ============================================
+       SKILL CHIP MATRIX (replaces score bars)
+       ============================================ */
+    .chip-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .chip-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .chip-group-label {
+      font-size: var(--text-caption);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .chip {
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-glass);
+      background: var(--bg-glass);
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+    }
+
+    .chip:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-glass-hover);
+      color: var(--text-primary);
+    }
+
+    /* The three tiers are an ordinal: core, then working, then exploring. Colour
+       cannot carry that on its own here — cyan and blue collapse to a deltaE of
+       2.1 in OKLab under tritanopia, and 6.3 under deuteranopia, so "core" and
+       "working knowledge" become the same chip. Border weight carries the same
+       ordering in a channel that survives grayscale: heaviest, lighter, open. */
+    .chip.tier-core {
+      border-width: 2px;
+      border-color: rgba(var(--accent-cyan-rgb), 0.35);
+      color: var(--accent-cyan);
+      background: rgba(var(--accent-cyan-rgb), 0.06);
+    }
+
+    .chip.tier-core:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(var(--accent-cyan-rgb), 0.12);
+    }
+
+    .chip.tier-working {
+      border-width: 1px;
+      border-color: rgba(var(--accent-blue-rgb), 0.25);
+      color: var(--accent-blue);
+      background: rgba(var(--accent-blue-rgb), 0.04);
+    }
+
+    .chip.tier-working:hover {
+      border-color: var(--accent-blue);
+      background: rgba(var(--accent-blue-rgb), 0.1);
+    }
+
+    /* The legend promises violet for this tier and the chip used to render grey,
+       so the two disagreed on the same component. It is violet now, and the
+       tier also gets a shape cue: dashed border here, hollow swatch in the
+       legend. Without it the only thing separating "exploring" from "working
+       knowledge" is a hue that red-green colour blindness flattens. */
+    .chip.tier-exploring {
+      border-style: dashed;
+      border-color: rgba(var(--accent-violet-rgb), 0.5);
+      color: var(--accent-violet);
+      background: rgba(var(--accent-violet-rgb), 0.07);
+    }
+
+    .chip.tier-exploring:hover {
+      border-style: dashed;
+      border-color: var(--accent-violet);
+      color: #c4b5fd;
+      background: rgba(var(--accent-violet-rgb), 0.14);
+    }
+
+    .chip-tier-legend {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-glass);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: var(--text-caption);
+      color: var(--text-muted);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.core {
+      background: var(--accent-cyan);
+    }
+
+    .legend-dot.working {
+      background: var(--accent-blue);
+    }
+
+    /* Hollow, matching the dashed border on the chips it explains. Filled
+       versus open survives grayscale; violet versus blue does not. */
+    .legend-dot.exploring {
+      background: transparent;
+      border: 2px solid var(--accent-violet);
+    }
+
+    .pub-accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .accordion-item {
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all var(--transition-normal);
+    }
+
+    .accordion-item:hover {
+      border-color: rgba(var(--accent-blue-rgb), 0.15);
+    }
+
+    .accordion-heading {
+      margin: 0;
+      font-size: inherit;
+      font-weight: inherit;
+      letter-spacing: inherit;
+    }
+
+    .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 1.4rem;
+      cursor: pointer;
+      gap: 1rem;
+      /* Native reset — this is the disclosure control, not a styled row. */
+      width: 100%;
+      background: none;
+      border: 0;
+      font: inherit;
+      color: inherit;
+      text-align: left;
+    }
+
+    .accordion-header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .accordion-chevron {
+      flex-shrink: 0;
+      color: var(--text-muted);
+      transition: transform var(--transition-normal);
+    }
+
+    .accordion-header[aria-expanded='true'] .accordion-chevron {
+      transform: rotate(180deg);
+    }
+
+    /* A panel opens by animating its grid track, not its max-height. max-height
+       is a layout property, it janks, and it needs a scrollHeight measurement
+       plus a transitionend listener to grow past an arbitrary cap. A 0fr -> 1fr
+       row resolves to the content height on its own, so the script only has to
+       flip a class. overflow: hidden on the container clips the closed state —
+       the child keeps its own padding and border, so clipping has to happen one
+       level up.
+       The track minimum is written as 0 rather than left at `auto`: a bare `0fr`
+       still floors the track at the child's padding plus border, which left a
+       23px stub of the closed panel on screen. Both states carry the same
+       minmax(0, …) shape so the two fr values are the only thing interpolating. */
+    .accordion-body {
+      display: grid;
+      grid-template-rows: minmax(0, 0fr);
+      overflow: hidden;
+      transition: grid-template-rows var(--transition-panel);
+    }
+
+    .accordion-body.open {
+      grid-template-rows: minmax(0, 1fr);
+    }
+
+    .accordion-inner {
+      padding: 0 1.4rem 1.4rem;
+      border-top: 1px solid var(--border-glass);
+      min-height: 0;
+    }
+
+    /* Sub-list inside CNC series accordion */
+    .sub-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-top: 1rem;
+    }
+
+    .sub-item {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid transparent;
+      transition: all var(--transition-fast);
+    }
+
+    .sub-item:hover {
+      border-color: var(--border-glass);
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .sub-item .part-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--text-caption);
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: rgba(var(--accent-blue-rgb), 0.08);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      flex-shrink: 0;
+      min-width: 28px;
+      text-align: center;
+    }
+
+    .sub-item-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sub-item-title {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .sub-item-meta {
+      font-size: var(--text-caption);
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .sub-item-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    /* Full-width pub detail (for standalone papers) */
+    .pub-detail {
+      padding-top: 0.75rem;
+    }
+
+    .pub-detail-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 0.75rem;
+      text-wrap: pretty;
+    }
+
+    .pub-detail-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .pub-detail-meta strong {
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    /* ============================================
+       IN-PAGE NAV — scroll offset + active state
+       ============================================ */
+    section[id] {
+      scroll-margin-top: 80px;
+    }
+
+    .nav-links a.active {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-links a.connect-btn-nav.active {
+      background: rgba(var(--accent-cyan-rgb), 0.16);
+      border-color: var(--accent-cyan);
+      color: #fff !important;
+    }
+
+    /* Sub-accordion styles */
+    .sub-item {
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+
+    .sub-item-header {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      width: 100%;
+      /* Native reset — the row is the disclosure control. */
+      background: none;
+      border: 0;
+      font: inherit;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .sub-item-header[aria-expanded='true'] .sub-accordion-chevron {
+      transform: rotate(180deg);
+    }
+
+    .sub-item-body {
+      display: grid;
+      grid-template-rows: minmax(0, 0fr);
+      overflow: hidden;
+      transition: grid-template-rows var(--transition-panel);
+      width: 100%;
+    }
+
+    .sub-item-body.open {
+      grid-template-rows: minmax(0, 1fr);
+    }
+
+    .sub-item-details {
+      min-height: 0;
+    }
+
+    .sub-item-details {
+      padding-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.05);
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      padding-left: 2.2rem;
+      min-height: 0;
+    }
+
+    .sub-accordion-chevron {
+      /* Pushed to the trailing edge of the meta row. This was an inline style on
+         all six series parts, along with a transition that duplicated the one
+         below at a different duration. */
+      margin-left: auto;
+      transition: transform var(--transition-normal);
+      color: var(--text-muted);
+    }
+
+    /* Research Header Wrapper and Stats Cards */
+    .research-header-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .research-header-wrapper .section-header {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    /* These two counters used to bob on a 6s infinite loop. It explained no
+       state, it sat beside a heading in the content column rather than in
+       chrome, and it overrode the hover transform — so the lift below never
+       rendered above 768px and did below it, one declared behaviour with two
+       outcomes decided by window width. The float is gone; hover is now the
+       change of edge at every viewport. */
+    .stat-side-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 160px;
+      height: 160px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: all var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .stat-side-card.papers {
+      border-color: rgba(var(--accent-cyan-rgb), 0.25);
+      box-shadow: 0 0 25px rgba(var(--accent-cyan-rgb), 0.08);
+      background: linear-gradient(135deg, rgba(var(--accent-cyan-rgb), 0.03) 0%, rgba(var(--accent-blue-rgb), 0.03) 100%);
+    }
+
+    .stat-side-card.papers:hover {
+      border-color: rgba(var(--accent-cyan-rgb), 0.6);
+      box-shadow: 0 0 35px rgba(var(--accent-cyan-rgb), 0.25), inset 0 0 15px rgba(var(--accent-cyan-rgb), 0.15);
+    }
+
+    .stat-side-card.awards {
+      border-color: rgba(var(--accent-amber-rgb), 0.25);
+      box-shadow: 0 0 25px rgba(var(--accent-amber-rgb), 0.08);
+      background: linear-gradient(135deg, rgba(var(--accent-amber-rgb), 0.03) 0%, rgba(var(--accent-rose-rgb), 0.03) 100%);
+    }
+
+    .stat-side-card.awards:hover {
+      border-color: rgba(var(--accent-amber-rgb), 0.6);
+      box-shadow: 0 0 35px rgba(var(--accent-amber-rgb), 0.25), inset 0 0 15px rgba(var(--accent-amber-rgb), 0.15);
+    }
+
+    .stat-side-card .number {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 3rem;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-side-card.papers .number {
+      background: linear-gradient(to bottom, #fff 30%, var(--accent-cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 10px rgba(var(--accent-cyan-rgb), 0.3));
+    }
+
+    .stat-side-card.awards .number {
+      background: linear-gradient(to bottom, #fff 30%, var(--accent-amber));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 10px rgba(var(--accent-amber-rgb), 0.3));
+    }
+
+    .stat-side-card .label {
+      font-size: var(--text-caption);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    .stat-side-card.papers:hover .label {
+      color: var(--accent-cyan);
+    }
+
+    .stat-side-card.awards:hover .label {
+      color: var(--accent-amber);
+    }
+
+    @media (max-width: 768px) {
+      .research-header-wrapper {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+
+      .research-header-wrapper .section-header {
+        order: 1;
+      }
+
+      .stat-side-card.papers {
+        order: 2;
+      }
+
+      .stat-side-card.awards {
+        order: 3;
+      }
+
+      .stat-side-card {
+        width: 100%;
+        max-width: 320px;
+        height: 100px;
+        flex-direction: row;
+        gap: 1.5rem;
+      }
+
+      .stat-side-card .number {
+        margin-bottom: 0;
+        font-size: 2.5rem;
+      }
+    }
+
+    /* ============================================
+       NARROW VIEWPORTS — the nav recomposes.
+       The section index was wrapping into two or three ragged rows, which came
+       to 177px at 375px and 221px at 320px pinned to the top of a 15,000px read
+       — 22 to 27 percent of the viewport, permanently. It is now a single row
+       that scrolls sideways, so the whole header is 153px (19 percent) and the
+       fifth link peeks past the edge as the signal that the row continues.
+       Docs keeps its own line rather than moving up beside the brand: reordering
+       it with `order` would put it above links that still come first in the DOM,
+       and the tab order has to match what the eye sees.
+       ============================================ */
+    @media (max-width: 768px) {
+      .nav-inner {
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+      }
+
+      .nav-left {
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        /* A 100% basis forces the strip onto its own line while the tabs above
+           it share theirs. `flex: none` alone leaves it at its max-content width
+           (463px) and it never scrolls. */
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        /* 6px of block padding is what lets the 44px hit-area pseudo-elements on
+           the links survive inside a scroll container: with overflow-x: auto the
+           block axis clips too, and the strip would clip them back to 32px. */
+        padding-block: 6px;
+        /* The fifth link peeks ~40px past the right edge, which is the signal the
+           row continues. A scrollbar in the nav would be noise. */
+        scrollbar-width: none;
+      }
+
+      .nav-links::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Without this the narrowest label ("Dev Log") absorbs the shrink and
+         wraps to two lines, which is what made the strip 64px tall. In a scroll
+         strip the items keep their size and the container does the giving. */
+      .nav-links a {
+        flex-shrink: 0;
+      }
+
+      .back-btn {
+        align-self: flex-start;
+      }
+    }
+
+    /* Below 480px the "Developer Profile" badge is the row that pushes the Docs
+       button onto a line of its own. The h1 and the section overline already say
+       what it says. */
+    @media (max-width: 480px) {
+      .nav-badge {
+        display: none;
+      }
+    }
+
+    /* The four dev-log figures are the widest text in their cards ("Encrypted"
+       is nine mono characters); at 320px they need to step down to stay inside
+       a two-column track. The card padding comes in too: 28px inside a 24px
+       container on a 320px screen is 56px of the 320 spent on nothing.
+       Nine characters at a flat 1.15rem still measure 99.4px against a 99px
+       content box at 375px, which broke the word as "Encrypte/d", so the value
+       scales with the viewport instead of stepping once and stopping. */
+    @media (max-width: 480px) {
+      .card {
+        padding: 1.25rem;
+      }
+
+      .git-stat-val {
+        font-size: clamp(0.95rem, 4.4vw, 1.15rem);
+      }
+    }
+
+    /* ============================================
+       PHASE TIMELINE — the rail recomposes on phones.
+       Above 768px the journey is a two-column rail: an 80px lane holding the
+       badge and the gradient line, with the phase card beside it. On a phone
+       that lane plus the card's own 2rem padding left 70px of text at 320px —
+       seven characters a line, on the section that carries the whole story.
+       Below 768px the lane is dropped and the badge stacks above the card. The
+       sequence still reads: the 01/02/03 numerals, the connector quotes between
+       phases, and document order all survive, and the prose gets its measure.
+       ============================================ */
+    @media (max-width: 768px) {
+      .phase-timeline::before {
+        display: none;
+      }
+
+      .phase-card {
+        padding-left: 0;
+        padding-bottom: 1.5rem;
+      }
+
+      .phase-card:last-child {
+        padding-bottom: 0;
+      }
+
+      .phase-badge {
+        position: static;
+        width: 34px;
+        height: 34px;
+        font-size: 0.95rem;
+        margin-bottom: 0.6rem;
+      }
+
+      .phase-content {
+        padding: 1.25rem;
+      }
+
+      .phase-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+        gap: 0.85rem 1rem;
+      }
+
+      .phase-connector {
+        padding-left: 0;
+        padding-bottom: 1rem;
+      }
+
+      .connector-text {
+        font-size: 0.84rem;
+      }
+
+      .phase-insight {
+        padding: 0.7rem 0.85rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .phase-content {
+        padding: 1rem;
+      }
+
+      .phase-name {
+        font-size: 1.15rem;
+      }
+
+      .phase-badge {
+        width: 30px;
+        height: 30px;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* ============================================
+       PUBLICATION HEADERS — the chips stop being crushed.
+       Above the narrow breakpoint nothing in this row could refuse to shrink,
+       so the category chips wrapped mid-phrase on four of five rows while the
+       title fought them for the same width. The chips now hold their size; the
+       title takes the wrap.
+       ============================================ */
+    .pub-category,
+    .series-count {
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .pub-title {
+      min-width: 0;
+      /* These four were an inline style on all four publication headers. */
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    /* Below it, the row has to recompose instead. Holding the chips at their
+       size without giving the title anywhere to go collapsed it to a zero-width
+       column three hundred pixels tall. The header becomes rows: the labels,
+       then the title full width, then the award badge and chevron. */
+    @media (max-width: 768px) {
+      .accordion-header {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        row-gap: 0.6rem;
+      }
+
+      .accordion-header-left {
+        flex: 1 1 100%;
+        flex-wrap: wrap;
+        row-gap: 0.4rem;
+      }
+
+      .pub-title {
+        flex: 1 1 100%;
+      }
+
+      .accordion-header {
+        padding: 1rem;
+      }
+    }
+
+    /* ============================================
+       TOUCH — taps behave like taps.
+       ============================================ */
+
+    /* Without this the browser waits ~300ms after a tap to see whether a second
+       one is coming, because it might have been a double-tap zoom. Panning and
+       pinch-zoom are untouched. */
+    :where(a[href], button, summary, [tabindex]) {
+      touch-action: manipulation;
+    }
+
+    /* The default tap highlight is a grey-blue rectangle that belongs to no
+       palette on this page. A brand-tinted wash reads as part of the design. */
+    html {
+      -webkit-tap-highlight-color: rgba(var(--accent-orange-rgb), 0.16);
+    }
+
+    /* ============================================
+       HIGH CONTRAST — Windows High Contrast is a real environment, not an edge
+       case. Forced colours strip every background image, which removes anything
+       that draws its shape with a gradient and no border. The page's headline and
+       name survive this (the UA adjusts gradient-clipped text at paint time), but
+       four shapes do not: the journey rail, the phase badges, the avatar ring and
+       the hero evidence bars. Each one is rebuilt from a system colour.
+       ============================================ */
+    @media (forced-colors: active) {
+
+      /* Drawn as a linear gradient — with the image gone there is no rail at all. */
+      .phase-timeline::before {
+        background: CanvasText;
+      }
+
+      /* Filled circles with no border, so the fill was the only thing there. */
+      .phase-badge,
+      .avatar-ring {
+        background: none;
+        border: 2px solid CanvasText;
+      }
+
+      /* Forced to white, on a canvas that is also forced to white. */
+      .hero-stat::before {
+        background: CanvasText;
+      }
+    }
+
+    /* ============================================
+       INPUT MODE — hover travel belongs to pointers that hover.
+       On touch the hover state sticks after a tap, leaving cards parked in a
+       lifted position. The colour change stays (it is the press feedback); the
+       movement goes.
+       ============================================ */
+    @media (hover: none) {
+      .card:hover,
+      .hero-stat:hover,
+      .highlight-card:hover,
+      .contact-btn:hover,
+      .connect-btn-nav:hover,
+      .phase-card:hover .phase-badge {
+        transform: none;
+      }
+    }
+
+    /* ============================================
+       MOTION — arrival, reveal, and press.
+       All of it is opt-in: with `prefers-reduced-motion: reduce` these blocks
+       never apply and the page is simply static, which is the correct default.
+       ============================================ */
+    @media (prefers-reduced-motion: no-preference) {
+
+      /* --- Arrival. The hero resolves in five beats rather than appearing all
+             at once: overline, headline, intro, profile card, then the evidence
+             row. 90ms apart so the eye reads an order instead of a flash. --- */
+      @keyframes heroRise {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+          filter: blur(5px);
+        }
+
+        to {
+          opacity: 1;
+          transform: none;
+          filter: blur(0);
+        }
+      }
+
+      .hero-overline,
+      .hero h1,
+      .hero-intro,
+      .hero .card,
+      .hero-stats {
+        /* `backwards`, not `both` — forwards fill would keep overriding the
+           hover lift on the profile card for the rest of the page's life. */
+        animation: heroRise 520ms var(--ease-out-quart) backwards;
+      }
+
+      .hero-overline {
+        animation-delay: 0ms;
+      }
+
+      .hero h1 {
+        animation-delay: 90ms;
+      }
+
+      .hero-intro {
+        animation-delay: 180ms;
+      }
+
+      .hero .card {
+        animation-delay: 300ms;
+      }
+
+      .hero-stats {
+        animation-delay: 420ms;
+      }
+
+      /* --- Reading pace. A section announces itself as it comes into view.
+             Linked to scroll position rather than triggered once, so scrubbing
+             back and forth can never strand a section mid-fade at zero opacity.
+             Section headers and the three journey cards only — revealing every
+             card on the page would be wallpaper, not pacing. --- */
+      @supports (animation-timeline: view()) {
+        @keyframes sectionRise {
+          from {
+            opacity: 0;
+            transform: translateY(18px);
+          }
+
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+
+        .section-header,
+        .phase-card {
+          animation: sectionRise linear backwards;
+          animation-timeline: view();
+          animation-range: entry 0% entry 35%;
+        }
+      }
+    }
+
+    /* --- Press. The interface acknowledges the hand. Compact controls scale;
+       the full-width disclosure rows take a tint instead, because scaling a
+       row reads as the page flinching. This sits outside the reduced-motion
+       block on purpose: a press confirmation is the short signal that the press
+       registered, which is information, not decoration. --- */
+    .nav-logo:active,
+    .nav-links a:active,
+    .connect-btn-nav:active,
+    .back-btn:active,
+    .contact-btn:active,
+    .tech-drawer summary:active {
+      transform: scale(0.97);
+      transition-duration: 100ms;
+    }
+
+    .accordion-header:active,
+    .sub-item-header:active {
+      background-color: rgba(255, 255, 255, 0.045);
+    }
+
+    /* ============================================
+       REDUCED MOTION — decorative motion stops.
+       Looping ambience, the two spinning marks and the floating stat cards
+       all stop; hover lifts lose their travel but keep their colour change,
+       so the interface still answers.
+       ============================================ */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .ambient-bg,
+      .chuck-rotator,
+      .jaw-piece,
+      .nav-logo span,
+      .avatar-ring,
+      .avatar-initials,
+      .phase-badge.p3,
+      .current-tag::before,
+      .ai-visual {
+        animation: none;
+      }
+
+      .card:hover,
+      .hero-stat:hover,
+      .highlight-card:hover,
+      .contact-btn:hover,
+      .phase-card:hover .phase-badge,
+      .phase-card:hover .phase-content {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="ambient-bg"></div>
+
+  <div class="page-wrapper">
+
+    <!-- =============================================
+         NAV — Matching SurveyDashboardView nav
+         ============================================= -->
+    <nav class="nav" aria-label="Page sections">
+      <div class="container nav-inner">
+        <div class="nav-left">
+          <a href="#" class="nav-logo" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">
+            <svg aria-hidden="true" focusable="false" class="animated-chuck" width="28" height="28" viewBox="-60 -60 120 120" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="chuck-body-grad" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                  gradientTransform="scale(55)">
+                  <stop offset="0.7" stop-color="#1e293b" />
+                  <stop offset="1" stop-color="#475569" />
+                </radialGradient>
+              </defs>
+              <g class="chuck-rotator">
+                <!-- Chuck Body -->
+                <circle cx="0" cy="0" r="50" stroke="#64748b" stroke-width="4" fill="url(#chuck-body-grad)" />
+                <circle cx="0" cy="0" r="15" stroke="#64748b" stroke-width="2" fill="#0f172a" />
+                <!-- Jaws -->
+                <g>
+                  <g transform="rotate(0)">
+                    <path class="jaw-piece" d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z"
+                      fill="#FF9933" stroke="none" />
+                  </g>
+                  <g transform="rotate(120)">
+                    <path class="jaw-piece" d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z"
+                      fill="#FF9933" stroke="none" />
+                  </g>
+                  <g transform="rotate(240)">
+                    <path class="jaw-piece" d="M -6 -45 L 6 -45 L 6 -25 L 3 -25 L 3 -20 L -3 -20 L -3 -25 L -6 -25 Z"
+                      fill="#FF9933" stroke="none" />
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <span>CNC Learning App</span>
+          </a>
+          <div class="nav-badge">Developer Profile</div>
+        </div>
+        <div class="nav-links">
+          <a href="#profile">Profile</a>
+          <a href="#journey">Journey</a>
+          <a href="#ai">Approach</a>
+          <a href="#expertise">Expertise</a>
+          <a href="#devlog">Dev Log</a>
+          <a href="#research">Research</a>
+          <a href="#contact" class="connect-btn-nav">
+            <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round"
+              style="margin-right: 2px; display: inline-block; vertical-align: middle; transform: translateY(-0.5px);">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            Connect
+          </a>
+        </div>
+
+        <a href="#" id="back-btn" class="back-btn"
+          onclick="if (window.parent) { window.parent.postMessage({ type: 'back_to_dashboard' }, '*'); } else { alert('Back to Dashboard'); }">
+          <svg aria-hidden="true" focusable="false" id="back-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span id="back-text">Back</span>
+        </a>
+
+      </div>
+    </nav>
+
+    <main id="main">
+
+    <!-- =============================================
+         HERO — Centered overline + profile layout
+         ============================================= -->
+    <section class="hero" id="profile" aria-labelledby="profile-title">
+      <div class="container">
+        <div style="text-align: center; margin-bottom: 48px;">
+          <p class="hero-overline">About the Developer</p>
+          <h1 id="profile-title"
+            style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; background: linear-gradient(135deg, #f0f4f8 0%, #a0aec0 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px;">
+            The Mind Behind<br>CNC Interactive Learning
+          </h1>
+          <p class="hero-intro" style="font-size: 1.05rem; color: var(--text-secondary); margin: 0 auto;">
+            An engineer, educator, and researcher who built a production-grade desktop application from the ground up —
+            combining domain expertise with AI-assisted development.
+          </p>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="card" style="margin: 0 0 48px;">
+          <div class="hero-layout">
+            <div class="avatar-wrapper">
+              <div class="avatar-ring">
+                <div class="avatar-inner">
+                  <span class="avatar-initials">VU</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-details">
+              <span class="dev-badge">Developer &amp; Researcher</span>
+              <h2 class="hero-name">Vishvesh Jigneshkumar Upadhyay</h2>
+              <span class="hero-subtitle">Mechanical Engineer · Government Technical Educator · Published
+                Researcher</span>
+              <div class="hero-meta">
+                <div class="meta-item">
+                  <svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                  </svg>
+                  ITI, Gujarat Government
+                </div>
+                <div class="meta-item">
+                  <svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                    <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                  </svg>
+                  B.E. Mechanical Engineering
+                </div>
+                <div class="meta-item">
+                  <svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  Gujarat, India
+                </div>
+              </div>
+              <p class="bio-text">
+                Bridging the gap between physical manufacturing and modern software. As a Mechanical Engineer at ITI
+                Jamnagar under the Gujarat Government, I specialize in CNC programming, CAD/CAM, and technical education
+                — combining engineering expertise with AI-assisted development to build interactive, state-of-the-art
+                learning tools.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Stats — Matching survey page hero stats -->
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="stat-number" data-devstat="commits">394+</div>
+            <div class="stat-label">Git Commits</div>
+            <div class="stat-sub">Since Feb 2026</div>
+          </div>
+          <div class="hero-stat">
+            <div class="stat-number" data-devstat="loc-total">59K+</div>
+            <div class="stat-label">Lines of Code</div>
+            <div class="stat-sub">Frontend + Rust</div>
+          </div>
+          <div class="hero-stat">
+            <div class="stat-number">9</div>
+            <div class="stat-label">Publications</div>
+            <div class="stat-sub">7 IIRATI Awards</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         SECTION: APP EVOLUTION — JOURNEY (de-jargoned)
+         ============================================= -->
+    <section id="journey" aria-labelledby="journey-title">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">App Evolution</div>
+          <h2 id="journey-title">The Journey — How This App Came to Life</h2>
+          <p>From a simple idea on a laptop to a full desktop application used in classrooms — the story in three
+            stages.</p>
+        </div>
+
+        <div class="card">
+          <div class="phase-timeline">
+
+            <!-- Phase 1 — The Idea -->
+            <div class="phase-card">
+              <div class="phase-badge p1">01</div>
+              <div class="phase-content">
+                <div class="phase-header">
+                  <div class="phase-title-group">
+                    <span class="phase-label p1">Phase 1 — The Idea</span>
+                    <span class="phase-name">Generate Unlimited Practice Problems</span>
+                  </div>
+                  <span class="phase-period">
+                    <svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    May – Aug 2025
+                  </span>
+                </div>
+                <p class="phase-desc">
+                  Why should every student practise the same question? The idea was powerful in its simplicity:
+                  <strong>automatically generate a unique CNC exercise for every student</strong>, so no two people
+                  ever see the same problem. This eliminates copying and forces genuine understanding. I wrote
+                  programs that create randomized coordinate sets, technical drawings, and question banks covering six
+                  different geometry shapes.
+                </p>
+                <div class="phase-insight">
+                  “Every student gets a unique problem. No copying. No memorisation. Pure understanding.”
+                </div>
+                <div class="tech-stack">
+                  <span class="tech-pill highlight">Python 3.8</span>
+                  <span class="tech-pill">Jupyter Notebook</span>
+                  <span class="tech-pill">NumPy</span>
+                  <span class="tech-pill">Matplotlib</span>
+                  <span class="tech-pill">ezdxf (DXF/CAD)</span>
+                  <span class="tech-pill">Moodle XML</span>
+                </div>
+                <div class="phase-stats">
+                  <div class="phase-stat">
+                    <span class="phase-stat-val p1">10+</span>
+                    <span class="phase-stat-lbl">Programs</span>
+                  </div>
+                  <div class="phase-stat">
+                    <span class="phase-stat-val p1">6</span>
+                    <span class="phase-stat-lbl">Geometry Types</span>
+                  </div>
+                  <div class="phase-stat">
+                    <span class="phase-stat-val p1">40+</span>
+                    <span class="phase-stat-lbl">Output Files</span>
+                  </div>
+                  <div class="phase-stat">
+                    <span class="phase-stat-val p1">∞</span>
+                    <span class="phase-stat-lbl">Unique Problems</span>
+                  </div>
+                </div>
+                <details class="tech-drawer">
+                  <summary>
+                    <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                    Technical details
+                  </summary>
+                  <div class="drawer-content">
+                    <span class="drawer-note">
+                      Geometry types: hemispheres, circles, rectangles, toroids, ellipses, parabolas. Output formats:
+                      DXF technical drawings, coordinate data files, Moodle XML question banks. Toolpaths generated via
+                      parametric equations with trigonometric and Pythagorean approaches.
+                    </span>
+                  </div>
+                </details>
+              </div>
+            </div>
+
+            <!-- Connector -->
+            <div class="phase-connector">
+              <div class="connector-text">
+                <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2"
+                  opacity="0.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 10 20 15 15 20" />
+                  <path d="M4 4v7a4 4 0 0 0 4 4h12" />
+                </svg>
+                “The questions had no home — they needed a secure delivery platform where answers couldn’t be shared.”
+              </div>
+            </div>
+
+            <!-- Phase 2 — The Platform -->
+            <div class="phase-card">
+              <div class="phase-badge p2">02</div>
+              <div class="phase-content">
+                <div class="phase-header">
+                  <div class="phase-title-group">
+                    <span class="phase-label p2">Phase 2 — The Platform</span>
+                    <span class="phase-name">Secure Online Exam System</span>
+                  </div>
+                  <span class="phase-period">
+                    <svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    Oct 2025 – Jan 2026
+                  </span>
+                </div>
+                <p class="phase-desc">
+                  The generated questions needed to reach students securely. I built a <strong>locked-down exam
+                    application</strong> that only runs on registered computers — no screenshots, no copying answers,
+                  no sharing via messaging apps. This was paired with an online question bank system to manage and
+                  distribute the content.
+                </p>
+                <div class="phase-insight">
+                  “Students share answers in seconds. We needed a system where you can only open the exam on an
+                  authorised machine — and nothing else.”
+                </div>
+                <div class="tech-stack">
+                  <span class="tech-pill highlight">Tauri 2.0</span>
+                  <span class="tech-pill highlight">Rust</span>
+                  <span class="tech-pill">Docker Compose</span>
+                  <span class="tech-pill">Online LMS</span>
+                  <span class="tech-pill">Cryptographic Auth</span>
+                  <span class="tech-pill">PowerShell</span>
+                </div>
+                <div class="phase-stats">
+                  <div class="phase-stat">
+                    <span class="phase-stat-val p2">3</span>
+                    <span class="phase-stat-lbl">Components</span>
+                  </div>
+                  <div class="phase-stat">
+                    <span class="phase-stat-val p2">17</span>
+                    <span class="phase-stat-lbl">Security Fixes</span>
+                  </div>
+                  <div class="phase-stat">
+                    <span class="phase-stat-val p2">5</span>
+                    <span class="phase-stat-lbl">Services</span>
+                  </div>
+                  <div class="phase-stat">
+                    <span class="phase-stat-val p2">Signed</span>
+                    <span class="phase-stat-lbl">Device Auth</span>
+                  </div>
+                </div>
+                <details class="tech-drawer">
+                  <summary>
+                    <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                    Technical details
+                  </summary>
+                  <div class="drawer-content">
+                    <span class="drawer-note">
+                      Docker Compose with Traefik v2.11 reverse proxy, Moodle LMS, MariaDB 11.2, Redis 7.2 caching.
+                      Tauri 2 secure browser with Ed25519 cryptographic device authentication, screen-capture blocking,
+                      and signed sessions.
+                    </span>
+                  </div>
+                </details>
+              </div>
+            </div>
+
+            <!-- Connector -->
+            <div class="phase-connector">
+              <div class="connector-text">
+                <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-violet)"
+                  stroke-width="2" opacity="0.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 10 20 15 15 20" />
+                  <path d="M4 4v7a4 4 0 0 0 4 4h12" />
+                </svg>
+                “Too complex for ITI — servers and internet aren’t always available. Needed something that works on a
+                single click, no infrastructure.”
+              </div>
+            </div>
+
+            <!-- Phase 3 — The App -->
+            <div class="phase-card">
+              <div class="phase-badge p3">03</div>
+              <div class="phase-content">
+                <div class="phase-header">
+                  <div class="phase-title-group">
+                    <span class="phase-label p3">Phase 3 — The App</span>
+                    <span class="phase-name">CNC Interactive Learning — One Installer, Everything Included</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+                    <span class="phase-period">
+                      <svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                      </svg>
+                      Feb 2026 – Present
+                    </span>
+                    <span class="current-tag">Live · v0.1.14</span>
+                  </div>
+                </div>
+                <p class="phase-desc">
+                  <strong>One installer. One application. Activate once, then the classroom runs offline.</strong>
+                  Everything the previous phases built now lives in a single desktop app — interactive CNC
+                  schematics, a two-phase G-Code workspace with weighted scoring and a Monaco editor, rich
+                  lessons, encrypted student records, searchable attempt history with locked review, a question
+                  bank with a recommendation engine, a scientific calculator, guided onboarding tours, issue
+                  reporting, a live survey analytics dashboard, and the infinite unique-problem system. Licences
+                  are activated and devices enrolled once; content and app updates then arrive signed, from the
+                  Microsoft Store and the content delivery worker. Nothing to run on site, nothing for the
+                  student to configure.
+                </p>
+                <div class="phase-insight">
+                  “One installer. Nothing to run on site. The classroom works offline. This is what an ITI needs.”
+                </div>
+                <div class="tech-stack">
+                  <span class="tech-pill highlight">Vue 3</span>
+                  <span class="tech-pill highlight">TypeScript</span>
+                  <span class="tech-pill">Vite 7</span>
+                  <span class="tech-pill">Tauri 2</span>
+                  <span class="tech-pill highlight">Rust</span>
+                  <span class="tech-pill">G-Code Editor</span>
+                  <span class="tech-pill">Interactive SVG</span>
+                  <span class="tech-pill">Encrypted Storage</span>
+                  <span class="tech-pill">Admin Dashboard</span>
+                  <span class="tech-pill">Microsoft Store</span>
+                  <span class="tech-pill">Signed Content Delivery</span>
+                </div>
+                <div class="phase-stats">
+                  <div class="phase-stat">
+                    <span class="phase-stat-val p3" data-devstat="source-files">136</span>
+                    <span class="phase-stat-lbl">Source Files</span>
+                  </div>
+                  <div class="phase-stat">
+                    <span class="phase-stat-val p3" data-devstat="loc-total">59K+</span>
+                    <span class="phase-stat-lbl">Lines of Code</span>
+                  </div>
+                  <div class="phase-stat">
+                    <span class="phase-stat-val p3" data-devstat="commits">394+</span>
+                    <span class="phase-stat-lbl">Git Commits</span>
+                  </div>
+                  <div class="phase-stat">
+                    <span class="phase-stat-val p3">v0.1.14</span>
+                    <span class="phase-stat-lbl">Current Release</span>
+                  </div>
+                </div>
+                <details class="tech-drawer">
+                  <summary>
+                    <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                    Technical details
+                  </summary>
+                  <div class="drawer-content">
+                    <span class="drawer-note">
+                      Frontend: Vue 3 + Pinia 3 + Vite 7 + TypeScript + Monaco Editor + GSAP + TipTap. Backend: Rust via
+                      Tauri 2, AES-256-GCM encrypted SQLite, HMAC-SHA256 score signing, Ed25519-signed content verified
+                      on device. Delivery: MSIX from the Microsoft Store; encrypted content and update policy fetched
+                      from a Cloudflare Worker. Testing: Vitest across components, stores and end-to-end flows.
+                      <span data-devstat="loc-rust">6.5K</span> lines of Rust and
+                      <span data-devstat="loc-frontend">52K+</span> lines of frontend code across
+                      <span data-devstat="source-files">136</span> source files (tests and build output excluded).
+                    </span>
+                  </div>
+                </details>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         SECTION: AI CO-CREATION (moved up after Journey)
+         ============================================= -->
+    <section id="ai" aria-labelledby="ai-title">
+      <div class="container">
+        <div class="card ai-banner">
+          <div class="ai-layout">
+            <div class="ai-visual">
+              <svg aria-hidden="true" focusable="false" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2" />
+                <rect x="9" y="9" width="6" height="6" />
+                <line x1="9" y1="1" x2="9" y2="4" />
+                <line x1="15" y1="1" x2="15" y2="4" />
+                <line x1="9" y1="20" x2="9" y2="23" />
+                <line x1="15" y1="20" x2="15" y2="23" />
+                <line x1="20" y1="9" x2="23" y2="9" />
+                <line x1="20" y1="14" x2="23" y2="14" />
+                <line x1="1" y1="9" x2="4" y2="9" />
+                <line x1="1" y1="14" x2="4" y2="14" />
+              </svg>
+            </div>
+            <div class="ai-details">
+              <h2 id="ai-title">How Was This Built? AI as a Force Multiplier</h2>
+              <p>
+                That three-stage journey was accomplished not by a software engineer, but by a
+                <strong>mechanical engineer using AI coding agents</strong>. By pairing deep domain knowledge of CNC
+                manufacturing with state-of-the-art AI tools, the entire application was designed, architected, and
+                validated — from interactive schematic viewers to encrypted score storage, from G-Code editors to
+                the recommendation engine. AI didn't replace expertise; it <strong>amplified</strong> it.
+                <strong><span data-devstat="loc-verbatim">59,000+</span> lines of production-ready code</strong> shipped by a single domain-expert builder.
+              </p>
+              <div class="ai-tools">
+                <span class="ai-tool-tag">Google Gemini AI</span>
+                <span class="ai-tool-tag">Claude (Opus &amp; Sonnet)</span>
+                <span class="ai-tool-tag">ChatGPT Codex AI</span>
+                <span class="ai-tool-tag">AI Agent Engineering</span>
+                <span class="ai-tool-tag">Prompt-Driven Architecture</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         SECTION: EXPERTISE & HIGHLIGHTS (chip matrix)
+         ============================================= -->
+    <section id="expertise" aria-labelledby="expertise-title">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Skills &amp; Background</div>
+          <h2 id="expertise-title">Core Expertise &amp; Academic Highlights</h2>
+          <p>Engineering depth, competitive achievements, and technical proficiency across multiple domains.</p>
+        </div>
+
+        <div class="info-grid">
+
+          <!-- Left: Academic Highlights -->
+          <div>
+            <div class="card">
+              <h3 class="card-section-title">
+                <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="6" />
+                  <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+                </svg>
+                Competitive &amp; Academic Highlights
+              </h3>
+              <div class="card-list">
+
+                <div class="highlight-card">
+                  <div class="icon-box amber">
+                    <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                      <polyline points="16 7 22 7 22 13" />
+                    </svg>
+                  </div>
+                  <div class="card-details">
+                    <h3>CAT Double Achiever</h3>
+                    <p>Cleared the Common Admission Test (CAT) twice, securing interview calls from prestigious Indian
+                      Institutes of Management.</p>
+                    <span class="detail-tag">CAT 2016 — 94.34%ile</span>
+                    <span class="detail-tag">CAT 2017 — 95+%ile</span>
+                    <br>
+                    <span class="detail-tag">IIM Kozhikode</span>
+                    <span class="detail-tag">IIM Nagpur</span>
+                    <span class="detail-tag">IIM Visakhapatnam</span>
+                  </div>
+                </div>
+
+                <div class="highlight-card">
+                  <div class="icon-box">
+                    <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                      <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                    </svg>
+                  </div>
+                  <div class="card-details">
+                    <h3>Government Technical Educator</h3>
+                    <p>Serving since 2017 under the Gujarat Government at ITI, training the next generation of
+                      machinists in CNC programming, CAD drawing, and precision manufacturing.</p>
+                    <span class="detail-tag">Since 2017</span>
+                  </div>
+                </div>
+
+                <div class="highlight-card">
+                  <div class="icon-box emerald">
+                    <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                      <polyline points="14 2 14 8 20 8" />
+                      <line x1="16" y1="13" x2="8" y2="13" />
+                      <line x1="16" y1="17" x2="8" y2="17" />
+                      <polyline points="10 9 9 9 8 9" />
+                    </svg>
+                  </div>
+                  <div class="card-details">
+                    <h3>Published Researcher</h3>
+                    <p>9 peer-reviewed publications spanning CNC technology, additive manufacturing, 2D mathematical
+                      curves, and UAV structural design — with 6 IIRATI awards for the CNC series and 1 for the
+                      curves paper.</p>
+                    <span class="detail-tag">9 Papers</span>
+                    <span class="detail-tag">7 IIRATI Awards</span>
+                  </div>
+                </div>
+
+                <div class="highlight-card">
+                  <div class="icon-box violet">
+                    <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path
+                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                    </svg>
+                  </div>
+                  <div class="card-details">
+                    <h3>CAD &amp; 3D Modelling</h3>
+                    <p>Extensive experience in computer-aided design from college projects through professional work —
+                      detailed 3D models, assemblies, and engineering drawings across multiple platforms.</p>
+                    <span class="detail-tag">SolidWorks</span>
+                    <span class="detail-tag">AutoCAD</span>
+                    <span class="detail-tag">Fusion 360</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Skill Chip Matrix -->
+          <div>
+            <div class="card" style="height: 100%;">
+              <h3 class="card-section-title">
+                <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                  <polyline points="2 17 12 22 22 17" />
+                  <polyline points="2 12 12 17 22 12" />
+                </svg>
+                Skills &amp; Tools
+              </h3>
+
+              <div class="chip-tier-legend">
+                <div class="legend-item"><span class="legend-dot core"></span> Core / Daily use</div>
+                <div class="legend-item"><span class="legend-dot working"></span> Working knowledge</div>
+                <div class="legend-item"><span class="legend-dot exploring"></span> Exploring</div>
+              </div>
+
+              <div class="chip-group">
+                <div class="chip-group-label">Design &amp; Modelling</div>
+                <div class="chip-row">
+                  <span class="chip tier-core">SolidWorks</span>
+                  <span class="chip tier-core">AutoCAD</span>
+                  <span class="chip tier-core">Fusion 360</span>
+                  <span class="chip tier-working">CAD/CAM Engineering</span>
+                  <span class="chip tier-working">3D Modelling</span>
+                </div>
+              </div>
+
+              <div class="chip-group">
+                <div class="chip-group-label">Manufacturing</div>
+                <div class="chip-row">
+                  <span class="chip tier-core">CNC Programming</span>
+                  <span class="chip tier-core">G-Code / M-Code</span>
+                  <span class="chip tier-core">Siemens Sinumerik 840D SL</span>
+                  <span class="chip tier-working">3D Printing</span>
+                  <span class="chip tier-exploring">3D Slicing</span>
+                </div>
+              </div>
+
+              <div class="chip-group">
+                <div class="chip-group-label">Software</div>
+                <div class="chip-row">
+                  <span class="chip tier-core">Python</span>
+                  <span class="chip tier-working">Rust / Tauri</span>
+                  <span class="chip tier-working">Vue.js / TypeScript</span>
+                  <span class="chip tier-exploring">AI Agent Engineering</span>
+                </div>
+              </div>
+
+              <div class="chip-group">
+                <div class="chip-group-label">Research &amp; Education</div>
+                <div class="chip-row">
+                  <span class="chip tier-core">Technical Paper Authoring</span>
+                  <span class="chip tier-core">Curriculum Design</span>
+                  <span class="chip tier-working">Aerodynamics / UAV</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         SECTION: DEVELOPMENT LOG
+         ============================================= -->
+    <section id="devlog" aria-labelledby="devlog-title">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Development Log</div>
+          <h2 id="devlog-title">Key Milestones</h2>
+          <p>The major moments that shaped this application — in plain language.</p>
+        </div>
+
+        <div class="card">
+          <div class="git-stats">
+            <div class="git-stat-card">
+              <div class="git-stat-val" data-devstat="commits">394+</div>
+              <div class="git-stat-lbl">Total Commits</div>
+            </div>
+            <div class="git-stat-card">
+              <div class="git-stat-val" data-devstat="loc-total">59K+</div>
+              <div class="git-stat-lbl">Lines of Code</div>
+            </div>
+            <div class="git-stat-card">
+              <div class="git-stat-val">Encrypted</div>
+              <div class="git-stat-lbl">Student Records</div>
+            </div>
+            <div class="git-stat-card">
+              <div class="git-stat-val">v0.1.14</div>
+              <div class="git-stat-lbl">Current Release</div>
+            </div>
+          </div>
+
+          <!-- Macro timeline -->
+          <div class="macro-timeline">
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">Feb 2026</div>
+                <div class="macro-text">Started building the app from <span class="highlight">scratch</span></div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">May 2026</div>
+                <div class="macro-text">Added secure, <span class="highlight">encrypted student score storage</span>
+                </div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">May 2026</div>
+                <div class="macro-text">Built the interactive <span class="highlight">CNC schematic viewer</span> and
+                  <span class="highlight">G-Code editor</span>
+                </div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">May 2026</div>
+                <div class="macro-text">Made the core learning flow <span class="highlight">offline-first</span> — the
+                  classroom never depends on the network</div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">May 2026</div>
+                <div class="macro-text">Shipped the live <span class="highlight">survey analytics dashboard</span></div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">May – Jun 2026</div>
+                <div class="macro-text">Added the <span class="highlight">infinite unique-problem practice system</span>
+                </div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">Jun 2026</div>
+                <div class="macro-text">Added <span class="highlight">license activation</span> and device-locked,
+                  <span class="highlight">encrypted content delivery</span></div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">Jun 2026</div>
+                <div class="macro-text">Added <span class="highlight">guided onboarding tours</span>, and made this page
+                  updatable without shipping an app release</div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">Jun 2026</div>
+                <div class="macro-text">Packaged for the <span class="highlight">Microsoft Store</span> and added the
+                  <span class="highlight">update gate</span> — soft prompt, then a mandatory block</div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">Jun 2026</div>
+                <div class="macro-text">Moved content delivery to <span class="highlight">chunked, resumable</span>
+                  encrypted downloads</div>
+              </div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-dot"></div>
+              <div>
+                <div class="macro-date">Sep 2026</div>
+                <div class="macro-text">Moved <span class="highlight">distribution and updates</span> to the Microsoft
+                  Store</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         SECTION: RESEARCH & PUBLICATIONS (expanded accordion)
+         ============================================= -->
+    <section id="research" aria-labelledby="research-title">
+      <div class="container">
+        <div class="research-header-wrapper">
+          <div class="stat-side-card papers">
+            <div class="number">9</div>
+            <div class="label">Papers</div>
+          </div>
+
+          <div class="section-header">
+            <div class="section-tag">Academic Work</div>
+            <h2 id="research-title">Research &amp; Publications</h2>
+            <p>9 peer-reviewed papers spanning CNC technology, additive manufacturing, 2D mathematical curves, and UAV
+              structural design.</p>
+          </div>
+
+          <div class="stat-side-card awards">
+            <div class="number">7</div>
+            <div class="label">IIRATI Awards</div>
+          </div>
+        </div>
+
+        <div class="card">
+
+          <div class="pub-accordion">
+
+            <!-- ── CNC 6-Part Series (collapsible parent) ── -->
+            <div class="accordion-item">
+              <h3 class="accordion-heading">
+                <button type="button" class="accordion-header" id="pub-head-1" aria-expanded="false"
+                  aria-controls="pub-body-1">
+                  <span class="accordion-header-left">
+                    <span class="pub-category">CNC Technology</span>
+                    <span class="series-count">6-Part Series</span>
+                    <span class="pub-title">Manual
+                      G-Code Development with Parametric Toolpaths on Siemens Sinumerik 840D SL (Part 1 to 6)</span>
+                  </span>
+                  <span class="award-badge">
+                    <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                      <path d="M4 22h16" />
+                      <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                    </svg>
+                    6 IIRATI Awards
+                  </span>
+                  <svg class="accordion-chevron" aria-hidden="true" focusable="false" width="20" height="20"
+                    viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+              </h3>
+              <div class="accordion-body" id="pub-body-1" role="region" aria-labelledby="pub-head-1" inert>
+                <div class="accordion-inner">
+                  <ul class="sub-list">
+                    <li class="sub-item">
+                      <button type="button" class="sub-item-header" id="sub-head-1" aria-expanded="false"
+                        aria-controls="sub-body-1">
+                        <span class="part-badge">P1</span>
+                        <span class="sub-item-content">
+                          <span class="sub-item-title">Part 1: Manual G-Code Development for Machining a
+                            <strong>Hemispherical Boss</strong> Using Flat and Ball Nose Endmills with Parametric
+                            Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System
+                          </span>
+                          <span class="sub-item-meta">
+                            <span>
+                              <svg aria-hidden="true" focusable="false" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                              </svg>
+                              Published Jul 19, 2025
+                            </span>
+                            <span class="award-badge compact">
+                              <svg aria-hidden="true" focusable="false" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                                <path d="M4 22h16" />
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                              </svg>
+                              IIR-26-VID-EUFHZUJE
+                            </span>
+                            <svg class="sub-accordion-chevron" aria-hidden="true" focusable="false" width="12"
+                              height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round">
+                              <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                          </span>
+                        </span>
+                      </button>
+                      <div class="sub-item-body" id="sub-body-1" role="region" aria-labelledby="sub-head-1" inert>
+                        <div class="sub-item-details">
+                          <div class="sub-item-meta-block">
+                            <strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                            Engineering Technology and Science<br>
+                            <strong>Volume:</strong> Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot;
+                            Impact Factor: 8.187<br>
+                            <strong>Role:</strong> Sole Author — Supervisor Instructor, Mechanical Group, ITI Jamnagar,
+                            Gujarat, India
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="sub-item">
+                      <button type="button" class="sub-item-header" id="sub-head-2" aria-expanded="false"
+                        aria-controls="sub-body-2">
+                        <span class="part-badge">P2</span>
+                        <span class="sub-item-content">
+                          <span class="sub-item-title">Part 2: Manual G-Code Development for Machining a
+                            <strong>Hemispherical Cavity</strong> Using Flat and Ball Nose Endmills with Parametric
+                            Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System
+                          </span>
+                          <span class="sub-item-meta">
+                            <span>
+                              <svg aria-hidden="true" focusable="false" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                              </svg>
+                              Published Jul 21, 2025
+                            </span>
+                            <span class="award-badge compact">
+                              <svg aria-hidden="true" focusable="false" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                                <path d="M4 22h16" />
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                              </svg>
+                              IIR-26-VID-PJLNOVZN
+                            </span>
+                            <svg class="sub-accordion-chevron" aria-hidden="true" focusable="false" width="12"
+                              height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round">
+                              <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                          </span>
+                        </span>
+                      </button>
+                      <div class="sub-item-body" id="sub-body-2" role="region" aria-labelledby="sub-head-2" inert>
+                        <div class="sub-item-details">
+                          <div class="sub-item-meta-block">
+                            <strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                            Engineering Technology and Science<br>
+                            <strong>Volume:</strong> Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot;
+                            Impact Factor: 8.187<br>
+                            <strong>Role:</strong> Sole Author — Supervisor Instructor, Mechanical Group, ITI Jamnagar,
+                            Gujarat, India
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="sub-item">
+                      <button type="button" class="sub-item-header" id="sub-head-3" aria-expanded="false"
+                        aria-controls="sub-body-3">
+                        <span class="part-badge">P3</span>
+                        <span class="sub-item-content">
+                          <span class="sub-item-title">Part 3: Manual G-Code Development for Machining a <strong>Solid
+                              Toroidal Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric
+                            Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System</span>
+                          <span class="sub-item-meta">
+                            <span>
+                              <svg aria-hidden="true" focusable="false" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                              </svg>
+                              Published Jul 24, 2025
+                            </span>
+                            <span class="award-badge compact">
+                              <svg aria-hidden="true" focusable="false" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                                <path d="M4 22h16" />
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                              </svg>
+                              IIR-26-VID-9KW9M59M
+                            </span>
+                            <svg class="sub-accordion-chevron" aria-hidden="true" focusable="false" width="12"
+                              height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round">
+                              <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                          </span>
+                        </span>
+                      </button>
+                      <div class="sub-item-body" id="sub-body-3" role="region" aria-labelledby="sub-head-3" inert>
+                        <div class="sub-item-details">
+                          <div class="sub-item-meta-block">
+                            <strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                            Engineering Technology and Science<br>
+                            <strong>Volume:</strong> Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot;
+                            Impact Factor: 8.187<br>
+                            <strong>Role:</strong> Sole Author — Supervisor Instructor, Mechanical Group, ITI Jamnagar,
+                            Gujarat, India
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="sub-item">
+                      <button type="button" class="sub-item-header" id="sub-head-4" aria-expanded="false"
+                        aria-controls="sub-body-4">
+                        <span class="part-badge">P4</span>
+                        <span class="sub-item-content">
+                          <span class="sub-item-title">Part 4: Manual G-Code Development for Machining a <strong>Toroidal
+                              Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric Toolpaths,
+                            Validated on Siemens Sinumerik 840D SL CNC Control System</span>
+                          <span class="sub-item-meta">
+                            <span>
+                              <svg aria-hidden="true" focusable="false" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                              </svg>
+                              Published Jul 24, 2025
+                            </span>
+                            <span class="award-badge compact">
+                              <svg aria-hidden="true" focusable="false" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                                <path d="M4 22h16" />
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                              </svg>
+                              IIR-26-VID-TCRQYFM3
+                            </span>
+                            <svg class="sub-accordion-chevron" aria-hidden="true" focusable="false" width="12"
+                              height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round">
+                              <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                          </span>
+                        </span>
+                      </button>
+                      <div class="sub-item-body" id="sub-body-4" role="region" aria-labelledby="sub-head-4" inert>
+                        <div class="sub-item-details">
+                          <div class="sub-item-meta-block">
+                            <strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                            Engineering Technology and Science<br>
+                            <strong>Volume:</strong> Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot;
+                            Impact Factor: 8.187<br>
+                            <strong>Role:</strong> Sole Author — Supervisor Instructor, Mechanical Group, ITI Jamnagar,
+                            Gujarat, India
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="sub-item">
+                      <button type="button" class="sub-item-header" id="sub-head-5" aria-expanded="false"
+                        aria-controls="sub-body-5">
+                        <span class="part-badge">P5</span>
+                        <span class="sub-item-content">
+                          <span class="sub-item-title">Part 5: Manual G-Code Development for Machining an
+                            <strong>Elliptical Boss and Cavity</strong> Using Flat and Ball Nose Endmills with
+                            Parametric Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System
+                          </span>
+                          <span class="sub-item-meta">
+                            <span>
+                              <svg aria-hidden="true" focusable="false" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                              </svg>
+                              Published Jul 29, 2025
+                            </span>
+                            <span class="award-badge compact">
+                              <svg aria-hidden="true" focusable="false" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                                <path d="M4 22h16" />
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                              </svg>
+                              IIR-26-VID-R4QOSSPY
+                            </span>
+                            <svg class="sub-accordion-chevron" aria-hidden="true" focusable="false" width="12"
+                              height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round">
+                              <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                          </span>
+                        </span>
+                      </button>
+                      <div class="sub-item-body" id="sub-body-5" role="region" aria-labelledby="sub-head-5" inert>
+                        <div class="sub-item-details">
+                          <div class="sub-item-meta-block">
+                            <strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                            Engineering Technology and Science<br>
+                            <strong>Volume:</strong> Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot;
+                            Impact Factor: 8.187<br>
+                            <strong>Role:</strong> Sole Author — Supervisor Instructor, Mechanical Group, ITI Jamnagar,
+                            Gujarat, India
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="sub-item">
+                      <button type="button" class="sub-item-header" id="sub-head-6" aria-expanded="false"
+                        aria-controls="sub-body-6">
+                        <span class="part-badge">P6</span>
+                        <span class="sub-item-content">
+                          <span class="sub-item-title">Part 6: Manual G-Code Development for Machining a
+                            <strong>Parabolic Boss and Cavity</strong> Using Flat and Ball Nose Endmills with Parametric
+                            Toolpaths, Validated on Siemens Sinumerik 840D SL CNC Control System
+                          </span>
+                          <span class="sub-item-meta">
+                            <span>
+                              <svg aria-hidden="true" focusable="false" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                              </svg>
+                              Published Jul 29, 2025
+                            </span>
+                            <span class="award-badge compact">
+                              <svg aria-hidden="true" focusable="false" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                                <path d="M4 22h16" />
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                              </svg>
+                              IIR-26-VID-PXOA7BHJ
+                            </span>
+                            <svg class="sub-accordion-chevron" aria-hidden="true" focusable="false" width="12"
+                              height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round">
+                              <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                          </span>
+                        </span>
+                      </button>
+                      <div class="sub-item-body" id="sub-body-6" role="region" aria-labelledby="sub-head-6" inert>
+                        <div class="sub-item-details">
+                          <div class="sub-item-meta-block">
+                            <strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                            Engineering Technology and Science<br>
+                            <strong>Volume:</strong> Vol. 07, Issue 07, July 2025 &middot; e-ISSN: 2582-5208 &middot;
+                            Impact Factor: 8.187<br>
+                            <strong>Role:</strong> Sole Author — Supervisor Instructor, Mechanical Group, ITI Jamnagar,
+                            Gujarat, India
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Curves Paper ── -->
+            <div class="accordion-item">
+              <h3 class="accordion-heading">
+                <button type="button" class="accordion-header" id="pub-head-2" aria-expanded="false"
+                  aria-controls="pub-body-2">
+                  <span class="accordion-header-left">
+                    <span class="pub-category" style="color:var(--accent-violet);background:rgba(var(--accent-violet-rgb), 0.08);">CNC /
+                      Mathematics</span>
+                    <span class="pub-title">Programming
+                      and Implementation of 2D Mathematical Curves with Validation on Siemens Sinumerik 840D SL CNC Control
+                      System</span>
+                  </span>
+                  <span class="award-badge">
+                    <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                      <path d="M4 22h16" />
+                      <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                    </svg>
+                    1 IIRATI Award
+                  </span>
+                  <svg class="accordion-chevron" aria-hidden="true" focusable="false" width="20" height="20"
+                    viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+              </h3>
+              <div class="accordion-body" id="pub-body-2" role="region" aria-labelledby="pub-head-2" inert>
+                <div class="accordion-inner">
+                  <div class="pub-detail">
+                    <div class="pub-detail-desc">
+                      Explores generating ISO-compliant G-code from mathematical equations — including Ellipse,
+                      Parabola, Hyperbola, B&eacute;zier, and Trochoid curves — without commercial CAM software.
+                      Validates the generated toolpaths on a Siemens Sinumerik 840D SL controller.
+                    </div>
+                    <div class="pub-detail-meta">
+                      <div><strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                        Engineering Technology and Science</div>
+                      <div><strong>Volume:</strong> Vol. 07, Issue 06, June 2025 &middot; e-ISSN: 2582-5208 &middot;
+                        Impact Factor: 8.187</div>
+                      <div><strong>Role:</strong> Sole Author</div>
+                      <div class="award-badge">
+                        <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                          <path d="M4 22h16" />
+                          <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                          <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                          <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                        </svg>
+                        IIR-26-VID-G99FBS1C
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Additive Manufacturing Paper ── -->
+            <div class="accordion-item">
+              <h3 class="accordion-heading">
+                <button type="button" class="accordion-header" id="pub-head-3" aria-expanded="false"
+                  aria-controls="pub-body-3">
+                  <span class="accordion-header-left">
+                    <span class="pub-category" style="color:var(--accent-cyan);background:rgba(var(--accent-cyan-rgb), 0.08);">Additive
+                      Manufacturing</span>
+                    <span class="pub-title">Additive
+                      Manufacturing in Aerospace: Revolutionizing Design and Production with 3D Printing at a Glance</span>
+                  </span>
+                  <svg class="accordion-chevron" aria-hidden="true" focusable="false" width="20" height="20"
+                    viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+              </h3>
+              <div class="accordion-body" id="pub-body-3" role="region" aria-labelledby="pub-head-3" inert>
+                <div class="accordion-inner">
+                  <div class="pub-detail">
+                    <div class="pub-detail-desc">
+                      A comprehensive review of additive manufacturing applications in aerospace — covering design
+                      optimisation, material advances, and production workflows, with a focus on case studies from
+                      Indian industry.
+                    </div>
+                    <div class="pub-detail-meta">
+                      <div><strong>Journal:</strong> IRJMETS — International Research Journal of Modernization in
+                        Engineering Technology and Science</div>
+                      <div><strong>Volume:</strong> Vol. 07, Issue 06, June 2025 &middot; e-ISSN: 2582-5208 &middot;
+                        Impact Factor: 8.187</div>
+                      <div><strong>Role:</strong> Sole Author</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── UAV Paper ── -->
+            <div class="accordion-item">
+              <h3 class="accordion-heading">
+                <button type="button" class="accordion-header" id="pub-head-4" aria-expanded="false"
+                  aria-controls="pub-body-4">
+                  <span class="accordion-header-left">
+                    <span class="pub-category" style="color:var(--accent-emerald);background:rgba(var(--accent-emerald-rgb), 0.08);">UAV
+                      Design</span>
+                    <span class="pub-title">Proposed
+                      Design of Self-Propelled Aerial Vehicle</span>
+                  </span>
+                  <svg class="accordion-chevron" aria-hidden="true" focusable="false" width="20" height="20"
+                    viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+              </h3>
+              <div class="accordion-body" id="pub-body-4" role="region" aria-labelledby="pub-head-4" inert>
+                <div class="accordion-inner">
+                  <div class="pub-detail">
+                    <div class="pub-detail-desc">
+                      Presents a structural design concept for a self-propelled aerial vehicle (UAV), covering
+                      aerodynamic profile calculations, frame design, and propulsion system integration. Focuses on
+                      achieving an aerodynamically efficient seamless-joint airframe.
+                    </div>
+                    <div class="pub-detail-meta">
+                      <div><strong>Journal:</strong> IJAERD — International Journal of Advance Engineering and Research
+                        Development</div>
+                      <div><strong>Volume:</strong> Vol. 1, Issue 5, May 2014 &middot; e-ISSN: 2348-4470, print-ISSN:
+                        2348-6406</div>
+                      <div><strong>Role:</strong> Co-Author (student project)</div>
+                      <div><strong>Authors:</strong> Asst. Prof. B.J. Saradava, Vishvesh J. Upadhyay, Raj Dadhania,
+                        Mayur Gosai</div>
+                      <div><strong>Affiliation:</strong> Mechanical Engineering Department, Atmiya Institute of
+                        Technology and Science, Rajkot, Gujarat</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT (AI section now lives above Expertise) -->
+    <section id="contact" class="contact-section" aria-labelledby="contact-title">
+
+      <div class="container">
+        <div class="section-header" style="margin-bottom: 0;">
+          <div class="section-tag">Get in Touch</div>
+          <h2 id="contact-title">Connect with the Developer</h2>
+          <p>Open to collaboration, feedback, and conversations about CNC education and technology.</p>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:vishvesh.upadhyay@zohomail.in" class="contact-btn primary">
+            <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            Email
+          </a>
+          <a href="https://github.com/vishvesh098" target="_blank" rel="noopener" class="contact-btn">
+            <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+            </svg>
+            GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/vishvesh-upadhyay-47967b82/" target="_blank" rel="noopener"
+            class="contact-btn">
+            <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+              <rect x="2" y="9" width="4" height="12" />
+              <circle cx="4" cy="4" r="2" />
+            </svg>
+            LinkedIn
+          </a>
+          <a href="https://scholar.google.com/citations?hl=en&user=ihyFdgoAAAAJ" target="_blank" rel="noopener"
+            class="contact-btn">
+            <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+              <path d="M6 12v5c3 3 9 3 12 0v-5" />
+            </svg>
+            Google Scholar
+          </a>
+          <a href="https://apps.microsoft.com/detail/9NKCJFQ0XQ60" target="_blank" rel="noopener" class="contact-btn">
+            <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <path d="M16 10a4 4 0 0 1-8 0" />
+            </svg>
+            Microsoft Store
+          </a>
+        </div>
+      </div>
+    </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        Built with ❤️ by Vishvesh Upadhyay · CNC Interactive Learning v0.1.14
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Dynamic button labels based on login status and platform context
+    const urlParams = new URLSearchParams(window.location.search);
+    const isLoggedIn = urlParams.get('is_logged_in') === 'true';
+    const isInApp = urlParams.get('in_app') === 'true';
+    const backBtn = document.getElementById('back-btn');
+    const backText = document.getElementById('back-text');
+    const backIcon = document.getElementById('back-icon');
+
+    if (isInApp) {
+      if (backBtn) backBtn.style.display = 'none';
+    } else {
+      // Standalone / GitHub Pages documentation version. The docs index sits
+      // beside this file, so the toolbar control becomes a real link. It used to
+      // keep its postMessage handler and only get relabelled, which left a button
+      // saying "Docs" that did nothing at all when clicked.
+      if (backBtn) {
+        backBtn.setAttribute('href', 'index.html');
+        backBtn.removeAttribute('onclick');
+      }
+      if (backText) backText.textContent = 'Docs';
+      if (backIcon) {
+        backIcon.innerHTML = `
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        `;
+      }
+    }
+
+    // --- Disclosures: publication accordions, series parts, commit log -------
+    // Each panel is driven by a real <button aria-expanded aria-controls> in the
+    // markup. The open state is one class and one attribute; the height comes from
+    // the panel's own grid track, so nothing here measures or animates layout.
+    function panelFor(btn) {
+      const id = btn.getAttribute('aria-controls');
+      return id ? document.getElementById(id) : null;
+    }
+
+    function toggleDisclosure(btn) {
+      const body = panelFor(btn);
+      if (!body) return;
+
+      const isOpening = btn.getAttribute('aria-expanded') !== 'true';
+
+      btn.setAttribute('aria-expanded', isOpening ? 'true' : 'false');
+      body.classList.toggle('open', isOpening);
+      // A closed panel must not hold anything focusable. Clipping it with
+      // overflow left the six series-part buttons in the tab order inside a
+      // zero-height box, so Tab walked into rows nobody could see.
+      body.inert = !isOpening;
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!(e.target instanceof Element)) return;
+      const btn = e.target.closest('.accordion-header, .sub-item-header');
+      if (btn) toggleDisclosure(btn);
+    });
+
+    // --- In-page navigation: smooth scroll + active link tracking ---
+    (function () {
+      const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+      const sectionIds = Array.from(navLinks)
+        .map(a => (a.getAttribute('href') || '').slice(1))
+        .filter(Boolean);
+
+      // Smooth-scroll on click
+      navLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+          const hash = (this.getAttribute('href') || '').slice(1);
+          const target = document.getElementById(hash);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, '', '#' + hash);
+          }
+        });
+      });
+
+      // Scroll spy: the lowest section whose head has passed the nav. Plus the
+      // last one whenever the page is already at its end — the closing section is
+      // shorter than the viewport, so it never reaches the offset on its own and
+      // its nav link stayed unlit no matter how far you scrolled.
+      const NAV_OFFSET = 100;
+      function updateActiveLink() {
+        let activeId = sectionIds[0];
+        for (const id of sectionIds) {
+          const el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= NAV_OFFSET) activeId = id;
+        }
+        const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+        if (atEnd) activeId = sectionIds[sectionIds.length - 1];
+        navLinks.forEach(link => {
+          const isActive = link.getAttribute('href') === '#' + activeId;
+          link.classList.toggle('active', isActive);
+          // The active state was a class and nothing else, so it existed only for
+          // people who could see the colour. "location" is the token ARIA defines
+          // for the current section within a page.
+          if (isActive) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      }
+      window.addEventListener('scroll', updateActiveLink, { passive: true });
+      updateActiveLink();
+    })();
+
+    // --- Reading position ---
+    // How far the page has been scrolled, as a 0-1 fraction, handed to the nav's
+    // edge as a custom property. One layout read per frame, not one per scroll
+    // event: a wheel fires scroll far faster than the compositor paints, and the
+    // read competes with the scroll it is describing.
+    (function () {
+      let frame = 0;
+
+      function paintReadProgress() {
+        frame = 0;
+        const range = document.documentElement.scrollHeight - window.innerHeight;
+        const value = range > 0 ? Math.min(1, window.scrollY / range) : 0;
+        document.documentElement.style.setProperty('--read-progress', String(value));
+      }
+
+      function requestPaint() {
+        if (frame) return;
+        frame = window.requestAnimationFrame(paintReadProgress);
+      }
+
+      window.addEventListener('scroll', requestPaint, { passive: true });
+      window.addEventListener('resize', requestPaint);
+      paintReadProgress();
+    })();
+  </script>
+
+</body>
+
+</html>
